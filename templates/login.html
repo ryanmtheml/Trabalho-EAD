@@ -1,0 +1,24 @@
+
+<!-- templates/home.html -->
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h1>Gerenciador de Imagens</h1>
+    <h3>Bem-vindo! Introduza os seus dados:</h3>
+
+    <form action="/login" method="POST">
+        <label for="username">Utilizador:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Palavra-passe:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <button type="submit">Entrar / Registar</button>
+    </form>
+
+    <p><small>Nota: Se o utilizador não existir, será criado automaticamente.</small></p>
+</div>
+{% endblock %}

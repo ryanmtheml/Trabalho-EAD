@@ -1,0 +1,16 @@
+[
+    {
+        "nome": "Administrador",
+        "email": "admin@esmad.ipp.pt",
+        "password": "123",
+        "isBlocked": false,
+        "isAdmin": true
+    },
+    {
+        "nome": "neca",
+        "email": "neca@gmail.com",
+        "password": "1234",
+        "isAdmin": false,
+        "isBlocked": false
+    }
+]
