@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "nome": "Administrador",
         "email": "admin@esmad.ipp.pt",
         "password": "123",
@@ -7,8 +8,18 @@
         "isAdmin": true
     },
     {
+        "id": 2,
         "nome": "neca",
         "email": "neca@gmail.com",
+        "password": "1234",
+        "isAdmin": false,
+        "isBlocked": false
+    
+    },
+    {
+        "id": 3,
+        "nome": "jony",
+        "email": "jony@gmail.com",
         "password": "1234",
         "isAdmin": false,
         "isBlocked": false

@@ -1,0 +1,30 @@
+<!-- templates/home.html -->
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="card shadow p-4">
+        
+        <h1 class="mb-4 text-center">Image Feed</h1>
+
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for image in images %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{{ image.url }}" class="card-img-top" alt="{{ image.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ image.name }}</h5>
+                        <p class="card-text">{{ image.description }}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        ❤️ {{ image.likes }} likes
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}  

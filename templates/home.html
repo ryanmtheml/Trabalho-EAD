@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Home</title>
+    <link rel="stylesheet" href="../static/CSS/home.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <nav>
+        <div class="containerNav" id="topo">
+            <div class="logo" >
+                <img src="../static/mg.png" alt="" width="100px">
+            </div>
+            <div class="containerLinks">
+                <ul>
+                    <li><a href="" class="acerca">Acerca</a></li>
+                    <li><a href="#" class="buttonNav1" data-bs-toggle="modal" data-bs-target="#modalLogin">Log in</a></li>
+                    <li><a href="#" class="buttonNav2"  data-bs-toggle="modal" data-bs-target="#modalSignIn">Sign in</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="cartaoFuncionalidades1">
+        <div class="imgFuncionalidades1">
+            <img src="../static/pichome1.png" alt="" width="600px">
+        </div>
+        <div class="titleFuncionalidades1">
+            <h1>Guarda as tuas <br> ideias favoritas</h1>
+            <p>Guarda as tuas ideias <br>preferidas para nunca as <br> perderes de vista.</p>
+        </div>
+    </div>
+
+    <div class="cartaoFuncionalidades2">
+        <div class="titleFuncionalidades2">
+            <h1>Vê, faz, experimenta</h1>
+            <p>A melhor parte do MoodGallery <br> é descobrir coisas novas e <br> ideias de pessoas de todo o <br> mundo.</p>
+        </div>
+        <div class="imgFuncionalidades2">
+            <img src="../static/pichome2.png" alt="" width="600px">
+        </div>
+    </div>
+
+    <div class="cartaoFuncionalidades3">
+        <div class="titleFuncionalidades3">
+            <h1>Edita as tuas fotos e partilha-as!</h1>
+            <button type="button" class="buttonFuncionalidades"><a href="#topo">Começa a explorar</a></button>
+        </div>
+        <div class="imgFuncionalidades3">
+            <img src="../static/pichome3.png" alt="" width="600px">
+        </div>
+    </div>
+
+
+
+    
+
+    <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="loginTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="p-3 d-flex justify-content-end">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+        <div class="modal-header d-flex flex-column align-items-center">
+            <h5 class="modal-title" id="loginTitle">Bem vindo(a) ao MoodGallery</h5> <br>
+            <p>Encontra novas ideias!</p>  
+        </div>
+
+        <div class="modal-body">
+            <form action="/login" method="POST">
+            <div class="mb-3">
+                <label for="username" class="form-label">Nome de utilizador</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Nome de utilizador" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Palavra-passe</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
+            </div>
+
+
+            <div class="modal-footer">
+            <h5 class="loginsub"><a href="#" class="linkModalSignIn" data-bs-toggle="modal" data-bs-target="#modalSignIn">Ainda não estás no Mood Gallery? Inscreve-te</a></h5> 
+        
+            </div>
+            <a href="feed1.html" class="btn custom-btn w-100">Entrar</a>
+            </form>
+        </div>
+
+        </div>
+    </div>
+    </div>
+    </div>
+    
+
+    
+    <div class="modal fade" id="modalSignIn" tabindex="-1" aria-labelledby="loginTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="p-3 d-flex justify-content-end">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+        <div class="modal-header d-flex flex-column align-items-center">
+            <h5 class="modal-title" id="loginTitle">Bem vindo(a) ao MoodGallery</h5> <br>
+            <p>Encontra novas ideias!</p>  
+        </div>
+
+        <div class="modal-body">
+            <form action="/login" method="POST">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Nome de utilizador</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Nome de utilizador" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="exemplo@email.com" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Palavra-passe</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
+            </div>
+
+
+            <div class="modal-footer">
+            <h5 class="loginsub"><a href="#" class="linkModalSignIn" data-bs-toggle="modal" data-bs-target="#modalLogin">Já es membro?Iniciar sessão</a></h5> 
+        
+            </div>
+            <!-- este botao só é clicavel no texto dentro (melhoria) -->
+            <button type="button" class="btn custom-btn w-100"><a href="#" data-bs-toggle="modal" data-bs-target="#modalCateg">Registar</a></button>
+
+            <!-- este botao só é clicavel no texto dentro (melhoria) -->
+            </form>
+        </div>
+
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+    <div class="modal fade" id="modalCateg" tabindex="-1" aria-labelledby="categTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            
+            <div class="p-3 d-flex justify-content-end">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-header d-flex flex-column align-items-center border-0 pt-0">
+                <h5 class="modal-title fw-bold" id="categTitle">Escolhe as tuas categorias favoritas!</h5>
+                <p class="text-muted small">Ajuda-nos a criar o teu feed!</p>
+            </div>
+
+            <div class="modal-body text-center">
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+        
+                    <input type="checkbox" class="btn-check" id="btn-comida" autocomplete="off">
+                    <label class="btn btn-outline-dark rounded-pill" for="btn-comida">Comida</label>
+
+                    <input type="checkbox" class="btn-check" id="btn-paisagens" autocomplete="off">
+                    <label class="btn btn-outline-dark rounded-pill" for="btn-paisagens">Paisagens</label>
+
+                    <input type="checkbox" class="btn-check" id="btn-moda" autocomplete="off">
+                    <label class="btn btn-outline-dark rounded-pill" for="btn-moda">Moda</label>
+
+                    <input type="checkbox" class="btn-check" id="btn-arte" autocomplete="off">
+                    <label class="btn btn-outline-dark rounded-pill" for="btn-arte">Arte</label>
+
+                    <input type="checkbox" class="btn-check" id="btn-animais" autocomplete="off">
+                    <label class="btn btn-outline-dark rounded-pill" for="btn-animais">Animais</label>
+
+                </div>
+            </div>
+
+            <div class="modal-footer border-0">
+                <a href="../templates/feed1.html" class="btn custom-btn w-100">Começar</a>
+            </div>
+
+        </div> </div>
+</div>
+
+
+
+</body>
+</html>
