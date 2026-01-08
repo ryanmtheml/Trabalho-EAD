@@ -20,5 +20,17 @@
 
     <!-- Bootstrap JS (optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {% if registo_sucesso %}
+      <script>
+          // Aguarda o Bootstrap carregar e a página estar pronta
+          document.addEventListener('DOMContentLoaded', function() {
+              // Seleciona a modal de categorias pelo ID que você criou
+              var modalCategorias = new bootstrap.Modal(document.getElementById('modalCateg'));
+              
+              // Abre a modal automaticamente
+              modalCategorias.show();
+          });
+      </script>
+{% endif %}
 </body>
 </html>

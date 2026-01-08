@@ -67,3 +67,34 @@ body {
 .novaPublicacao img{
     left: 0;
 }
+
+.imgContainer {
+    
+    background-color: #d9d9d9; 
+    width: 500px;
+    height: 500px;
+    border-radius: 40px; 
+    margin: 5em auto;
+}
+
+.uploadBotaoContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.upload{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: rgb(243, 2, 53);
+    color: white;
+    border-radius: 3em;
+    padding: 1em;
+    border: none;
+}
+
+.upload:hover{
+    cursor: pointer;
+    background-color: rgb(187, 5, 41);
+}

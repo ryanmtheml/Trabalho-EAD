@@ -2,6 +2,7 @@
     {
         "id": 1,
         "nome": "Administrador",
+        "username": "admin",
         "email": "admin@esmad.ipp.pt",
         "password": "123",
         "isBlocked": false,
@@ -10,18 +11,33 @@
     {
         "id": 2,
         "nome": "neca",
+        "username": "neca2007",
         "email": "neca@gmail.com",
         "password": "1234",
         "isAdmin": false,
         "isBlocked": false
-    
     },
     {
         "id": 3,
-        "nome": "jony",
-        "email": "jony@gmail.com",
-        "password": "1234",
+        "nome": "Lara Cunha",
+        "username": "lc",
+        "email": "lara007cunha@gmail.com",
+        "password": "1222",
         "isAdmin": false,
         "isBlocked": false
+    },
+    {
+        "id": 4,
+        "nome": "Guilhereme",
+        "username": "gui08",
+        "email": "gui2gmail.com",
+        "password": "775",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Comida",
+            "Moda",
+            "Viagens"
+        ]
     }
 ]

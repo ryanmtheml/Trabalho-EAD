@@ -13,9 +13,9 @@ def carregar_utilizadores():
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
-def guardar_utilizadores(coco):
-    with open('utilizadores.json', 'w') as userFile:
-        json.dump(coco, userFile, indent=4)
+def guardar_utilizadores(dados):
+    with open(ficheiro_utilizadores, 'w') as userFile:
+        json.dump(dados, userFile, indent=4)
 
 @app.route('/')
 def home():
@@ -80,29 +80,35 @@ def criar_conta():
             error = "Erro: Email já registado!"
         
         
-    if error != '':
+    if error:
         # mostrar ao utilizador o erro
         return render_template('home.html', error=error)
     utilizadores.append(novo_user)
     guardar_utilizadores(utilizadores)
+    print(utilizadores)
+    return render_template('home.html', registo_sucesso=True)
     
-    images = [
-    {
-        "id": i,
-        "user_id": 100 + i,
-        "url": f"https://unsplash.com/pt-br/fotografias/picos-irregulares-das-montanhas-banhados-pela-luz-dourada-da-hora-D1D-qXFh5g0",
-        "name": f"Image {i}",
-        "category": "Nature",
-        "likes": i * 7,
-        "description": f"Beautiful Unsplash image number {i}"
-    }
-    for i in range(1, 21)
-    ]
-    return render_template("feed.html", username=username, images=images)
+    
 
-@app.route('/categorias')
+@app.route('/categorias', methods=['POST'])
 def categorias():
-    return render_template("feed.html")
+    # 1. Recuperar as categorias selecionadas (vem como uma lista)
+    categorias_escolhidas = request.form.getlist('categorias')
+    
+    # 2. Carregar os utilizadores atuais
+    utilizadores = carregar_utilizadores()
+    
+    # 3. Identificar qual utilizador atualizar
+    # Se acabaste de registar, ele é o último da lista:
+    if utilizadores:
+        utilizadores[-1]['categorias'] = categorias_escolhidas
+        
+        # 4. Guardar a lista atualizada de volta no JSON
+        guardar_utilizadores(utilizadores)
+    
+    # 5. Redirecionar para o feed
+    return redirect(url_for('feed'))
+    
 
 @app.route('/perfil')
 def perfil():
