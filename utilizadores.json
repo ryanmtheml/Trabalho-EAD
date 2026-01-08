@@ -19,25 +19,17 @@
     },
     {
         "id": 3,
-        "nome": "Lara Cunha",
-        "username": "lc",
-        "email": "lara007cunha@gmail.com",
-        "password": "1222",
-        "isAdmin": false,
-        "isBlocked": false
-    },
-    {
-        "id": 4,
-        "nome": "Guilhereme",
-        "username": "gui08",
-        "email": "gui2gmail.com",
-        "password": "775",
+        "nome": "ryan",
+        "username": "ryan2",
+        "email": "ryan@gmail.com",
+        "password": "12345",
         "isAdmin": false,
         "isBlocked": false,
         "categorias": [
             "Comida",
-            "Moda",
-            "Viagens"
+            "Arquitetura",
+            "Viagens",
+            "Musica"
         ]
     }
 ]
