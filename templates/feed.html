@@ -1,30 +1,67 @@
-<!-- templates/home.html -->
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="container-fluid d-flex justify-content-center align-items-center">
-    <div class="card shadow p-4">
-        
-        <h1 class="mb-4 text-center">Image Feed</h1>
+<link rel="stylesheet" href="../static/CSS/feed.css">
 
-        <div class="row row-cols-1 row-cols-md-4 g-4">
-            {% for image in images %}
-            <div class="col">
-                <div class="card h-100">
-                    <img src="{{ image.url }}" class="card-img-top" alt="{{ image.name }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ image.name }}</h5>
-                        <p class="card-text">{{ image.description }}</p>
-                    </div>
-                    <div class="card-footer text-muted">
-                        ❤️ {{ image.likes }} likes
-                    </div>
-                </div>
+    <nav class="nav2">
+        <div class="containerNav2">
+            <div class="logo" >
+                <a href="/feed"><img class="logo" src="../static/mg.png" alt="" width="70px"></a>
             </div>
-            {% endfor %}
+            <div class="containerLinks2">
+                <ul>
+                    <li><a href="/feed" ><img src="../static/Iconografia/home.png" alt=""></a></li>
+                    <li><a href="/upload" ><img src="../static/Iconografia/mais.png" alt=""></a></li>
+                    <li><a href="/notificacoes" ><img src="../static/Iconografia/sinos.png" alt=""></a></li>
+                </ul>
+            </div>
         </div>
+    </nav>
+
+    <div class="header-utilizador">
+        <div class="pesquisa">
+            <img src="../static/Iconografia/lupa.png">
+            <input type="text" placeholder="Pesquisar"></span>
+        </div>
+
+        <a href="/perfil" class="perfil-container">
+            <img id="fotoPerfil" src="../static/default-user.jpg" alt="Perfil">
+        </a>
     </div>
-</div>
-{% endblock %}  
+
+    <div class="categorias">
+        <ul >
+            <li><a href="">Tudo</a></li>
+            <li><a href="">Comida</a></li>
+            <li><a href="">Arte</a></li>
+            <li><a href="">Decoração</a></li>
+            <li><a href="">Moda</a></li>
+            <li><a href="">Viagens</a></li>
+            <li><a href="">Paisagens</a></li>
+            <li><a href="">Animais</a></li>
+        </ul>
+    </div>
+
+    <div class="galeria-alvenaria">
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake2.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake3.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake4.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake5.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake7.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake9.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake10.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake11.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake12.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake13.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake14.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake15.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake16.jpg" alt="Descrição"></a>
+        <a href=""><img src="../static/Feed fake images/Imagens fake/fake17.jpg" alt="Descrição"></a>
+        
+
+            
+    </div>
+    
+{% endblock %}

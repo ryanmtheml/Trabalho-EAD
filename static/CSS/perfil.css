@@ -25,24 +25,24 @@
 .containerLinks2 ul {
     list-style: none;
     padding: 0;
-    margin-top: 50px; /* Espaço após o logo */
+    margin-top: 50px; 
     display: flex;
-    flex-direction: column; /* Ícones um abaixo do outro */
-    gap: 30px; /* Espaçamento entre os ícones */
+    flex-direction: column; 
+    gap: 30px; 
 }
 
 .containerLinks2 ul li a img {
-    width: 30px; /* Ajuste o tamanho dos seus ícones aqui */
+    width: 30px; 
     transition: transform 0.2s;
 }
 
 .containerLinks2 ul li a:hover img {
-    transform: scale(1.1); /* Efeito visual ao passar o mouse */
+    transform: scale(1.1); 
 }
 
-/* IMPORTANTE: Empurre o conteúdo principal para a direita */
+
 body {
-    margin-left: 90px; /* Deve ser igual à largura da nav */
+    margin-left: 90px; 
 }
 
 .pesquisa {
@@ -81,8 +81,8 @@ body {
 }
 
 .perfil-container {
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     left: 0;
     margin-left: 4em;
     border-radius: 50%; 
@@ -96,4 +96,103 @@ body {
 #fotoPerfil{
     width: 100%;
     height: 100%;
+}
+
+.header-perfil {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-left: 3em;
+    gap: 1em;
+
+}
+
+.lado1{ 
+    display: flex;  
+    flex-direction: column;
+}
+
+#infos{
+    margin-left: 6em;
+    margin-top: 6em;
+}
+
+.titlePerfil{
+    font-size: 50px;
+    font-family: 'Arial', sans-serif;
+    margin-left: 69px;
+    margin-top: 31px;
+}
+
+.bioPerfil{
+    font-size: 20px;
+    font-family: 'Arial', sans-serif;
+    margin-left: 69px;
+}
+
+.lado2{
+    display: flex;
+    flex-direction: column;
+    grid-column-start: 2/3;
+}
+
+.lado2{
+    margin-top: 6em;
+    font-size: 20px;
+    font-family: 'Arial', sans-serif;
+
+}
+
+.nomePerfil{
+    font-size: 50px;
+    margin-bottom: 1em;
+}
+
+.navPerfil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
+    margin-top: 4em;
+    border-bottom: #757474 solid 1px;
+    padding-bottom: 1em;
+}
+
+.navPerfil ul {
+    list-style: none;
+    display: flex;
+    gap: 6em;
+    width: 30px;
+    justify-content: center;
+}
+
+.navPerfil img {
+    width: 27px; 
+
+    
+}
+
+.containerGridPerfil{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    margin: 1em;
+    padding: 4em;
+
+}
+
+.containerGridPerfil a{
+    display: block; /* Links ocupam o espaço da célula */
+    width: 100%;
+}
+
+.containerGridPerfil img {
+    width: 100%;       /* A imagem ocupa 100% da largura da coluna */
+    height: 600px;     /* Altura fixa para manter o alinhamento */
+    object-fit: cover; /* Faz a imagem cortar em vez de esticar */
+    border-radius: 12px;
+    align-items: center;
+}
+
+.containerGridPerfil img:hover {
+    filter: brightness(0.6);
 }

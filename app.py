@@ -1,13 +1,14 @@
 import json
 from flask import Flask, render_template, request, session, redirect, url_for
+from pathlib import Path
 
 app = Flask(__name__)
 app.secret_key = "secret"
-
-# Carregar lista de utilizadores [cite: 139]
+ficheiro_utilizadores = Path(app.root_path) / 'utilizadores.json'
+# Carregar lista de utilizadores
 def carregar_utilizadores():
     try:
-        with open('utilizadores.json', 'r') as f:
+        with open(ficheiro_utilizadores, 'r') as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
@@ -17,38 +18,25 @@ def guardar_utilizadores(coco):
         json.dump(coco, userFile, indent=4)
 
 @app.route('/')
-def index():
-    if not session.get("user_id"):
-        return redirect(url_for("login"))
-    
-    images = [
-    {
-        "id": i,
-        "user_id": 100 + i,
-        "url": f"static/photo.jpg",
-        "name": f"Image {i}",
-        "category": "Nature",
-        "likes": i * 7,
-        "description": f"Beautiful Unsplash image number {i}"
-    }
-    for i in range(1, 21)
-    ]
-    return render_template("feed.html",images=images)
+def home():
+    return render_template('home.html')
 
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
-
+@app.route('/feed')
+def feed():
+    return render_template('feed.html')
 
 @app.route('/validation', methods=['POST'])
 def validation():
     utilizadores = carregar_utilizadores()
     pw = request.form.get('password')
     nome = request.form.get('username') 
-    
+    print(utilizadores)
     user_encontrado = False 
     for user in utilizadores:
+        print(user['nome'])
+        print(nome)
+        print(user['password'])
+        print(pw)
         if user['nome'] == nome and user['password'] == pw:
             userData=user['nome']
             session['user_id'] = user['id']
@@ -60,7 +48,7 @@ def validation():
 
     if user_encontrado:
         
-        return redirect(url_for("index"))
+        return render_template('feed.html')
     else:
         return "<h1>Erro: Utilizador não encontrado!</h1>"
 
@@ -71,12 +59,14 @@ def validation():
 def criar_conta():
     error = None
     utilizadores = carregar_utilizadores()
+    nome= request.form.get('nome')
     email = request.form.get('email')
     password = request.form.get('password')
     username = request.form.get('username')
     novo_user = {
         'id': len(utilizadores) + 1,
-        'nome': username,
+        'nome': nome,
+        'username': username,
         'email': email,
         'password': password,
         'isAdmin': False,
@@ -84,14 +74,15 @@ def criar_conta():
     }
 
     for user in utilizadores:
-        if user['nome'] == username:
+        if user['username'] == username:
             error = "Erro: Nome de utilizador já registado!"
         if user['email'] == email:
             error = "Erro: Email já registado!"
         
         
     if error != '':
-        return render_template("feed.html", error=error, username=username)
+        # mostrar ao utilizador o erro
+        return render_template('home.html', error=error)
     utilizadores.append(novo_user)
     guardar_utilizadores(utilizadores)
     
@@ -109,5 +100,27 @@ def criar_conta():
     ]
     return render_template("feed.html", username=username, images=images)
 
+@app.route('/categorias')
+def categorias():
+    return render_template("feed.html")
+
+@app.route('/perfil')
+def perfil():
+    return render_template("perfil.html")
+
+@app.route('/upload')
+def upload():
+    return render_template("upload.html")
+
+@app.route('/notificacoes')
+def notificacoes():
+    return render_template("notificacoes.html")
+
+@app.route('/posts')
+def posts():
+    return render_template("posts.html")
+
 if __name__ == '__main__':
     app.run(debug=True)
+    
+    

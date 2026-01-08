@@ -16,7 +16,7 @@
 
 .containerNav2 {
     display: flex;
-    flex-direction: column; /* Coloca logo e links em coluna */
+    flex-direction: column; 
     align-items: center;
     height: 100%;
     padding: 20px 0;
@@ -25,24 +25,24 @@
 .containerLinks2 ul {
     list-style: none;
     padding: 0;
-    margin-top: 50px; /* Espaço após o logo */
+    margin-top: 50px; 
     display: flex;
-    flex-direction: column; /* Ícones um abaixo do outro */
-    gap: 30px; /* Espaçamento entre os ícones */
+    flex-direction: column; 
+    gap: 30px; 
 }
 
 .containerLinks2 ul li a img {
-    width: 30px; /* Ajuste o tamanho dos seus ícones aqui */
+    width: 30px; 
     transition: transform 0.2s;
 }
 
 .containerLinks2 ul li a:hover img {
-    transform: scale(1.1); /* Efeito visual ao passar o mouse */
+    transform: scale(1.1); 
 }
 
-/* IMPORTANTE: Empurre o conteúdo principal para a direita */
+
 body {
-    margin-left: 90px; /* Deve ser igual à largura da nav */
+    margin-left: 90px; 
 }
 
 .pesquisa {
