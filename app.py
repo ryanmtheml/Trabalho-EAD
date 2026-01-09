@@ -1,9 +1,18 @@
 import json
+import os
 from flask import Flask, render_template, request, session, redirect, url_for
 from pathlib import Path
+from werkzeug.utils import secure_filename
+
+import upload
 
 app = Flask(__name__)
 app.secret_key = "secret"
+
+
+UPLOAD_FOLDER = os.path.join(app.root_path, 'static/all_images') # criando caminho onde defino pasta para guardar as imagens (uso a os library)
+os.makedirs(UPLOAD_FOLDER, exist_ok=True) #verificação da pasta (se não existir, é criada uma)
+
 ficheiro_utilizadores = Path(app.root_path) / 'utilizadores.json'
 # Carregar lista de utilizadores
 def carregar_utilizadores():
@@ -108,6 +117,24 @@ def categorias():
     
     # 5. Redirecionar para o feed
     return redirect(url_for('feed'))
+
+
+
+@app.route('/upload', methods = ['POST'] )
+def uploadImagem():
+        
+    imagem = request.files['imagem']
+    
+    if imagem.filename == '':
+        return "Nenhum ficheiro selecionado!"
+    
+    # Garantir nome seguro
+    nome_ficheiro = secure_filename(imagem.filename)
+    caminho = os.path.join(UPLOAD_FOLDER, nome_ficheiro) # pega a pasta e o arquivo, adicionando o caminho do arquivo na pasta
+    
+    # Guardar imagem
+    imagem.save(caminho) #salvo a imagem no caminho
+    return render_template('perfil.html')
     
 
 @app.route('/perfil')
