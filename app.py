@@ -1,14 +1,13 @@
 import json
 import os
+import time
 from flask import Flask, render_template, request, session, redirect, url_for
 from pathlib import Path
 from werkzeug.utils import secure_filename
-
-import upload
+from modules import upload as uploadlb
 
 app = Flask(__name__)
 app.secret_key = "secret"
-
 
 UPLOAD_FOLDER = os.path.join(app.root_path, 'static/all_images') # criando caminho onde defino pasta para guardar as imagens (uso a os library)
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) #verificação da pasta (se não existir, é criada uma)
@@ -49,6 +48,8 @@ def validation():
         if user['nome'] == nome and user['password'] == pw:
             userData=user['nome']
             session['user_id'] = user['id']
+            session['username'] = user['username']
+            session['nome'] = user['nome']
             user_encontrado = True
             break
         if user['nome'] == nome and user['password'] != pw:
@@ -122,7 +123,8 @@ def categorias():
 
 @app.route('/upload', methods = ['POST'] )
 def uploadImagem():
-        
+    autor_id = session['user_id']
+
     imagem = request.files['imagem']
     
     if imagem.filename == '':
@@ -130,10 +132,16 @@ def uploadImagem():
     
     # Garantir nome seguro
     nome_ficheiro = secure_filename(imagem.filename)
-    caminho = os.path.join(UPLOAD_FOLDER, nome_ficheiro) # pega a pasta e o arquivo, adicionando o caminho do arquivo na pasta
+    
+    extensao = nome_ficheiro.split('.')[-1]
+    nome_final = f"{int(time.time() * 1000)}.{extensao}" # time stamp, definindo assim nome unico para a imagem
+    caminho = os.path.join(UPLOAD_FOLDER, nome_final) # pega a pasta e o arquivo, adicionando o caminho do arquivo na pasta
+
     
     # Guardar imagem
     imagem.save(caminho) #salvo a imagem no caminho
+
+    uploadlb.criarImagem(autor_id,caminho)
     return render_template('perfil.html')
     
 
@@ -143,6 +151,9 @@ def perfil():
 
 @app.route('/upload')
 def upload():
+    # Verificar se o utilizador tem sessão ativa
+    if 'user_id' not in session:
+        return redirect(url_for('home'))
     return render_template("upload.html")
 
 @app.route('/notificacoes')
@@ -152,6 +163,18 @@ def notificacoes():
 @app.route('/posts')
 def posts():
     return render_template("posts.html")
+
+@app.route('/edicaoFotos')
+def edicaoFotos():
+    return render_template("edicaoFotos.html")
+
+@app.route('/compartilhar')
+def compartilhar():
+    return render_template('compartilhar.html')
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

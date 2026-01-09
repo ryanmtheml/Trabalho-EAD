@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<link rel="stylesheet" href="../static/CSS/upload.css">
+<link rel="stylesheet" href="../static/CSS/edicaoFotos.css">
 
     <nav class="nav2">
         <div class="containerNav2">
@@ -22,16 +22,31 @@
     </nav>
 
     <div class="novaPublicacao">
-        <a href="/perfil"><img src="../static/Iconografia/back.png" alt="" width="40px"></a>
+        <a href="/upload"><img src="../static/Iconografia/back.png" alt="" width="40px"></a>
         <h1>Nova Publicação</h1>
         
     </div>
 
-     <div class="imgContainer">
+    <div class="imgContainer">
         <img src="../static/perfil fake images/Publicas/pfake7.jpg" alt="" >
     </div>
 
-    <div class="uploadBotaoContainer"><button class="upload"><a href="/edicaoFotos">Escolher foto</a></button></div>
+
+    <nav class="navEdicacao">
+                <ul>
+                    <li><a href=""><img src="../static/Iconografia/crop.png" alt="" ></a></li>
+                    <li><a href="" ><img src="../static/Iconografia/filter.png" alt=""  ></a></li>
+                    <li><a href="" ><img src="../static/Iconografia/contrast-adjustment.png" alt="" ></a></li>
+                    <li><a href="" ><img src="../static/Iconografia/flip.png" alt="" ></a></li>
+
+                </ul>
+            
+    </nav>
+
+    <div class="containerBtnCompartilhar">
+        <button class="btnCompartilhar"><a href="/compartilhar">Seguinte</a></button>
+    </div>
+    
 
     
  

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="../static/CSS/compartilhar.css">
+
+    <nav class="nav2">
+        <div class="containerNav2">
+            <div class="logo" >
+                <a href="/feed"><img class="logo" src="../static/mg.png" alt="" width="70px"></a>
+            </div>
+            <div class="containerLinks2">
+                <ul>
+                    <li><a href="/feed" ><img src="../static/Iconografia/home.png" alt=""></a></li>
+                    <li><a href="/upload" ><img src="../static/Iconografia/mais.png" alt=""></a></li>
+                    <li><a href="/notificacoes" ><img src="../static/Iconografia/sinos.png" alt=""></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="novaPublicacao">
+        <a href="/edicaoFotos"><img src="../static/Iconografia/back.png" alt="" width="40px"></a>
+        <h1>Nova Publicação</h1>
+        
+    </div>
+
+    <div class="imgContainer">
+        <img src="../static/perfil fake images/Publicas/pfake7.jpg" alt="" >
+    </div>
+
+
+
+
+    <form action="/compartilhar" class="p-4">
+        <div class="mb-4 text-center">
+            <input type="text" id="descricaoFoto" name="descricaoFoto" placeholder="Escreva uma legenda..." class="form-control w-50 mx-auto">
+        </div>
+
+        <h3 class="text-center mb-3">Categorias</h3>
+        <br>
+
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+            <input type="checkbox" name="categorias" value="Comida" class="btn-check" id="btn-comida" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-pill" for="btn-comida">Comida</label>
+
+                <input type="checkbox" name="categorias" value="Paisagens" class="btn-check" id="btn-paisagens" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-pill" for="btn-paisagens">Paisagens</label>
+
+                <input type="checkbox" name="categorias" value="Moda" class="btn-check" id="btn-moda" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-pill" for="btn-moda">Moda</label>
+
+                <input type="checkbox" name="categorias" value="Arte" class="btn-check" id="btn-arte" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-pill" for="btn-arte">Arte</label>
+
+                <input type="checkbox" name="categorias" value="Animais" class="btn-check" id="btn-animais" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-pill" for="btn-animais">Animais</label>
+
+                <input type="checkbox" name="categorias" value="Arquitetura" class="btn-check" id="btn-arquitetura" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-pill" for="btn-arquitetura">Arquitetura</label>
+
+                <input type="checkbox" name="categorias" value="Viagens" class="btn-check" id="btn-viagens" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-pill" for="btn-viagens">Viagens</label>
+
+                <input type="checkbox" name="categorias" value="Tecnologia" class="btn-check" id="btn-tecnologia" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-pill" for="btn-tecnologia">Tecnologia</label>
+
+                <input type="checkbox" name="categorias" value="Desporto" class="btn-check" id="btn-desporto" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-pill" for="btn-desporto">Desporto</label>
+
+                <input type="checkbox" name="categorias" value="Musica" class="btn-check" id="btn-musica" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-pill" for="btn-musica">Música</label>
+
+                <input type="checkbox" name="categorias" value="Cinema" class="btn-check" id="btn-cinema" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-pill" for="btn-cinema">Cinema</label>
+        </div>
+
+        <div class="mb-4 text-center">
+            <input type="text" id="nomeCategoria" name="nomeCategoria" placeholder="Crie uma categoria..." class="form-control w-50 mx-auto">
+        </div>
+
+        <div class="containerBtnCompartilhar">
+            <button class="btnCompartilhar">Seguinte</button>
+        </div>
+
+   </form>
+
+    
+ 
+    
+{% endblock %}
