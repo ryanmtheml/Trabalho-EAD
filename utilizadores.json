@@ -1,35 +1,298 @@
 [
     {
-        "id": 1,
-        "nome": "Administrador",
-        "username": "admin",
-        "email": "admin@esmad.ipp.pt",
-        "password": "123",
-        "isBlocked": false,
-        "isAdmin": true
-    },
-    {
-        "id": 2,
-        "nome": "neca",
-        "username": "neca2007",
-        "email": "neca@gmail.com",
-        "password": "1234",
+        "user_id": 1,
+        "nome": "lkjhgfd",
+        "username": "bino",
+        "email": "bino@gmail.com",
+        "password": "$2b$12$T36vxdLjNO7nbwdMxjRvWuVCtFwm8Is1MoMsFpitj1s.7v4X6IcJ.",
         "isAdmin": false,
-        "isBlocked": false
+        "isBlocked": false,
+        "categorias": [
+            "Arquitetura"
+        ]
     },
     {
-        "id": 3,
-        "nome": "ryan",
-        "username": "ryan2",
-        "email": "ryan@gmail.com",
-        "password": "12345",
+        "user_id": 2,
+        "nome": "Admin maria",
+        "username": "Admin",
+        "email": "admin@gmail.com",
+        "password": "$2b$12$o8W5Vx47fQ1iTf8sMYMtEO.MD2Bk2hlC.VpOOIucCal30T1B5teHy",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Arquitetura"
+        ]
+    },
+    {
+        "user_id": 3,
+        "nome": "Guilherme",
+        "username": "mimi",
+        "email": "gui@gmail.com",
+        "password": "$2b$12$kvZ6/NY03FKdAyrPueBgWuhsGmY0wQum3sG/R2dhT5QZu.6b3sKKO",
         "isAdmin": false,
         "isBlocked": false,
         "categorias": [
             "Comida",
-            "Arquitetura",
+            "Animais",
+            "Tecnologia",
+            "Desporto"
+        ]
+    },
+    {
+        "user_id": 4,
+        "nome": "jgykguk",
+        "username": "kukykyu",
+        "email": "kyukyk@gmail.com",
+        "password": "$2b$12$gq8gnl6BvGucp1ajeZzGleWVyQySP7o4n3JxzBSK/aiI/NNXO3iOC",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 5,
+        "nome": "5",
+        "username": "5",
+        "email": "6@gmail.com",
+        "password": "$2b$12$oRHhXZWmGb1riS2OGMceY.qT3ZEV.DYwHodZE/AgrlKKocw1NXkga",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 6,
+        "nome": "asdfgh",
+        "username": "werty",
+        "email": "qwerthj@gmail.com",
+        "password": "$2b$12$ZsJT/7SgZKFI243/KJ5iiOTYlJ4x0fjYT9E5XNmJZ51wPz..9241C",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 7,
+        "nome": "asdfghd",
+        "username": "wertyd",
+        "email": "qwedrthj@gmail.com",
+        "password": "$2b$12$o97ZBpQiC5PHawd9Qt.rv.225QKW0pl4uHuvRnSBGRN8Z60gUQK/W",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 8,
+        "nome": "asdfghdd",
+        "username": "wertydd",
+        "email": "qwedrtdhj@gmail.com",
+        "password": "$2b$12$dbPq4bJ6Y8LiWcRGL2oQgum9MBCg8fOQZdHc9XTGO3W4.c1KhY.kq",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 9,
+        "nome": "asdfghddd",
+        "username": "wertyddd",
+        "email": "qweddrtdhj@gmail.com",
+        "password": "$2b$12$lFRwFHF3FSWMFoDpckpMbesZ4RraEYi47u4rpUbqwm8n8FVuJgtZi",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 10,
+        "nome": "asdfghddde",
+        "username": "wertyddde",
+        "email": "qweddrtdehj@gmail.com",
+        "password": "$2b$12$Wb0d5oRf9ukogajE0zcTUuW/yvS/8bWBI/Yz9RjcpyTmXlCIAdD0S",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 11,
+        "nome": "asdfghdddes",
+        "username": "wertydddes",
+        "email": "qweddrtdehjs@gmail.com",
+        "password": "$2b$12$hxWXfeVH/ZAIBFz7SsN9P.apZRolFPYgPl2mgtxm43OHODvEADHnO",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 12,
+        "nome": "asdfghdddesd",
+        "username": "wertydddesd",
+        "email": "qweddrtdedhjs@gmail.com",
+        "password": "$2b$12$gIcnIqo7mpIxc/pdcHB.EeoYJoU/2BYPYW/Wg3ylYRzygGezFhEC.",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 13,
+        "nome": "asdfghdddesdd",
+        "username": "wertydddesdd",
+        "email": "qweddrtddedhjs@gmail.com",
+        "password": "$2b$12$htYoh9ZTxs5bJvxzRvMAIu7cOOj7JBkZI0hOeLbvJFM82cDYVbxaO",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 14,
+        "nome": "asdfghdddesddf",
+        "username": "wertydddesddf",
+        "email": "qweddrtfddedhjs@gmail.com",
+        "password": "$2b$12$Ql90mEntWujpTqsLvYJSpu5WgnDQ9EZqPWxAALTIgOWPMhkHhSAUK",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 15,
+        "nome": "asdfghdddedsddf",
+        "username": "wertyddddesddf",
+        "email": "qweddrtfddeddhjs@gmail.com",
+        "password": "$2b$12$I4JcawKySeqfTFERUMKwQel7fZYhNI1hAdEMikxFSqakIBcLezoM2",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 16,
+        "nome": "asdfghdddedsddfg",
+        "username": "wertyddddesddfg",
+        "email": "qweddrtfddeddghjs@gmail.com",
+        "password": "$2b$12$su9qlbPD4lVXJp6O0ExnAOO30SoU7Irh/3vABHM1GNAMhpMsW.mTq",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 17,
+        "nome": "asdfghdddedsddfgs",
+        "username": "wertyddddesddfgs",
+        "email": "qweddrtfddedsdghjs@gmail.com",
+        "password": "$2b$12$7BQke36af01B9hYTUFb6vegm6rq24koRSCnIwECrNfvQUwrvF0BvO",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 18,
+        "nome": "asdfghdddedsddfgse",
+        "username": "wertyddddesddfgse",
+        "email": "qweddrtfddedsdeghjs@gmail.com",
+        "password": "$2b$12$YhJV5W7ZVZeMI/5viP9uaOtKQbwLmnFL6gQpXACeUBYhQZjvGhdmy",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 19,
+        "nome": "asdfghdddedsddfgseh",
+        "username": "wertyddddesddfgseh",
+        "email": "qweddrtfddedsdeghhjs@gmail.com",
+        "password": "$2b$12$fq6aPiVBS13IGVUdcMz9G..AvYN50ALwAYV/dTZFxsR8NORXDwQOu",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 20,
+        "nome": "asdfghdddedsddfgsehd",
+        "username": "wertyddddesddfgsehd",
+        "email": "qweddrtfddedsddeghhjs@gmail.com",
+        "password": "$2b$12$rdXEK/Xllm2xMFdR8iw/2OVRSYx0F9D.8su4IwftVGOqbfQwiZxSW",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 21,
+        "nome": "ashdfghdddedsddfgsehd",
+        "username": "werthyddddesddfgsehd",
+        "email": "qweddrtfhddedsddeghhjs@gmail.com",
+        "password": "$2b$12$3dXQrAhxM/0Jgwhh/qeoN.RMkDKb8sNb1jIsfKHdW/I4Ol/HMaUjq",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 22,
+        "nome": "ashdfghdddedsddfgsehdc",
+        "username": "werthyddddesddfgsehdc",
+        "email": "qweddrtfhddedsddeghchjs@gmail.com",
+        "password": "$2b$12$vvIFtPxYQDVFUuHvJQHF.uzTlEGUrhejhAHSy2I4tTY7z01ulgdmO",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 23,
+        "nome": "ashdfghdddedsddfgsehdcx",
+        "username": "werthyddddesddfgsehdcx",
+        "email": "qweddrtfhddedsddeghchjxs@gmail.com",
+        "password": "$2b$12$uwxdMbcFmuJH8j0gmJ5eBuo45Q.PuQTRVmXW4Q2rJf86SSwGxw8xq",
+        "isAdmin": false,
+        "isBlocked": false
+    },
+    {
+        "user_id": 24,
+        "nome": "ashdfghedddedsddfgsehdcx",
+        "username": "werthyddeddesddfgsehdcx",
+        "email": "qweddrtfehddedsddeghchjxs@gmail.com",
+        "password": "$2b$12$wrIfLOTxVOw/4J/jhFBY4.rtwcEWtgPc9g3r.6SNsNF/0ZEks0ziW",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": []
+    },
+    {
+        "user_id": 25,
+        "nome": "vbnjmk,l",
+        "username": "cvgbhnjmkil",
+        "email": "cvgbnh@gmail.com",
+        "password": "$2b$12$0whtO7.b/ilSK1bU0W46Du1qQ2ibOvh59FeR5P/lV9/dQP6XdU9c2",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Tecnologia",
+            "Desporto"
+        ]
+    },
+    {
+        "user_id": 26,
+        "nome": "sdfgh",
+        "username": "szdxfcgvbh",
+        "email": "szdxfcg@gmail.com",
+        "password": "$2b$12$ptJdq0QhvDOHPqoYHRLhTuh4xh2IAPewnqB4neMXXi432MKTBqRme",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Arte",
+            "Animais"
+        ]
+    },
+    {
+        "user_id": 27,
+        "nome": "dfghjkl",
+        "username": "fghjkl",
+        "email": "a@gmail.com",
+        "password": "$2b$12$mKenYPdnZ2WM2adVG6HlAeS/VL5rf.Bz8ZZPb2jcNnJkpm/5xJXN6",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Paisagens"
+        ]
+    },
+    {
+        "user_id": 28,
+        "nome": "Mara",
+        "username": "Mairinha",
+        "email": "mara@gmail.com",
+        "password": "$2b$12$7AoiEjow8DsPS8EULwdaE./MjnfUszQXYRkPEdiYwjBMbrCIpfCzK",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Moda",
+            "Arte",
+            "Animais",
             "Viagens",
             "Musica"
         ]
+    },
+    {
+        "user_id": 29,
+        "nome": "Nuno",
+        "username": "Nunex",
+        "email": "nuno@gmail.com",
+        "password": "$2b$12$9gaYcjJsfqSW/XErfDmzhefluBi7N7idEI1yk5Pes41nyGn8gACl6",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Paisagens"
+        ],
+        "profile_pic": "/static/all_images/profile_29_1768081458675.jpg"
     }
 ]

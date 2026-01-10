@@ -28,12 +28,27 @@
     </div>
 
      <div class="imgContainer">
-        <img src="../static/perfil fake images/Publicas/pfake7.jpg" alt="" >
+        {% if imageURL %}
+            <img id="preview" src="{{imageURL}}" alt="" >
+        {% else %}
+            <img id="preview" src="../static/Iconografia/grey.jpg" alt="" >
+        {% endif %}
     </div>
 
-    <div class="uploadBotaoContainer"><button class="upload"><a href="/edicaoFotos">Escolher foto</a></button></div>
+    <form action="/uploadimg" method="post" enctype="multipart/form-data"> 
+    <div class="uploadBotaoContainer">
+        <label for="arquivo" class="upload"><a href="/"></a>
+            Upload
+        </label>
+        <input type="file" name="imagem" id="arquivo" class="input-escondido" />  
+        
+        <input type="submit" value="seguinte" class="upload">  
+    </div>
+</form>
+    <!-- <div class="uploadBotaoContainer"><button type="file" class="upload"><a href="/edicaoFotos">Escolher foto</a></button></div> -->
 
     
  
+
     
 {% endblock %}

@@ -88,29 +88,40 @@ body {
     object-fit: cover;        
 }
 
-.uploadBotaoContainer{
+.uploadBotaoContainer {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 15px; 
+    margin-top: 20px;
 }
-.upload{
-    display: flex;
+
+
+.input-escondido {
+    display: none;
+}
+
+
+.upload {
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
     background-color: rgb(243, 2, 53);
     color: white;
     border-radius: 3em;
-    padding: 1em;
+    padding: 10px 25px; 
     border: none;
-}
-
-.upload a{
-    text-decoration: none;
-    color: white;
-}
-
-.upload:hover{
+    font-family: sans-serif;
+    font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 14px;
+}
+
+.upload:hover {
     background-color: rgb(187, 5, 41);
+}
+
+input[type="submit"].upload:hover {
+    background-color: #0052cc;
 }

@@ -2,15 +2,18 @@ import json
 import os
 import time
 from flask import Flask, render_template, request, session, redirect, url_for
-from pathlib import Path
+from pathlib import Path #blioteca para manipular caminhos de ficheiros
 from werkzeug.utils import secure_filename
 from modules import upload as uploadlb
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 app.secret_key = "secret"
 
 UPLOAD_FOLDER = os.path.join(app.root_path, 'static/all_images') # criando caminho onde defino pasta para guardar as imagens (uso a os library)
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) #verificação da pasta (se não existir, é criada uma)
+
 
 ficheiro_utilizadores = Path(app.root_path) / 'utilizadores.json'
 # Carregar lista de utilizadores
@@ -37,22 +40,20 @@ def feed():
 def validation():
     utilizadores = carregar_utilizadores()
     pw = request.form.get('password')
-    nome = request.form.get('username') 
-    print(utilizadores)
+    username = request.form.get('username') 
+    
     user_encontrado = False 
     for user in utilizadores:
-        print(user['nome'])
-        print(nome)
-        print(user['password'])
-        print(pw)
-        if user['nome'] == nome and user['password'] == pw:
-            userData=user['nome']
-            session['user_id'] = user['id']
+
+        if user['username'] == username and bcrypt.check_password_hash(user['password'], pw):
+            session['profile_picture'] = user['profile_picture']
+            session['user_id'] = user['user_id']
             session['username'] = user['username']
             session['nome'] = user['nome']
+            session['email'] = user['email']
             user_encontrado = True
             break
-        if user['nome'] == nome and user['password'] != pw:
+        if user['username'] == username and bcrypt.check_password_hash(user['password'], pw) == False:
             return "<h1>Erro: Palavra-passe incorreta!</h1>"
         
 
@@ -72,13 +73,15 @@ def criar_conta():
     nome= request.form.get('nome')
     email = request.form.get('email')
     password = request.form.get('password')
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     username = request.form.get('username')
     novo_user = {
-        'id': len(utilizadores) + 1,
+        'user_id': utilizadores[-1]['user_id'] + 1 if utilizadores else 1,
+        'profile_picture': '',
         'nome': nome,
         'username': username,
         'email': email,
-        'password': password,
+        'password': hashed_password,
         'isAdmin': False,
         'isBlocked': False
     }
@@ -92,11 +95,14 @@ def criar_conta():
         
     if error:
         # mostrar ao utilizador o erro
-        return render_template('home.html', error=error)
+        return f"<h1>{error}</h1>"
     utilizadores.append(novo_user)
     guardar_utilizadores(utilizadores)
-    print(utilizadores)
-    return render_template('home.html', registo_sucesso=True)
+    session['user_id'] = novo_user['user_id']
+    session['username'] = novo_user['username']
+    session['nome'] = novo_user['nome']
+    session['email'] = novo_user['email']
+    return render_template('categ.html')
     
     
 
@@ -115,13 +121,16 @@ def categorias():
         
         # 4. Guardar a lista atualizada de volta no JSON
         guardar_utilizadores(utilizadores)
+        session['categorias'] = categorias_escolhidas
+    
+        
     
     # 5. Redirecionar para o feed
-    return redirect(url_for('feed'))
+    return render_template('feed.html')
 
 
 
-@app.route('/upload', methods = ['POST'] )
+@app.route('/uploadimg', methods = ['POST'] )
 def uploadImagem():
     autor_id = session['user_id']
 
@@ -140,14 +149,40 @@ def uploadImagem():
     
     # Guardar imagem
     imagem.save(caminho) #salvo a imagem no caminho
-
     uploadlb.criarImagem(autor_id,caminho)
-    return render_template('perfil.html')
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final)
     
 
 @app.route('/perfil')
 def perfil():
-    return render_template("perfil.html")
+    
+    return render_template("perfil.html", nome=session.get('nome'), username=session.get('username'), email=session.get('email'), categorias=session.get('categorias'), profile_pic=session.get('profile_pic'))
+
+@app.route('/uploadProfilePic', methods=['POST'])
+def upload_profile_pic():
+    
+    profile_picture = request.files.get('profile_picture')
+    
+    # Garantir nome seguro
+    nome_ficheiro = secure_filename(profile_picture.filename)
+    extensao = nome_ficheiro.split('.')[-1]
+    nome_final = f"profile_{session['user_id']}_{int(time.time() * 1000)}.{extensao}"
+    caminho = os.path.join(UPLOAD_FOLDER, nome_final)
+    
+    # Guardar imagem
+    profile_picture.save(caminho)
+    
+    # Atualizar utilizador no JSON
+    utilizadores = carregar_utilizadores()
+    for user in utilizadores:
+        if user['user_id'] == session['user_id']:
+            user['profile_pic'] = f'/static/all_images/{nome_final}'
+            session['profile_pic'] = user['profile_pic']
+            break
+    
+    guardar_utilizadores(utilizadores)
+    
+    return redirect(url_for('perfil'))
 
 @app.route('/upload')
 def upload():

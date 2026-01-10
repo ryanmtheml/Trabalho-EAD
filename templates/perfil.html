@@ -31,27 +31,34 @@
     <div class="header-perfil">
         <div class="lado1">
             <div class="perfil-container">
-                <img id="fotoPerfil" src="../static/default-user.jpg" alt="Perfil">
+                <img id="fotoPerfil" src="{% if profile_pic %}{{ profile_pic }}{% else %}../static/Iconografia/grey.jpg{% endif %}" alt="Perfil">
             </div>
+            
+            <form action="/uploadProfilePic" method="post" enctype="multipart/form-data">
+                <label for="profile_picture" class="upload-btn" style="cursor: pointer; display: block; text-align: center; margin-top: 10px;">
+                    <img src="../static/Iconografia/mais.png" alt="Upload" width="30px">
+                </label>
+                <input type="file" name="profile_picture" id="profile_picture" style="display:none;" onchange="this.form.submit()">
+            </form>
 
             <div class="infos">
-                <h2 class="titlePerfil">manu_2</h2><br>
-                <p class="bioPerfil">Olá! Eu sou a Manu. <br></p>
+                <h2 class="titlePerfil">{{username}}</h2><br>
+                <p class="bioPerfil">Olá! Eu sou a {{nome}}. <br></p>
             </div>
         </div>
         
         <div class="lado2">
-            <h3 class="nomePerfil">Manuela Silva</h3>
+            <h3 class="nomePerfil">{{nome}}</h3>
             <div class="infoPerfil">
                 <p>
                     <span style="font-weight: bold;">E-mail: </span>
-                    <span>manu2@gmail.com</span>
+                    <span>{{email}}</span>
                 </p> 
                 <br>
     
                 <p>
                     <span style="font-weight: bold;">Categorias favoritas: </span>
-                    <span>Comida, Paisagens, Moda</span>
+                        <span>{{categorias | join(', ')}}</span>
                 </p> 
             </div>
             

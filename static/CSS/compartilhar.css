@@ -97,6 +97,21 @@ body {
     margin-bottom: 2em !important;
 }
 
+.containerBtnCompartilhar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.btnCompartilhar{
+    background-color: rgb(243, 2, 53) !important;
+    border-radius: 15px !important;
+    color: white !important;
+    padding: 10px 25px;
+    border: none;
+
+}
 
 
 

@@ -28,7 +28,11 @@
     </div>
 
     <div class="imgContainer">
-        <img src="../static/perfil fake images/Publicas/pfake7.jpg" alt="" >
+        {% if imageURL %}
+            <img src="{{imageURL}}" alt="" >
+        {% else %}
+            <img src="../static/Iconografia/grey.jpg" alt="" >
+        {% endif %}
     </div>
 
 

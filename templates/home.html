@@ -111,17 +111,20 @@
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required>
             </div>
+
             <div class="mb-3">
                 <label for="username" class="form-label">Nome de utilizador</label>
                 <input value="{{error}}" class="form-control" id="username" name="username" placeholder="Nome de utilizador" required>
             </div>
+
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="exemplo@email.com" required>
             </div>
+
             <div class="mb-3">
                 <label for="password" class="form-label">Palavra-passe</label>
-                <input value="{{error}}" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
+                <input type="password" value="{{error}}" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
             </div>
 
 
@@ -142,62 +145,7 @@
     </div>
 
 
-    <div class="modal fade" id="modalCateg" tabindex="-1" aria-labelledby="categTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            
-            <div class="p-3 d-flex justify-content-end">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-header d-flex flex-column align-items-center border-0 pt-0">
-                <h5 class="modal-title fw-bold" id="categTitle">Escolhe as tuas categorias favoritas!</h5>
-                <p class="text-muted small">Ajuda-nos a criar o teu feed!</p>
-            </div>
-
-            <form action="/categorias" method="POST">
-                <div class="modal-body text-center">
-                    <div class="d-flex flex-wrap justify-content-center gap-2">
-                
-                        <input type="checkbox" name="categorias" value="Comida" class="btn-check" id="btn-comida" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill" for="btn-comida">Comida</label>
-
-                        <input type="checkbox" name="categorias" value="Paisagens" class="btn-check" id="btn-paisagens" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill" for="btn-paisagens">Paisagens</label>
-
-                        <input type="checkbox" name="categorias" value="Moda" class="btn-check" id="btn-moda" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill" for="btn-moda">Moda</label>
-
-                        <input type="checkbox" name="categorias" value="Arte" class="btn-check" id="btn-arte" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill" for="btn-arte">Arte</label>
-
-                        <input type="checkbox" name="categorias" value="Animais" class="btn-check" id="btn-animais" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill" for="btn-animais">Animais</label>
-
-                        <input type="checkbox" name="categorias" value="Arquitetura" class="btn-check" id="btn-arquitetura" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill" for="btn-arquitetura">Arquitetura</label>
-
-                        <input type="checkbox" name="categorias" value="Viagens" class="btn-check" id="btn-viagens" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill" for="btn-viagens">Viagens</label>
-
-                        <input type="checkbox" name="categorias" value="Tecnologia" class="btn-check" id="btn-tecnologia" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill" for="btn-tecnologia">Tecnologia</label>
-
-                        <input type="checkbox" name="categorias" value="Desporto" class="btn-check" id="btn-desporto" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill" for="btn-desporto">Desporto</label>
-
-                        <input type="checkbox" name="categorias" value="Musica" class="btn-check" id="btn-musica" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill" for="btn-musica">Música</label>
-
-                        <input type="checkbox" name="categorias" value="Cinema" class="btn-check" id="btn-cinema" autocomplete="off">
-                        <label class="btn btn-outline-dark rounded-pill" for="btn-cinema">Cinema</label>
-
-                    </div>
-                </div>
-
-                <div class="modal-footer border-0">
-                    <button type="submit" class="btn custom-btn w-100">Começar</button>
-                </div>
+    
 </form>
 </div>
 
