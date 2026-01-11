@@ -11,7 +11,7 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = "secret"
 
-UPLOAD_FOLDER = os.path.join(app.root_path, 'static/all_images') # criando caminho onde defino pasta para guardar as imagens (uso a os library)
+UPLOAD_FOLDER = os.path.join( 'static/all_images') # criando caminho onde defino pasta para guardar as imagens (uso a os library)
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) #verificação da pasta (se não existir, é criada uma)
 
 
@@ -34,7 +34,7 @@ def home():
 
 @app.route('/feed')
 def feed():
-    return render_template('feed.html')
+    return render_template('feed.html', profile_pic=session.get('profile_pic'))
 
 @app.route('/validation', methods=['POST'])
 def validation():
@@ -141,22 +141,33 @@ def uploadImagem():
     
     # Garantir nome seguro
     nome_ficheiro = secure_filename(imagem.filename)
-    
+    id = int(time.time() * 1000) # time stamp, definindo assim nome unico para o id
     extensao = nome_ficheiro.split('.')[-1]
-    nome_final = f"{int(time.time() * 1000)}.{extensao}" # time stamp, definindo assim nome unico para a imagem
+    nome_final = f"{id}.{extensao}" 
     caminho = os.path.join(UPLOAD_FOLDER, nome_final) # pega a pasta e o arquivo, adicionando o caminho do arquivo na pasta
 
     
     # Guardar imagem
     imagem.save(caminho) #salvo a imagem no caminho
-    uploadlb.criarImagem(autor_id,caminho)
-    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final)
+    uploadlb.criarImagem(autor_id,caminho,id)
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id)
     
+
+def getMyImages():
+    try:
+        with open('photos.json', 'r') as photos:
+            allImages = json.load(photos)
+            # return json.load(photos)
+            return [img for img in allImages if img.get('autor_id') == session.get('user_id')][::-1]
+        
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
 
 @app.route('/perfil')
 def perfil():
-    
-    return render_template("perfil.html", nome=session.get('nome'), username=session.get('username'), email=session.get('email'), categorias=session.get('categorias'), profile_pic=session.get('profile_pic'))
+    myImages = getMyImages()
+    return render_template("perfil.html", nome=session.get('nome'), username=session.get('username'), email=session.get('email'), categorias=session.get('categorias'), profile_pic=session.get('profile_pic'), myImages = myImages)
 
 @app.route('/uploadProfilePic', methods=['POST'])
 def upload_profile_pic():
