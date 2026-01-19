@@ -13,11 +13,12 @@ def escreverImagens(dados):
      jsonDados = json.dumps(dados)
      photos.write(jsonDados)
 
-def criarImagem(autor_id,caminho):
+def criarImagem(autor_id,caminho, id):
     fotos = carregarImagens()
 
     novafoto = {    
-        "id": int(datetime.now().timestamp()), #criando id unico 
+        # "id": int(datetime.now().timestamp()), #criando id unico 
+        "id": id,
         "autor_id": autor_id,
         "url": caminho
     }

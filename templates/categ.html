@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+
+<link rel="stylesheet" href="../static/CSS/home.css">
+            
+            <div class="titles">
+                <h5 class="modal-title fw-bold" id="categTitle">Escolhe as tuas categorias favoritas!</h5>
+                <p class="text-muted small" id="categSubtitle">Ajuda-nos a criar o teu feed!</p>
+                <br>
+            </div>
+
+            <form action="/categorias" method="POST">
+
+                <div class="categorias">
+                    <div class="categContainer">
+                        <input type="checkbox" name="categorias" value="Comida" id="btn-comida" autocomplete="off">
+                        <label class="textoCateg" for="btn-comida">Comida</label>
+                    </div>
+                            
+                    <div class="categContainer">
+                            <input type="checkbox" name="categorias" value="Paisagens" id="btn-paisagens" autocomplete="off">
+                            <label class="textoCateg" for="btn-paisagens">Paisagens</label>
+                    </div>
+
+                    <div class="categContainer">
+                        <input type="checkbox" name="categorias" value="Moda" id="btn-moda" autocomplete="off">
+                        <label class="textoCateg" for="btn-moda">Moda</label>
+                    </div>
+
+                    <div class="categContainer">
+                            <input type="checkbox" name="categorias" value="Arte" id="btn-arte" autocomplete="off">
+                            <label class="textoCateg" for="btn-arte">Arte</label>
+                    </div>
+
+                    <div class="categContainer">
+                            <input type="checkbox" name="categorias" value="Animais" id="btn-animais" autocomplete="off">
+                            <label class="textoCateg" for="btn-animais">Animais</label>
+                    </div>
+
+                    <div class="categContainer">
+                            <input type="checkbox" name="categorias" value="Arquitetura" id="btn-arquitetura" autocomplete="off">
+                            <label class="textoCateg" for="btn-arquitetura">Arquitetura</label>
+                    </div>
+
+                    <div class="categContainer">
+                            <input type="checkbox" name="categorias" value="Viagens" id="btn-viagens" autocomplete="off">
+                            <label class="textoCateg" for="btn-viagens">Viagens</label>
+                    </div>
+
+                    <div class="categContainer">
+                            <input type="checkbox" name="categorias" value="Tecnologia" id="btn-tecnologia" autocomplete="off">
+                            <label class="textoCateg" for="btn-tecnologia">Tecnologia</label>
+                    </div>
+
+                    <div class="categContainer">
+                            <input type="checkbox" name="categorias" value="Desporto" id="btn-desporto" autocomplete="off">
+                            <label class="textoCateg" for="btn-desporto">Desporto</label>
+                    </div>
+
+                    <div class="categContainer">
+                            <input type="checkbox" name="categorias" value="Musica" id="btn-musica" autocomplete="off">
+                            <label class="textoCateg" for="btn-musica">Música</label>
+                    </div>
+
+                    <div class="categContainer">
+                            <input type="checkbox" name="categorias" value="Cinema" id="btn-cinema" autocomplete="off">
+                            <label class="textoCateg" for="btn-cinema">Cinema</label>
+                    </div>
+                </div>
+
+                <div class="botaoCateg">
+                    <button type="submit" class="btn custom-btn ">Começar</button>
+                </div>
+            </form>
+            
+
+                
+                
+
+                
+    
+{% endblock %}

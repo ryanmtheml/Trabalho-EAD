@@ -43,7 +43,6 @@
 
 body {
     margin-left: 90px; 
-    height: 100vh;
 }
 .novaPublicacao{
     display: grid;
@@ -61,6 +60,7 @@ body {
     font-size: 2em;
     font-weight: bold;
     margin-right: 405px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     
     
 }
@@ -88,40 +88,30 @@ body {
     object-fit: cover;        
 }
 
-.uploadBotaoContainer {
+.btn-outline-dark:focus{
+    background-color: black;
+    color: white;
+}
+
+.mb-4 {
+    margin-bottom: 2em !important;
+}
+
+.containerBtnCompartilhar{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px; 
     margin-top: 20px;
 }
 
-
-.input-escondido {
-    display: none;
-}
-
-
-.upload {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(243, 2, 53);
-    color: white;
-    border-radius: 3em;
-    padding: 10px 25px; 
+.btnCompartilhar{
+    background-color: rgb(243, 2, 53) !important;
+    border-radius: 15px !important;
+    color: white !important;
+    padding: 10px 25px;
     border: none;
-    font-family: sans-serif;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    font-size: 14px;
+
 }
 
-.upload:hover {
-    background-color: rgb(187, 5, 41);
-}
 
-input[type="submit"].upload:hover {
-    background-color: #0052cc;
-}
+

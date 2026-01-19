@@ -27,7 +27,7 @@
         </div>
 
         <a href="/perfil" class="perfil-container">
-            <img id="fotoPerfil" src="../static/default-user.jpg" alt="Perfil">
+            <img id="fotoPerfil" src="{% if profile_pic %}{{ profile_pic }}{% else %}../static/Iconografia/grey.jpg{% endif %}" alt="Perfil">
         </a>
     </div>
 

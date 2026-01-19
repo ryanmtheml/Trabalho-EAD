@@ -1,35 +1,34 @@
 [
     {
-        "id": 1,
-        "nome": "Administrador",
-        "username": "admin",
-        "email": "admin@esmad.ipp.pt",
-        "password": "123",
-        "isBlocked": false,
-        "isAdmin": true
-    },
-    {
-        "id": 2,
-        "nome": "neca",
-        "username": "neca2007",
-        "email": "neca@gmail.com",
-        "password": "1234",
-        "isAdmin": false,
-        "isBlocked": false
-    },
-    {
-        "id": 3,
-        "nome": "ryan",
-        "username": "ryan2",
-        "email": "ryan@gmail.com",
-        "password": "12345",
+        "user_id": 1,
+        "profile_picture": "",
+        "nome": "Manuela",
+        "username": "manu",
+        "email": "manu2@gmail.com",
+        "password": "$2b$12$l24kDmqcmR9OCy9DBV2hgOdXe5VGJyDwqHq7KPdZNyx6IHN7A1tMG",
         "isAdmin": false,
         "isBlocked": false,
         "categorias": [
             "Comida",
+            "Animais",
+            "Desporto"
+        ],
+        "profile_pic": "/static/all_images/profile_1_1768479322480.webp"
+    },
+    {
+        "user_id": 2,
+        "profile_picture": "",
+        "nome": "rafaela",
+        "username": "rafaela2",
+        "email": "rafaela10@gmai.com",
+        "password": "$2b$12$Pjj27OVf9yzhLReLxVGMuOOyny6ZxWPu2CJkUAwRIxuMvCW9S7kw6",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Arte",
             "Arquitetura",
-            "Viagens",
-            "Musica"
-        ]
+            "Tecnologia"
+        ],
+        "profile_pic": "/static/all_images/profile_2_1768237197117.jpg"
     }
 ]
