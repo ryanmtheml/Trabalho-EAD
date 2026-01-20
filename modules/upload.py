@@ -20,6 +20,7 @@ def criarImagem(autor_id,caminho):
         "id": int(datetime.now().timestamp()), #criando id unico 
         "autor_id": autor_id,
         "url": caminho
+        
     }
 
     fotos.append(novafoto)

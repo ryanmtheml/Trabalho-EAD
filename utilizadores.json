@@ -294,5 +294,51 @@
             "Paisagens"
         ],
         "profile_pic": "/static/all_images/profile_29_1768081458675.jpg"
+    },
+    {
+        "user_id": 30,
+        "profile_picture": "",
+        "nome": "asdfghj",
+        "username": "SAZDXFCGVH",
+        "email": "ASDZXFC@gmail",
+        "password": "$2b$12$bdKvjHrDQ19Gc1H5Pg3Po.zzAndwMyYeHo.STtW.5fkZUT14eDMDq",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Comida",
+            "Paisagens",
+            "Moda"
+        ]
+    },
+    {
+        "user_id": 31,
+        "profile_picture": "",
+        "nome": "defrgtfg",
+        "username": "wesdf",
+        "email": "qwdeff@gmail.com",
+        "password": "$2b$12$TqYhL1sIfXlLWAsoD/Bsm.3TXd.6FYgnvfz9q5g4/cxDy33gFBQlK",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Paisagens",
+            "Moda",
+            "Animais"
+        ],
+        "profile_pic": "/static/all_images/profile_31_1768133785663.jpg"
+    },
+    {
+        "user_id": 32,
+        "profile_picture": "",
+        "nome": "qwergth",
+        "username": "qwerdfg",
+        "email": "qwsf@gmail.com",
+        "password": "$2b$12$ltHI5gkhVQfJOhbl/J0DXug/RwWD1.egAXwlgQWtOcidjm5yXxbWe",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Comida",
+            "Paisagens"
+        ],
+        "profile_pic": "/static/all_images/profile_32_1768152246189.jpg"
     }
 ]
