@@ -15,6 +15,7 @@ UPLOAD_FOLDER = os.path.join( 'static/all_images') # criando caminho onde defino
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) #verificação da pasta (se não existir, é criada uma)
 
 
+
 ficheiro_utilizadores = Path(app.root_path) / 'utilizadores.json'
 # Carregar lista de utilizadores
 def carregar_utilizadores():
@@ -59,7 +60,7 @@ def validation():
 
     if user_encontrado:
         
-        return render_template('feed.html')
+        return redirect('/feed')
     else:
         return "<h1>Erro: Utilizador não encontrado!</h1>"
 
@@ -130,6 +131,7 @@ def categorias():
 
 
 
+
 @app.route('/uploadimg', methods = ['POST'] )
 def uploadImagem():
     autor_id = session['user_id']
@@ -145,23 +147,77 @@ def uploadImagem():
     extensao = nome_ficheiro.split('.')[-1]
     nome_final = f"{id}.{extensao}" 
     caminho = os.path.join(UPLOAD_FOLDER, nome_final) # pega a pasta e o arquivo, adicionando o caminho do arquivo na pasta
-
-    
+    imgprivacidade = True
     # Guardar imagem
     imagem.save(caminho) #salvo a imagem no caminho
-    uploadlb.criarImagem(autor_id,caminho,id)
+    uploadlb.criarImagem(autor_id,caminho,id, imgprivacidade)
     return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id)
     
+@app.route('/privar', methods = ['POST'])
+def atualizarPrivacidade():
+    imageId = request.form.get('imageId')
+    print(imageId)
+    try:
+        with open('photos.json', 'r') as f:
+            imagens = json.load(f)
 
-def getMyImages():
+        for img in imagens:
+            print(img['id'])
+            if img['id'] == int(imageId):
+                img['isPublic'] = False
+                print('alterado para false ')
+                break
+        print(imagens)
+        with open('photos.json', 'w') as f:
+            json.dump(imagens, f, indent=4)
+    except Exception as e:
+        print("Erro ao atualizar privacidade:", e)
+    return redirect('/perfil')
+
+def getImageById(image_id):
+    try:
+        # Abrir o ficheiro JSON
+        with open('photos.json', 'r') as f:
+            imagens = json.load(f)
+
+        # Procurar a imagem pelo ID
+        for img in imagens:
+            if img['id'] == int(image_id):  # Garantir que compara como inteiro
+                return img  # Retorna o objeto encontrado
+
+        # Se não encontrar
+        return None
+    except Exception as e:
+        print("Erro ao ler o ficheiro:", e)
+        return None
+
+@app.route('/privadas')
+def renderizarprivadas():
+    myImages = getMyImages(True)
+    return render_template("privadas.html", nome=session.get('nome'), username=session.get('username'), email=session.get('email'), categorias=session.get('categorias'), profile_pic=session.get('profile_pic'), myImages = myImages)
+
+
+def getMyImages(private=False):
     try:
         with open('photos.json', 'r') as photos:
             allImages = json.load(photos)
-            # return json.load(photos)
-            return [img for img in allImages if img.get('autor_id') == session.get('user_id')][::-1]
-        
+            user_id = session.get('user_id')
+
+            # Filtrar imagens do utilizador
+            minhas_imagens = [img for img in allImages if img.get('autor_id') == user_id]
+
+            if private:
+                # Mostrar apenas privadas
+                minhas_imagens = [img for img in minhas_imagens if img.get('isPublic') == False]
+            else:
+                # Mostrar apenas públicas
+                minhas_imagens = [img for img in minhas_imagens if img.get('isPublic') == True]
+
+            return minhas_imagens[::-1]
+
     except (FileNotFoundError, json.JSONDecodeError):
         return []
+
 
 
 @app.route('/perfil')
@@ -214,9 +270,10 @@ def posts():
 def edicaoFotos():
     return render_template("edicaoFotos.html")
 
-@app.route('/compartilhar')
-def compartilhar():
-    return render_template('compartilhar.html')
+@app.route('/compartilhar/<imageId>')
+def compartilhar(imageId):
+    img = getImageById(imageId)
+    return render_template('compartilhar.html', imageId= imageId, imageURL= img['url'])
 
 
 
