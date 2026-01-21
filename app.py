@@ -17,6 +17,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True) #verificação da pasta (se não exist
 
 
 ficheiro_utilizadores = Path(app.root_path) / 'utilizadores.json'
+ficheiro_photos = Path(app.root_path) / 'photos.json'
 # Carregar lista de utilizadores
 def carregar_utilizadores():
     try:
@@ -35,7 +36,19 @@ def home():
 
 @app.route('/feed')
 def feed():
-    return render_template('feed.html', profile_pic=session.get('profile_pic'))
+    with open(ficheiro_photos, 'r') as f:
+        fotos = json.load(f)
+    
+    categoria = request.args.get('categoria')
+    fotos_filtradas = fotos 
+
+    if categoria:
+        fotos_filtradas = []
+        for foto in fotos:
+            if foto['categoria'] == categoria:
+                fotos_filtradas.append(foto)
+
+    return render_template('feed.html', profile_pic=session.get('profile_pic'), fotos=fotos_filtradas[::-1])
 
 @app.route('/validation', methods=['POST'])
 def validation():

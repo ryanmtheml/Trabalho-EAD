@@ -1,1 +1,106 @@
-[{"id": 1768875340537, "autor_id": 1, "url": "static/all_images\\1768875340537.jpg", "isPublic": true}]
+[
+    {
+        "id": 1,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake14.jpg",
+        "isPublic": true,
+        "categoria": "animais"
+    },
+    {
+        "id": 2,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake2.jpg",
+        "isPublic": true,
+        "categoria": "comida"
+    },
+    {
+        "id": 3,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake3.jpg",
+        "isPublic": true,
+        "categoria": "paisagens"
+    },
+    {
+        "id": 4,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake4.jpg",
+        "isPublic": true,
+        "categoria": "decoracao"
+    },
+    {
+        "id": 5,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake5.jpg",
+        "isPublic": true,
+        "categoria": "moda"
+    },
+    {
+        "id": 6,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake7.jpg",
+        "isPublic": true,
+        "categoria": "paisagens"
+    },
+    {
+        "id": 7,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
+        "isPublic": true,
+        "categoria": "paisagens"
+    },
+    {
+        "id": 8,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake10.jpg",
+        "isPublic": true,
+        "categoria": "paisagens"
+    },
+    {
+        "id": 9,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake11.jpg",
+        "isPublic": true,
+        "categoria": "paisagens"
+    },
+    {
+        "id": 10,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake12.jpg",
+        "isPublic": true,
+        "categoria": "motivacional"
+    },
+    {
+        "id": 11,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake13.jpg",
+        "isPublic": true,
+        "categoria": "animais"
+    },
+    {
+        "id": 12,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake14.jpg",
+        "isPublic": true,
+        "categoria": "animais"
+    },
+    {
+        "id": 13,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake15.jpg",
+        "isPublic": true,
+        "categoria": "animais"
+    },
+    {
+        "id": 14,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake16.jpg",
+        "isPublic": true,
+        "categoria": "decoracao"
+    },
+    {   "id": 15,
+        "autor_id": "1",
+        "url": "static/Feed fake images/Imagens fake/fake17.jpg",
+        "isPublic": true,
+        "categoria": "decoracao"
+    }
+]
