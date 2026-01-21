@@ -196,6 +196,23 @@ def renderizarprivadas():
     myImages = getMyImages(True)
     return render_template("privadas.html", nome=session.get('nome'), username=session.get('username'), email=session.get('email'), categorias=session.get('categorias'), profile_pic=session.get('profile_pic'), myImages = myImages)
 
+@app.route('/feed')
+def renderizarTodasImagens():
+    myImages = getAllImages()
+    print(myImages)
+    return render_template("/feed.html", myImages = myImages)
+
+def getAllImages():
+    try:
+        with open('photos.json', 'r') as photos:
+            allImages = json.load(photos)
+            print(allImages)
+            return allImages[::-1]
+
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+
 
 def getMyImages(private=False):
     try:

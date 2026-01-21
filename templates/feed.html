@@ -45,7 +45,7 @@
     </div>
 
     <div class="galeria-alvenaria">
-        <a href=""><img src="../static/Feed fake images/Imagens fake/fake2.jpg" alt="Descrição"></a>
+        <!-- <a href=""><img src="../static/Feed fake images/Imagens fake/fake2.jpg" alt="Descrição"></a>
         <a href=""><img src="../static/Feed fake images/Imagens fake/fake3.jpg" alt="Descrição"></a>
         <a href=""><img src="../static/Feed fake images/Imagens fake/fake4.jpg" alt="Descrição"></a>
         <a href=""><img src="../static/Feed fake images/Imagens fake/fake5.jpg" alt="Descrição"></a>
@@ -59,7 +59,16 @@
         <a href=""><img src="../static/Feed fake images/Imagens fake/fake15.jpg" alt="Descrição"></a>
         <a href=""><img src="../static/Feed fake images/Imagens fake/fake16.jpg" alt="Descrição"></a>
         <a href=""><img src="../static/Feed fake images/Imagens fake/fake17.jpg" alt="Descrição"></a>
+         -->
+        <div class="containerGridPerfil">
         
+    {% for img in myImages %}
+        <div>
+           <a href="../templates/posts.html?id={{img.id}}"> <img src="{{ img.url }}" alt="Imagem {{ img.id }}"></a>
+        </div>
+    {% endfor %}
+
+    </div>
 
             
     </div>
