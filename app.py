@@ -6,6 +6,7 @@ from pathlib import Path #blioteca para manipular caminhos de ficheiros
 from werkzeug.utils import secure_filename
 from modules import upload as uploadlb
 from flask_bcrypt import Bcrypt
+from datetime import datetime   
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -14,7 +15,7 @@ app.secret_key = "secret"
 UPLOAD_FOLDER = os.path.join( 'static/all_images') # criando caminho onde defino pasta para guardar as imagens (uso a os library)
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) #verificação da pasta (se não existir, é criada uma)
 
-
+# UTILIZADORES FUNCTION
 
 ficheiro_utilizadores = Path(app.root_path) / 'utilizadores.json'
 ficheiro_photos = Path(app.root_path) / 'photos.json'
@@ -143,7 +144,9 @@ def categorias():
     return render_template('feed.html')
 
 
+# END OF UTILIZADORES FUNCTION
 
+# UPLOAD FUNCTION
 
 @app.route('/uploadimg', methods = ['POST'] )
 def uploadImagem():
@@ -164,8 +167,30 @@ def uploadImagem():
     # Guardar imagem
     imagem.save(caminho) #salvo a imagem no caminho
     uploadlb.criarImagem(autor_id,caminho,id, imgprivacidade)
+
+    session['nova_imagem'] = True
+
+    try:
+        with open('notificacoes.json', 'r') as f:
+            lista = json.load(f)
+    except:
+        lista = []
+
+    novaNotificacao = {
+        "nome": session.get('nome'),
+        "mensagem": "nova imagem adicionada",
+        "hora": datetime.now().strftime("%Y-%m-%d %H:%M")
+    }
+
+    lista.append(novaNotificacao)
+
+    with open('notificacoes.json', 'w') as f:
+        json.dump(lista, f, indent=4)
+
+
     return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id)
     
+
 @app.route('/privar', methods = ['POST'])
 def atualizarPrivacidade():
     imageId = request.form.get('imageId')
@@ -185,7 +210,7 @@ def atualizarPrivacidade():
             json.dump(imagens, f, indent=4)
     except Exception as e:
         print("Erro ao atualizar privacidade:", e)
-    return redirect('/perfil')
+    return redirect('/privadas')
 
 def getImageById(image_id):
     try:
@@ -231,7 +256,7 @@ def getMyImages(private=False):
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
-
+# END OF UPLOAD FUNCTION
 
 @app.route('/perfil')
 def perfil():
@@ -271,9 +296,17 @@ def upload():
         return redirect(url_for('home'))
     return render_template("upload.html")
 
+# NOTIFICATIONS FUNCTION
+
 @app.route('/notificacoes')
 def notificacoes():
-    return render_template("notificacoes.html")
+    try:
+        with open('notificacoes.json', 'r') as f:
+            todas = json.load(f)
+    except:
+        todas = []
+
+    return render_template("notificacoes.html", notificacoes=todas)
 
 @app.route('/posts')
 def posts():
@@ -287,10 +320,6 @@ def edicaoFotos():
 def compartilhar(imageId):
     img = getImageById(imageId)
     return render_template('compartilhar.html', imageId= imageId, imageURL= img['url'])
-
-
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
