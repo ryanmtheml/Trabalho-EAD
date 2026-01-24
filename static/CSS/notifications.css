@@ -1,9 +1,9 @@
+
 .bodynotification {
-    height: 100%;
     font-family: Arial, sans-serif;
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
    
 }
 
@@ -12,6 +12,10 @@
     padding: 15px;
     margin: 10px 0;
     border-radius: 5px;
+}
+
+.notification{
+    margin-bottom: 10px;
 }
 
 .notification-box {
@@ -52,4 +56,24 @@
 .notification-text {
     font-size: 13px;
     color: #333;
+}
+
+.novaPublicacao{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    margin: 2em;
+    border-bottom: #ddd solid 1px;
+    
+}
+
+.novaPublicacao h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2em;
+    font-size: 2em;
+    font-weight: bold;
+    margin-right: 405px;
+    
+    
 }

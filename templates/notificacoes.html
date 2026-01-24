@@ -22,10 +22,14 @@
         </div>
     </nav>
 
+     <div class="novaPublicacao">
+        <a href="/perfil"><img src="../static/Iconografia/back.png" alt="" width="40px"></a>
+        <h1>Notificações</h1>
+     </div>
     
     <div class="bodynotification">    
     {% for n in notificacoes %}
-            <section id="notification">
+            <section class="notification">
                 <span class="notification-box">
             <div class="notification-header">
                 <span class="notification-name">{{n['nome']}}</span>

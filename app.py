@@ -168,7 +168,7 @@ def uploadImagem():
     imagem.save(caminho) #salvo a imagem no caminho
     uploadlb.criarImagem(autor_id,caminho,id, imgprivacidade)
 
-    session['nova_imagem'] = True
+    
 
     try:
         with open('notificacoes.json', 'r') as f:
@@ -179,7 +179,9 @@ def uploadImagem():
     novaNotificacao = {
         "nome": session.get('nome'),
         "mensagem": "nova imagem adicionada",
-        "hora": datetime.now().strftime("%Y-%m-%d %H:%M")
+        "hora": datetime.now().strftime("%d-%m-%Y %H:%M"),
+        "autor_id": autor_id
+        
     }
 
     lista.append(novaNotificacao)
@@ -300,13 +302,18 @@ def upload():
 
 @app.route('/notificacoes')
 def notificacoes():
+    
     try:
         with open('notificacoes.json', 'r') as f:
             todas = json.load(f)
-    except:
-        todas = []
 
-    return render_template("notificacoes.html", notificacoes=todas)
+            user_id = session.get('user_id')
+
+            minhas_notificacoes = [notificacoes for notificacoes in todas if notificacoes.get('autor_id') == user_id]
+    except:
+        minhas_notificacoes = []
+
+    return render_template("notificacoes.html", notificacoes=minhas_notificacoes)
 
 @app.route('/posts')
 def posts():
