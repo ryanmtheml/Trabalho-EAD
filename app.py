@@ -6,12 +6,14 @@ from pathlib import Path #blioteca para manipular caminhos de ficheiros
 from werkzeug.utils import secure_filename
 from modules import upload as uploadlb
 from flask_bcrypt import Bcrypt
+from PIL import Image, ImageFilter, ImageEnhance
+
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = "secret"
 
-UPLOAD_FOLDER = os.path.join( 'static/all_images') # criando caminho onde defino pasta para guardar as imagens (uso a os library)
+UPLOAD_FOLDER = os.path.join('static', 'all_images') # criando caminho onde defino pasta para guardar as imagens (uso a os library)
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) #verificação da pasta (se não existir, é criada uma)
 
 
@@ -36,18 +38,32 @@ def home():
 
 @app.route('/feed')
 def feed():
+    with open(ficheiro_utilizadores, 'r') as f:
+        utilizadores = json.load(f)
+        
+        
     with open(ficheiro_photos, 'r') as f:
         fotos = json.load(f)
     
     categoria = request.args.get('categoria')
-    fotos_filtradas = fotos 
-
-    if categoria:
-        fotos_filtradas = []
+    
+    for user in utilizadores:
+        if user['user_id'] == session.get('user_id'):
+            categorias_escolhidas = user['categorias']
+            break
+    
+    fotos_filtradas = []
+    if categoria is None:
         for foto in fotos:
-            if foto['categoria'] == categoria:
-                fotos_filtradas.append(foto)
-
+            for cat in foto['categoria']:
+                if cat in categorias_escolhidas and foto['autor_id'] != session.get('user_id'):
+                    fotos_filtradas.append(foto)
+                    break
+    else:
+        for foto in fotos:
+            for cat in foto['categoria']:
+                if cat == categoria and foto['autor_id'] != session.get('user_id'):
+                    fotos_filtradas.append(foto)
     return render_template('feed.html', profile_pic=session.get('profile_pic'), fotos=fotos_filtradas[::-1])
 
 @app.route('/validation', methods=['POST'])
@@ -116,6 +132,7 @@ def criar_conta():
     session['username'] = novo_user['username']
     session['nome'] = novo_user['nome']
     session['email'] = novo_user['email']
+    session['profile_pic'] = ''
     return render_template('categ.html')
     
     
@@ -137,10 +154,10 @@ def categorias():
         guardar_utilizadores(utilizadores)
         session['categorias'] = categorias_escolhidas
     
-        
     
-    # 5. Redirecionar para o feed
-    return render_template('feed.html')
+    
+    # 5. Redirecionar para a rota /feed
+    return redirect('/feed')
 
 
 
@@ -148,7 +165,6 @@ def categorias():
 @app.route('/uploadimg', methods = ['POST'] )
 def uploadImagem():
     autor_id = session['user_id']
-
     imagem = request.files['imagem']
     
     if imagem.filename == '':
@@ -157,35 +173,130 @@ def uploadImagem():
     # Garantir nome seguro
     nome_ficheiro = secure_filename(imagem.filename)
     id = int(time.time() * 1000) # time stamp, definindo assim nome unico para o id
+    session['image_id'] = id
     extensao = nome_ficheiro.split('.')[-1]
     nome_final = f"{id}.{extensao}" 
     caminho = os.path.join(UPLOAD_FOLDER, nome_final) # pega a pasta e o arquivo, adicionando o caminho do arquivo na pasta
-    imgprivacidade = True
+    imgprivacidade = True  # Por padrão será pública
     # Guardar imagem
     imagem.save(caminho) #salvo a imagem no caminho
+    session['current_upload'] = caminho  # Store the file path
     uploadlb.criarImagem(autor_id,caminho,id, imgprivacidade)
-    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id)
-    
-@app.route('/privar', methods = ['POST'])
-def atualizarPrivacidade():
-    imageId = request.form.get('imageId')
-    print(imageId)
-    try:
-        with open('photos.json', 'r') as f:
-            imagens = json.load(f)
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id, cropped=False)
 
-        for img in imagens:
-            print(img['id'])
-            if img['id'] == int(imageId):
-                img['isPublic'] = False
-                print('alterado para false ')
-                break
-        print(imagens)
-        with open('photos.json', 'w') as f:
-            json.dump(imagens, f, indent=4)
-    except Exception as e:
-        print("Erro ao atualizar privacidade:", e)
-    return redirect('/perfil')
+
+@app.route('/crop', methods=['POST'])
+def crop_image():
+    imagem = session.get('current_upload')
+    if not imagem:
+        return "Nenhum ficheiro selecionado!"
+    
+    # Normalize the path to handle mixed separators
+    imagem = os.path.normpath(imagem)
+    img = Image.open(imagem)
+    
+    # Get crop parameters from form
+    left = int(float(request.form.get('crop_x', 0)))
+    top = int(float(request.form.get('crop_y', 0)))
+    width = int(float(request.form.get('crop_width', img.width)))
+    height = int(float(request.form.get('crop_height', img.height)))
+    
+    # Calculate right and bottom coordinates
+    right = left + width
+    bottom = top + height
+    
+    # Validate crop box
+    if right <= left or bottom <= top:
+        return "Coordenadas de crop inválidas!"
+    
+    # Crop the image
+    img_cropped = img.crop((left, top, right, bottom))
+    
+    # Close original image to release file handle
+    img.close()
+    
+    # Save cropped image, overwriting the original
+    img_cropped.save(imagem)
+    
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(imagem), imageId = request.form.get('imageId'), cropped=False, filtered=False, contrasted=False)
+    
+    
+    
+@app.route('/showCroppedInput')
+def showCroppedInput():
+    imagem = session.get('current_upload')
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(imagem), imageId = request.args.get('imageId'), cropped=True, filtered=False, contrasted=False)
+    
+    
+@app.route('/showFilterInput')
+def showFilterInput():
+    imagem = session.get('current_upload')
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(imagem), imageId = request.args.get('imageId'), cropped=False, filtered=True, contrasted=False)
+
+@app.route('/showContrastInput')
+def showContrastInput():
+    imagem = session.get('current_upload')
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(imagem), imageId = request.args.get('imageId'), cropped=False, filtered=False, contrasted=True)
+    
+    
+
+@app.route('/applyFilter', methods=['POST'])
+def applyFilter():
+    imagem = session.get('current_upload')
+    # fetch selected filter from request args
+    filtro = request.form.get('filter_type')
+    img = Image.open(imagem)
+    print(filtro)
+    
+    if filtro=='blur':
+        img_filtered = img.filter(ImageFilter.BLUR)
+    elif filtro=='contour':
+        img_filtered = img.filter(ImageFilter.CONTOUR)
+    elif filtro=='detail':
+        img_filtered = img.filter(ImageFilter.DETAIL)
+    elif filtro=='edge_enhance':
+        img_filtered = img.filter(ImageFilter.EDGE_ENHANCE)
+    elif filtro=='edge_enhance_more':
+        img_filtered = img.filter(ImageFilter.EDGE_ENHANCE_MORE)
+    elif filtro=='emboss':
+        img_filtered = img.filter(ImageFilter.EMBOSS)
+    elif filtro=='find_edges':
+        img_filtered = img.filter(ImageFilter.FIND_EDGES)
+    elif filtro=='sharpen':
+        img_filtered = img.filter(ImageFilter.SHARPEN)
+        
+    elif filtro=='smooth':
+        img = Image.open(imagem)
+        img_filtered = img.filter(ImageFilter.SMOOTH)
+        
+    # Close original image to release file handle
+    img.close()
+    img_filtered.save(imagem)
+    
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(imagem), imageId = request.args.get('imageId'), filtered=True)
+
+@app.route('/applyContrast', methods=['POST'])
+def applyContrast():
+    imagem = session.get('current_upload')
+    contrast_value = float(request.form.get('contrast_value', 1.0))
+    img = Image.open(imagem)
+    img_contrasted = ImageEnhance.Contrast(img)
+    img_contrasted = img_contrasted.enhance(contrast_value)
+    img.close()
+    img_contrasted.save(imagem)
+    
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(imagem), imageId = request.args.get('imageId'), contrasted=True)
+
+@app.route('/applyFlip')
+def applyFlip():
+    imagem = session.get('current_upload')
+    img = Image.open(imagem)
+    img_flipped = img.transpose(Image.FLIP_LEFT_RIGHT)
+    img.close()
+    img_flipped.save(imagem)
+    
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(imagem), imageId = request.args.get('imageId'))
+
 
 def getImageById(image_id):
     try:
@@ -209,11 +320,7 @@ def renderizarprivadas():
     myImages = getMyImages(True)
     return render_template("privadas.html", nome=session.get('nome'), username=session.get('username'), email=session.get('email'), categorias=session.get('categorias'), profile_pic=session.get('profile_pic'), myImages = myImages)
 
-@app.route('/feed')
-def renderizarTodasImagens():
-    myImages = getAllImages()
-    print(myImages)
-    return render_template("/feed.html", myImages = myImages)
+
 
 def getAllImages():
     try:
@@ -232,9 +339,14 @@ def getMyImages(private=False):
         with open('photos.json', 'r') as photos:
             allImages = json.load(photos)
             user_id = session.get('user_id')
+            
+            print(f"DEBUG - user_id do session: {user_id} (tipo: {type(user_id)})")
+            print(f"DEBUG - Total de imagens: {len(allImages)}")
 
-            # Filtrar imagens do utilizador
-            minhas_imagens = [img for img in allImages if img.get('autor_id') == user_id]
+            # Filtrar imagens do utilizador (converter ambos para string para comparar)
+            minhas_imagens = [img for img in allImages if str(img.get('autor_id')) == str(user_id)]
+            
+            print(f"DEBUG - Imagens do utilizador (antes filtro público/privado): {len(minhas_imagens)}")
 
             if private:
                 # Mostrar apenas privadas
@@ -242,10 +354,15 @@ def getMyImages(private=False):
             else:
                 # Mostrar apenas públicas
                 minhas_imagens = [img for img in minhas_imagens if img.get('isPublic') == True]
+            
+            print(f"DEBUG - Imagens após filtro (private={private}): {len(minhas_imagens)}")
+            for img in minhas_imagens:
+                print(f"  - ID: {img.get('id')}, isPublic: {img.get('isPublic')}, URL: {img.get('url')}")
 
             return minhas_imagens[::-1]
 
-    except (FileNotFoundError, json.JSONDecodeError):
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"DEBUG - Erro ao ler photos.json: {e}")
         return []
 
 
@@ -300,16 +417,116 @@ def posts():
 def edicaoFotos():
     return render_template("edicaoFotos.html")
 
-@app.route('/compartilhar/<imageId>')
-def compartilhar(imageId):
-    img = getImageById(imageId)
-    return render_template('compartilhar.html', imageId= imageId, imageURL= img['url'])
+@app.route('/compartilhar')
+def compartilhar():
+    img = session.get('current_upload')
+    return render_template('compartilhar.html', imageURL=img)
+
+@app.route('/compartilhar', methods=['POST'])
+def compartilhar_post():
+    # Obter dados do formulário
+    descricao = request.form.get('descricaoFoto')
+    categorias = request.form.getlist('categorias')  # Lista de categorias selecionadas
+    privacidade = request.form.get('privacidade')
+    nova_categoria = request.form.get('nomeCategoria')
+    
+    # Se criou uma nova categoria, adicionar à lista
+    if nova_categoria:
+        categorias.append(nova_categoria)
+    
+    # create object image with new data on the JSON photos.json
+    imagem = session.get('current_upload')
+    imageId = session.get('image_id')
+    print(imageId)
+    try:
+        with open('photos.json', 'r') as f:
+            imagens = json.load(f)
+
+        for img in imagens:
+            if img['id'] == int(imageId):
+                img['descricao'] = descricao
+                img['categoria'] = categorias
+                if privacidade == 'publico':
+                    img['isPublic'] = True
+                else:
+                    img['isPublic'] = False
+                break
+
+        with open('photos.json', 'w') as f:
+            json.dump(imagens, f, indent=4)
+    except Exception as e:
+        print("Erro ao atualizar imagem:", e)
+
+    
+    return redirect('/perfil')
 
 
+@app.route('/descricaoFotos')
+def descricaoFotos():
+    imageId = request.args.get('imageId')
+    imagem = getImageById(imageId)
+    with open(ficheiro_photos, 'r') as f:
+        fotos = json.load(f)
+        for foto in fotos:
+            if foto['id'] == int(imageId):
+                descricao=foto['descricao']
+                likes=foto['likes']
+                comments=foto['comments']
+                commentsText=foto.get('commentsText', [])
+                break
+    if imagem:
+        return render_template('descricaoFoto.html', imagem=imagem, profile_pic=session.get('profile_pic'), username=session.get('username'), descricao=descricao, nmrLikes=likes, nmrComentarios=comments, comentarios=commentsText)
+    else:
+        return "<h1>Erro: Imagem não encontrada!</h1>"
+    
+@app.route('/addComment', methods=['POST'])
+def addComment():
+    imageId = request.form.get('imageId')
+    comentario = request.form.get('comentario')
+    
+    try:
+        with open('photos.json', 'r') as f:
+            fotos = json.load(f)
 
+        for foto in fotos:
+            if foto['id'] == int(imageId):
+                foto['comments'] += 1  # Incrementar o número de comentários
+                foto['commentsText'].append(comentario)
+                break
 
+        with open('photos.json', 'w') as f:
+            json.dump(fotos, f, indent=4)
+    except Exception as e:
+        print("Erro ao adicionar comentário:", e)
+    
+    return redirect(f'/descricaoFotos?imageId={imageId}')
+
+@app.route('/addLike', methods=['POST'])
+def addLike():
+    imageId = request.form.get('imageId')
+    
+    try:
+        with open('photos.json', 'r') as f:
+            fotos = json.load(f)
+
+        for foto in fotos:
+            if foto['id'] == int(imageId):
+                if session['user_id'] in foto.get('userLikesId', []):
+                    # Usuário já curtiu a foto, então não faz nada ou pode implementar "descurtir"
+                    fotos['likes'] -= 1
+                    foto['userLikesId'].remove(session['user_id'])  
+                    break
+                foto['likes'] += 1  # Incrementar o número de likes
+                foto['userLikesId'].append(session['user_id'])  # Adicionar o ID do usuário à lista de likes
+                break
+
+        with open('photos.json', 'w') as f:
+            json.dump(fotos, f, indent=4)
+    except Exception as e:
+        print("Erro ao adicionar like:", e)
+    
+    return redirect(f'/descricaoFotos?imageId={imageId}')
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
-    
+

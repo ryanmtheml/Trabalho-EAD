@@ -39,7 +39,7 @@
 
 
 
-    <form action="/compartilhar" class="p-4">
+    <form action="/compartilhar" method="POST" class="p-4">
         <div class="mb-4 text-center">
             <input type="text" id="descricaoFoto" name="descricaoFoto" placeholder="Escreva uma legenda..." class="form-control w-50 mx-auto">
         </div>
@@ -86,14 +86,19 @@
             <input type="text" id="nomeCategoria" name="nomeCategoria" placeholder="Crie uma categoria..." class="form-control w-50 mx-auto">
         </div>
 
+        <div class="privacy-selector d-flex align-items-center justify-content-center gap-2 mb-4">
+            <img src="../static/Iconografia/earth.png" alt="Público" width="24px">
+            <span>Privacidade:</span>
+            <select name="privacidade" id="privacidade" class="form-select form-select-sm" style="width: auto;">
+                <option value="publico" selected>Público</option>
+                <option value="privado">Privado</option>
+            </select>
+        </div>
+
         <div class="containerBtnCompartilhar">
             <button class="btnCompartilhar">Compartilhar</button>
         </div>
    </form>
-    <form action="/privar" method="POST">   
-            <input type="hidden" name="imageId" value="{{imageId}}">
-            <button class="btnCompartilhar" type="submit">Privar</button>
-    </form> 
 
     
  

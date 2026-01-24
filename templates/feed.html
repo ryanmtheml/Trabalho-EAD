@@ -35,20 +35,20 @@
         <ul >
             <li><a href="feed">Tudo</a></li>
             <!-- if comida is clicked call feed again but with photos that have the categoty "comida"-->
-            <li><a href="feed?categoria=comida">Comida</a></li>
-            <li><a href="feed?categoria=arte">Arte</a></li>
-            <li><a href="feed?categoria=decoracao">Decoração</a></li>
-            <li><a href="feed?categoria=moda">Moda</a></li>
-            <li><a href="feed?categoria=viagens">Viagens</a></li>
-            <li><a href="feed?categoria=paisagens">Paisagens</a></li>
-            <li><a href="feed?categoria=animais">Animais</a></li>
-            <li><a href="feed?categoria=motivacional">Motivacional</a></li>
+            <li><a href="feed?categoria=Comida">Comida</a></li>
+            <li><a href="feed?categoria=Arte">Arte</a></li>
+            <li><a href="feed?categoria=Decoracao">Decoração</a></li>
+            <li><a href="feed?categoria=Moda">Moda</a></li>
+            <li><a href="feed?categoria=Viagens">Viagens</a></li>
+            <li><a href="feed?categoria=Paisagens">Paisagens</a></li>
+            <li><a href="feed?categoria=Animais">Animais</a></li>
+            <li><a href="feed?categoria=Motivacional">Motivacional</a></li>
         </ul>
     </div>
 
     <div class="galeria-alvenaria">
         {% for foto in fotos %}
-            <a href=""><img src="{{ foto.url }}" alt="Descrição"></a>
+            <a href="/descricaoFotos?imageId={{ foto.id }}"><img src="{{ foto.url }}" alt="Descrição"></a>
         {% endfor %}
     </div>
     

@@ -30,5 +30,84 @@
             "Tecnologia"
         ],
         "profile_pic": "/static/all_images/profile_2_1768237197117.jpg"
+    },
+    {
+        "user_id": 3,
+        "profile_picture": "",
+        "nome": "Mara",
+        "username": "mara07",
+        "email": "mara@gmail.com",
+        "password": "$2b$12$ey5HUGskkX2WBKi1T8v3pup/Gs0Ya/JV9VjzBnJHOIGr4.0qdj2Ou",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Paisagens",
+            "Moda",
+            "Animais",
+            "Arquitetura"
+        ]
+    },
+    {
+        "user_id": 4,
+        "profile_picture": "",
+        "nome": "i",
+        "username": "i",
+        "email": "i@gmail.com",
+        "password": "$2b$12$dSdYdnrc6qILuGDZbAFLeuBqXMpmehqaWXTQL/tOK6wgrvE86ujyW",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Animais"
+        ]
+    },
+    {
+        "user_id": 5,
+        "profile_picture": "",
+        "nome": "y",
+        "username": "y",
+        "email": "y@gmail.com",
+        "password": "$2b$12$W.93HwrEB4p1ZWQAafi8O.3Y/zh/q4ZU0G.jMpGGsIGhCMVtli6uO",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Comida",
+            "Paisagens",
+            "Moda",
+            "Arte",
+            "Animais"
+        ]
+    },
+    {
+        "user_id": 6,
+        "profile_picture": "",
+        "nome": "dfghjkl\u00e7",
+        "username": "ertyui",
+        "email": "p@gmail.com",
+        "password": "$2b$12$wC9adO/II7tVC/hEmrPDLOqkzYMyj9aQ9xn5nO3rzh4Rv4WLGQq8C",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Comida",
+            "Paisagens",
+            "Moda"
+        ],
+        "profile_pic": "/static/all_images/profile_6_1769256606696.jpg"
+    },
+    {
+        "user_id": 7,
+        "profile_picture": "",
+        "nome": "Guilherme",
+        "username": "guifigas97",
+        "email": "gui@gmail.com",
+        "password": "$2b$12$CHxv3mx1YCnXOxWQMgdqFuDaR2uFWzK1cYHlPRMAvs8ll1cLtGoSm",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Comida",
+            "Paisagens",
+            "Animais",
+            "Viagens"
+        ],
+        "profile_pic": "/static/all_images/profile_7_1769282742498.JPG"
     }
 ]

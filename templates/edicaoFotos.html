@@ -38,17 +38,61 @@
     
     <nav class="navEdicacao">
                 <ul>
-                    <li><a href=""><img src="../static/Iconografia/crop.png" alt="" ></a></li>
-                    <li><a href="" ><img src="../static/Iconografia/filter.png" alt=""  ></a></li>
-                    <li><a href="" ><img src="../static/Iconografia/contrast-adjustment.png" alt="" ></a></li>
-                    <li><a href="" ><img src="../static/Iconografia/flip.png" alt="" ></a></li>
+                    
+                    <li>
+                        <a href="/showCroppedInput"><img src="../static/Iconografia/crop.png" alt="" ></a>
+                    </li>
+                    <li><a href="/showFilterInput" ><img src="../static/Iconografia/filter.png" alt=""  ></a></li>
+                    <li><a href="/showContrastInput" ><img src="../static/Iconografia/contrast-adjustment.png" alt="" ></a></li>
+                    <li><a href="/applyFlip" ><img src="../static/Iconografia/flip.png" alt="" ></a></li>
 
                 </ul>
             
     </nav>
 
+    {% if cropped %}
+        <form action ="/crop" method="post">
+            <input name="crop_x">
+            <input name="crop_y" >
+            <input name="crop_width">
+            <input name="crop_height" >
+            <div class="containerBtnCrop">
+                <button class="btnCrop" type="submit">Cortar</button>
+            </div>
+    {% endif %}
+
+    {% if filtered %}
+        <form action ="/applyFilter" method="post">
+            <!-- select/dropdown with static filters-->
+            <select name="filter_type" id="filter_type">
+                <option value="blur">Desfocar</option>
+                <option value="contour">Esboço</option>
+                <option value="detail">Realçar Detalhes</option>
+                <option value="edge_enhance">Reforçar Bordas</option>
+                <option value="edge_enhance_more">Nitidez Forte</option>
+                <option value="emboss">Relevo</option>
+                <option value="find_edges">Esboço (com fundo preto)</option>
+                <option value="sharpen">Focar</option>
+                <option value="smooth">Esmoçar</option>
+            </select>
+            <div class="containerBtnFilter">
+                <button class="btnFilter" type="submit">Aplicar Filtro</button>
+            </div>
+    {% endif %}
+
+    
+    {% if contrasted %}
+        <form action ="/applyContrast" method="post">
+            <input name="contrast_value">
+            <div class="containerBtnContrast">
+                <button class="btnContrast" type="submit">Ajustar Contraste</button>
+            </div>
+    {% endif %}
+
+
+
     <div class="containerBtnCompartilhar">
-        <button class="btnCompartilhar"><a href="/compartilhar/{{imageId}}">Seguinte</a></button>
+        <button class="btnCompartilhar"><a href="/compartilhar">Seguinte</a></button>
     </div>
     
 
