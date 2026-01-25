@@ -26,14 +26,6 @@
         <h1>Nova Publicação</h1>
         
     </div>
-    
-     <div class="imgContainer">
-        {% if imageURL %}
-            <img id="preview" src="{{imageURL}}" alt="" >
-        {% else %}
-            <img id="preview" src="../static/Iconografia/grey.jpg" alt="" >
-        {% endif %}
-    </div>
 
     <form action="/uploadimg" method="post" enctype="multipart/form-data"> 
     <div class="uploadBotaoContainer">

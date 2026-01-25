@@ -162,8 +162,9 @@ body {
 }
 
 .comentarios {
-    margin: 2em 0;
-    margin-left: 38em;
+    margin: 2em auto;
+    max-width: 600px;
+   
 }
 
 .comentarios > p {
@@ -211,8 +212,8 @@ body {
 }
 
 .addComment {
-    margin-left: 38em;
-    margin-top: 20px;
+    margin: 20px auto;
+    max-width: 600px;
 }
 
 .addComment form {

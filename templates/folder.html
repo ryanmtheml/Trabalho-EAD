@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<link rel="stylesheet" href="../static/CSS/perfil.css">
+<link rel="stylesheet" href="../static/CSS/folder.css">
     <nav class="nav2">
         <div class="containerNav2">
             <div class="logo" >
@@ -20,13 +20,18 @@
         </div>
     </nav>
 
-  
+    <div class="header-utilizador">
+        <div class="pesquisa">
+            <img src="../static/Iconografia/lupa.png">
+            <input type="text" placeholder="Pesquisar">
+        </div>
+    </div>      
 
 
     <div class="header-perfil">
         <div class="lado1">
             <div class="perfil-container">
-                <img id="fotoPerfil" src="{% if profile_pic != '' %}{{ profile_pic }}{% else %}../static/Iconografia/user.png{% endif %}" alt="Perfil">
+                <img id="fotoPerfil" src="{% if profile_pic != '' %}{{ profile_pic }}{% else %}../static/Iconografia/grey.jpg{% endif %}" alt="Perfil">
             </div>
             
             <form action="/uploadProfilePic" method="post" enctype="multipart/form-data">
@@ -38,7 +43,7 @@
 
             <div class="infos">
                 <h2 class="titlePerfil">{{username}}</h2><br>
-                <p class="bioPerfil">Olá! Eu sou o/a {{nome}}. <br></p>
+                <p class="bioPerfil">Olá! Eu sou {{nome}}. <br></p>
             </div>
         </div>
         
@@ -68,15 +73,18 @@
             <a href="/privadas"><img src="../static/Iconografia/cadeado.png" alt=""></a>
         </ul>
     </div>
-
+    
     <div class="containerGridPerfil">
-        
-    {% for img in myImages %}
-        <div>
-           <a href="/descricaoFotos?imageId={{ img.id }}"> <img src="{{ img.url }}" alt="Imagem {{ img.id }}"></a>
-        </div>
-    {% endfor %}
 
+
+     <div class="galeria-alvenaria">
+        {% for foto in fotos %}
+            <a href="/descricaoFotos?imageId={{ foto.id }}"><img src="{{ foto.url }}" ></a>
+        {% endfor %}
+    </div>
+        
+    
+    
     </div>
     
 

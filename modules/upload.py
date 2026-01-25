@@ -3,15 +3,14 @@ import json
 
 def carregarImagens(): #carregando as características das imagens da página photos.json
     try:
-        with open('photos.json', 'r') as photos:
+        with open('photos.json', 'r', encoding='utf-8') as photos:
             return json.load(photos)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
 def escreverImagens(dados):
-    with open('photos.json', 'w+') as photos:
-     jsonDados = json.dumps(dados)
-     photos.write(jsonDados)
+    with open('photos.json', 'w', encoding='utf-8') as photos:
+        json.dump(dados, photos, indent=4, ensure_ascii=False)
 
 def criarImagem(autor_id,caminho, id, imgprivacidade):
     fotos = carregarImagens()
@@ -25,7 +24,8 @@ def criarImagem(autor_id,caminho, id, imgprivacidade):
         "categoria": [],
         "descricao": "",
         "likes": 0,
-        "comments": 0
+        "comments": 0,
+        "folders": []
     }
 
     fotos.append(novafoto)
