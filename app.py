@@ -56,7 +56,7 @@ def feed():
     if categoria is None:
         for foto in fotos:
             for cat in foto['categoria']:
-                if cat in categorias_escolhidas and int(foto['autor_id']) != session.get('user_id'):
+                if cat in categorias_escolhidas:
                     fotos_filtradas.append(foto)
                     break
     else:

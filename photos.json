@@ -52,8 +52,10 @@
         ],
         "descricao": "O melhor buquê para o dia mais especial...",
         "likes": 1,
-        "comments": 0,
-        "commentsText": [],
+        "comments": 1,
+        "commentsText": [
+            "Lindo!"
+        ],
         "userLikesId": [
             2
         ]
