@@ -51,11 +51,13 @@
     </nav>
 
     {% if cropped %}
-        <form action ="/crop" method="post">
-            <input name="crop_x">
-            <input name="crop_y" >
-            <input name="crop_width">
-            <input name="crop_height" >
+        <form action ="/crop" method="post" class="edit-form">
+            <div class="edit-form-inputs">
+                <input type="number" name="crop_x" placeholder="X" min="0" step="1">
+                <input type="number" name="crop_y" placeholder="Y" min="0" step="1">
+                <input type="number" name="crop_width" placeholder="Largura" min="0" step="1">
+                <input type="number" name="crop_height" placeholder="Altura" min="0" step="1">
+            </div>
             <div class="containerBtnCrop">
                 <button class="btnCrop" type="submit">Cortar</button>
             </div>
@@ -63,8 +65,7 @@
     {% endif %}
 
     {% if filtered %}
-        <form action ="/applyFilter" method="post">
-            <!-- select/dropdown with static filters-->
+        <form action ="/applyFilter" method="post" class="edit-form">
             <select name="filter_type" id="filter_type">
                 <option value="blur">Desfocar</option>
                 <option value="contour">Esboço</option>
@@ -82,10 +83,9 @@
         </form>
     {% endif %}
 
-    
     {% if contrasted %}
-        <form action ="/applyContrast" method="post">
-            <input name="contrast_value">
+        <form action ="/applyContrast" method="post" class="edit-form">
+            <input name="contrast_value" placeholder="Valor de contraste (ex: 1.5)">
             <div class="containerBtnContrast">
                 <button class="btnContrast" type="submit">Ajustar Contraste</button>
             </div>

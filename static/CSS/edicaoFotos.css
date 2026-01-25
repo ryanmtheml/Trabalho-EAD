@@ -122,17 +122,15 @@ body {
 }
 
 .btnCompartilhar{
-    padding: 16px;
+    padding: 10px 30px;
     background-color: rgb(243, 2, 53);
     color: rgb(255, 255, 255) !important;
     font-weight: bold;
-    border-radius: 25px;
+    border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    position: absolute;
     border: none;
-    font-size: larger;
-    
+    font-size: 16px;
 }
 
 .btnCompartilhar:hover{
@@ -142,11 +140,59 @@ body {
 .containerBtnCompartilhar{
     display: flex;
     justify-content: center;
-    margin-bottom: 50px;
-    margin-left: 1071px;
+    margin: 30px 0 50px 0;
 }
 
 .containerBtnCompartilhar a{
     text-decoration: none;
     color: white;
+}
+
+/* Form styles for editing tools */
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.edit-form-inputs {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.edit-form input[type="number"],
+.edit-form input[type="text"],
+.edit-form select {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    width: 120px;
+}
+
+.edit-form select {
+    width: 250px;
+    font-size: 14px;
+}
+
+.edit-form input[name="contrast_value"] {
+    width: 250px;
+}
+
+.edit-form button {
+    padding: 10px 30px;
+    background-color: rgb(243, 2, 53);
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.edit-form button:hover {
+    background-color: rgb(206, 6, 56);
 }

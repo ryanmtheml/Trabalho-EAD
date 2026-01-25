@@ -97,4 +97,24 @@ body {
     margin-top: 3em;
 }
 
+.btnCompartilhar{
+    padding: 10px 30px;
+    background-color: rgb(243, 2, 53);
+    color: rgb(255, 255, 255) !important;
+    font-weight: bold;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+}
 
+.btnCompartilhar:hover{
+    background-color: rgb(206, 6, 56);
+}
+
+.containerBtnCompartilhar{
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 50px 0;
+}
