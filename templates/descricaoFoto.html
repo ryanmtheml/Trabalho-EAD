@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+
+<link rel="stylesheet" href="../static/CSS/descricaoFotos.css">
+
+    <nav class="nav2">
+        <div class="containerNav2">
+            <div class="logo" >
+                <a href="/feed"><img class="logo" src="../static/mg.png" alt="" width="70px"></a>
+            </div>
+            <div class="containerLinks2">
+                <ul>
+                    <li><a href="/feed" ><img src="../static/Iconografia/home.png" alt=""></a></li>
+                    <li><a href="/upload" ><img src="../static/Iconografia/mais.png" alt=""></a></li>
+                    <li><a href="/notificacoes" ><img src="../static/Iconografia/sinos.png" alt=""></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="descricaoFotoContainer">
+        <img src="{{ imagem.url }}" alt="" class="imagem">
+        <ul class="interactions">
+            <li>
+                <!-- send image id to add like route-->
+                <form action="/addLike" method="post" style="display:inline;">
+                    <input type="hidden" name="imageId" value="{{ imagem.id }}">
+                    <button type="submit" style="background: none; border: none; cursor: pointer; padding: 0;">
+                        <img src="../static/Iconografia/heart.png" alt="Like" class="like-icon">
+                    </button>
+                </form>
+                <span>{{nmrLikes}}</span>
+            </li>
+            <li>
+                <a href="#" id="commentBtn" onclick="toggleComment(event)"><img src="../static/Iconografia/comment.png" alt="Comment" class="comment-icon"></a>
+                <span>{{nmrComentarios}}</span>
+            </li>
+            <li>
+                <a href="#" id="saveBtn" onclick="toggleSave(event)"><img src="../static/Iconografia/save.png" alt="Save" class="save-icon"></a>
+            </li>
+        </ul>
+        <div class="profile_pic">
+            <img id="fotoPerfil" src="{{ profile_pic }}">
+            <span id="username">{{username}}</span>
+        </div>
+        <div class="descricaoFoto">
+            <p id="descricao">{{descricao}}</p>
+        </div>
+    </div>
+
+    <div class="comentarios">
+        <p>{{nmrComentarios}} Comentários</p>
+
+        {% for comentario in comentarios %}
+        <div class="comentarioContainer">
+            <div class="profile_pic">
+                <img id="fotoPerfil" src="{{ profile_pic }}">
+            </div>
+            <div class="comentario">
+                <p><span id="username">{{username}}</span>{{comentario}}</p>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="addComment">
+        <form action="/addComment" method="post">
+            <input type="hidden" name="imageId" value="{{ imagem.id }}">
+            <input type="text" id="comentario" name="comentario" placeholder="Adicione um comentário..." required>
+            <button type="submit" style="background: none; border: none; cursor: pointer; padding: 0;">
+                <img src="../static/Iconografia/mais.png" alt="Publicar" width="30px">
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function toggleLike(event) {
+            event.preventDefault();
+            const icon = document.querySelector('.like-icon');
+            icon.classList.toggle('liked');
+        }
+
+        function toggleComment(event) {
+            event.preventDefault();
+            const icon = document.querySelector('.comment-icon');
+            icon.classList.toggle('active');
+        }
+
+        function toggleSave(event) {
+            event.preventDefault();
+            const icon = document.querySelector('.save-icon');
+            icon.classList.toggle('saved');
+        }
+    </script>
+
+{% endblock %}

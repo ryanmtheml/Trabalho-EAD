@@ -1,106 +1,208 @@
 [
     {
-        "id": 1,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake14.jpg",
-        "isPublic": true,
-        "categoria": "animais"
-    },
-    {
         "id": 2,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake2.jpg",
         "isPublic": true,
-        "categoria": "comida"
+        "categoria": [
+            "Comida"
+        ],
+        "descricao": "Bowl de pequeno-almo\u00c3\u00a7o saud\u00c3\u00a1vel com frutas",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 3,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake3.jpg",
         "isPublic": true,
-        "categoria": "paisagens"
+        "categoria": [
+            "Paisagens",
+            "Viagens"
+        ],
+        "descricao": "Uma viagem inesquec\u00c3\u00advel para as montanhas!",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 4,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake4.jpg",
         "isPublic": true,
-        "categoria": "decoracao"
+        "categoria": [
+            "Decoracao"
+        ],
+        "descricao": "Quarto decorado com plantas e luz natural",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 5,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake5.jpg",
         "isPublic": true,
-        "categoria": "moda"
+        "categoria": [
+            "Moda"
+        ],
+        "descricao": "O melhor buqu\u00c3\u00aa para o dia mais especial...",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 6,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake7.jpg",
         "isPublic": true,
-        "categoria": "paisagens"
+        "categoria": [
+            "Paisagens",
+            "Viagens"
+        ],
+        "descricao": "Acordar com a melhor vista de sempre",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 7,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake9.jpg",
         "isPublic": true,
-        "categoria": "paisagens"
+        "categoria": [
+            "Paisagens",
+            "Viagens"
+        ],
+        "descricao": "Aventuras de bicileta com a melhor parceira.",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 8,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake10.jpg",
         "isPublic": true,
-        "categoria": "paisagens"
+        "categoria": [
+            "Paisagens",
+            "Viagens"
+        ],
+        "descricao": "Deixa os medos de lado e arrisca!",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 9,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake11.jpg",
         "isPublic": true,
-        "categoria": "paisagens"
+        "categoria": [
+            "Paisagens",
+            "Motivacional"
+        ],
+        "descricao": "Uma frase motivacionar para come\u00c3\u00a7ar bem o dia!",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 10,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake12.jpg",
         "isPublic": true,
-        "categoria": "motivacional"
+        "categoria": [
+            "Motivacional"
+        ],
+        "descricao": "Agora ou nunca!",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 11,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake13.jpg",
         "isPublic": true,
-        "categoria": "animais"
+        "categoria": [
+            "Animais"
+        ],
+        "descricao": "Hoje foi dia de levar o patuda \u00c3\u00a0 praia!",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 12,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake14.jpg",
         "isPublic": true,
-        "categoria": "animais"
+        "categoria": [
+            "Animais"
+        ],
+        "descricao": "Os patudos mais lindos!",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 13,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake15.jpg",
         "isPublic": true,
-        "categoria": "animais"
+        "categoria": [
+            "Animais"
+        ],
+        "descricao": "O meu companheiro de 4 patas! At\u00c3\u00a9 combinamos outfits",
+        "likes": 1,
+        "comments": 2,
+        "commentsText": [
+            "dasd",
+            "fsdfsdf"
+        ],
+        "userLikesId": [
+            1
+        ]
     },
     {
         "id": 14,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake16.jpg",
         "isPublic": true,
-        "categoria": "decoracao"
+        "categoria": [
+            "Decoracao"
+        ],
+        "descricao": "Quarto com decora\u00c3\u00a7\u00c3\u00a3o contempor\u00c3\u00a2nea e maximalista.",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     },
-    {   "id": 15,
+    {
+        "id": 15,
         "autor_id": "1",
         "url": "static/Feed fake images/Imagens fake/fake17.jpg",
         "isPublic": true,
-        "categoria": "decoracao"
+        "categoria": [
+            "Decoracao"
+        ],
+        "descricao": "Nova decora\u00c3\u00a7\u00c3\u00a3o!",
+        "likes": 0,
+        "comments": 0,
+        "commentsText": [],
+        "userLikesId": []
     }
 ]

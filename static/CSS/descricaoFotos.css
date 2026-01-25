@@ -1,0 +1,235 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.nav2 {
+    position: fixed;   
+    top: 0;
+    left: 0;
+    height: 100vh;     
+    width: 90px;      
+    background-color: #ffffff; 
+    border-right: 1px solid #ddd;
+    z-index: 1000;     
+}
+
+.containerNav2 {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    height: 100%;
+    padding: 20px 0;
+}
+
+.containerLinks2 ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 50px; 
+    display: flex;
+    flex-direction: column; 
+    gap: 30px; 
+}
+
+.containerLinks2 ul li a img {
+    width: 30px; 
+    transition: transform 0.2s;
+}
+
+.containerLinks2 ul li a:hover img {
+    transform: scale(1.1); 
+}
+
+
+body {
+    margin-left: 90px; 
+}
+
+
+.descricaoFotoContainer{
+    display: flex;
+    flex-direction: column;
+    margin: 2em;
+    justify-content: center;
+    border-bottom: #333 solid 1px;
+}
+
+.imagem{
+    width: 533px;
+    height: auto;
+    border-radius: 40px;      
+    overflow: hidden;         
+    display: flex;
+    justify-content: center;
+    align-items: center;     
+    margin: 2em auto;         
+    margin-top: 3em;
+    position: relative;
+}
+
+.profile_pic{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 38em;
+    margin-top: 15px;
+
+}
+
+.profile_pic img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile_pic #username {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.descricaoFoto {
+    margin-left: 38em;
+    margin-top: 10px;
+}
+
+.descricaoFoto #descricao {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.fotoPerfil{
+    width: 100%;
+    height: 100%;
+}
+
+.interactions{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    margin-top: 15px;
+    margin-left: 36em;
+    list-style: none;
+}
+
+.interactions li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.interactions img{
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Like button - hover e click (vermelho) */
+.like-icon:hover {
+    filter: invert(21%) sepia(100%) saturate(7426%) hue-rotate(357deg) brightness(98%) contrast(118%);
+}
+
+.like-icon.liked {
+    filter: invert(21%) sepia(100%) saturate(7426%) hue-rotate(357deg) brightness(98%) contrast(118%);
+}
+
+/* Comment button - hover e click (aumenta tamanho) */
+.comment-icon:hover {
+    transform: scale(1.3);
+}
+
+.comment-icon.active {
+    transform: scale(1.3);
+}
+
+/* Save button - hover e click (amarelo) */
+.save-icon:hover {
+    filter: invert(78%) sepia(45%) saturate(600%) hue-rotate(360deg) brightness(95%) contrast(95%);
+}
+
+.save-icon.saved {
+    filter: invert(78%) sepia(45%) saturate(600%) hue-rotate(360deg) brightness(95%) contrast(95%);
+}
+
+.interactions span {
+    font-size: 14px;
+    color: #333;
+}
+
+.comentarios {
+    margin: 2em 0;
+    margin-left: 38em;
+}
+
+.comentarios > p {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.comentarioContainer {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.comentarioContainer .profile_pic {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.comentarioContainer .profile_pic img {
+    width: 35px;
+    height: 35px;
+}
+
+.comentario {
+    flex: 1;
+}
+
+.comentario p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.comentario #username {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.addComment {
+    margin-left: 38em;
+    margin-top: 20px;
+}
+
+.addComment form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.addComment input[type="text"] {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+}
+
+.addComment input[type="text"]:focus {
+    border-color: #999;
+}

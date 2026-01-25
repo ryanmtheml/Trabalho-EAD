@@ -21,7 +21,11 @@ def criarImagem(autor_id,caminho, id, imgprivacidade):
         "id": id,
         "autor_id": autor_id,
         "url": caminho,
-        "isPublic": imgprivacidade
+        "isPublic": imgprivacidade,
+        "categoria": [],
+        "descricao": "",
+        "likes": 0,
+        "comments": 0
     }
 
     fotos.append(novafoto)
