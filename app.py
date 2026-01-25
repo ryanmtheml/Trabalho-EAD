@@ -434,10 +434,6 @@ def upload():
 def notificacoes():
     return render_template("notificacoes.html")
 
-@app.route('/posts')
-def posts():
-    return render_template("posts.html")
-
 @app.route('/edicaoFotos')
 def edicaoFotos():
     return render_template("edicaoFotos.html")
