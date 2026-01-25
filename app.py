@@ -23,14 +23,14 @@ ficheiro_photos = Path(app.root_path) / 'photos.json'
 # Carregar lista de utilizadores
 def carregar_utilizadores():
     try:
-        with open(ficheiro_utilizadores, 'r') as f:
+        with open(ficheiro_utilizadores, 'r', encoding='utf-8') as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
 def guardar_utilizadores(dados):
-    with open(ficheiro_utilizadores, 'w') as userFile:
-        json.dump(dados, userFile, indent=4)
+    with open(ficheiro_utilizadores, 'w', encoding='utf-8') as userFile:
+        json.dump(dados, userFile, indent=4, ensure_ascii=False)
 
 @app.route('/')
 def home():
@@ -38,11 +38,11 @@ def home():
 
 @app.route('/feed')
 def feed():
-    with open(ficheiro_utilizadores, 'r') as f:
+    with open(ficheiro_utilizadores, 'r', encoding='utf-8') as f:
         utilizadores = json.load(f)
         
         
-    with open(ficheiro_photos, 'r') as f:
+    with open(ficheiro_photos, 'r', encoding='utf-8') as f:
         fotos = json.load(f)
     
     categoria = request.args.get('categoria')
@@ -56,13 +56,13 @@ def feed():
     if categoria is None:
         for foto in fotos:
             for cat in foto['categoria']:
-                if cat in categorias_escolhidas and foto['autor_id'] != session.get('user_id'):
+                if cat in categorias_escolhidas and int(foto['autor_id']) != session.get('user_id'):
                     fotos_filtradas.append(foto)
                     break
     else:
         for foto in fotos:
             for cat in foto['categoria']:
-                if cat == categoria and foto['autor_id'] != session.get('user_id'):
+                if cat == categoria and int(foto['autor_id']) != session.get('user_id'):
                     fotos_filtradas.append(foto)
     return render_template('feed.html', profile_pic=session.get('profile_pic'), fotos=fotos_filtradas[::-1])
 
@@ -242,11 +242,19 @@ def showContrastInput():
 
 @app.route('/applyFilter', methods=['POST'])
 def applyFilter():
-    imagem = session.get('current_upload')
-    # fetch selected filter from request args
+    current_path = session.get('current_upload')
+    
+    # Create backup on first filter application
+    backup_path = current_path.replace('.', '_backup.')
+    print(backup_path)
+    if not os.path.exists(backup_path):
+        img_original = Image.open(current_path)
+        img_original.save(backup_path)
+        img_original.close()
+    
+    # Always load from backup
     filtro = request.form.get('filter_type')
-    img = Image.open(imagem)
-    print(filtro)
+    img = Image.open(backup_path)
     
     if filtro=='blur':
         img_filtered = img.filter(ImageFilter.BLUR)
@@ -264,44 +272,61 @@ def applyFilter():
         img_filtered = img.filter(ImageFilter.FIND_EDGES)
     elif filtro=='sharpen':
         img_filtered = img.filter(ImageFilter.SHARPEN)
-        
     elif filtro=='smooth':
-        img = Image.open(imagem)
         img_filtered = img.filter(ImageFilter.SMOOTH)
+    else:
+        img_filtered = img
         
-    # Close original image to release file handle
     img.close()
-    img_filtered.save(imagem)
+    img_filtered.save(current_path)
     
-    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(imagem), imageId = request.args.get('imageId'), filtered=True)
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(current_path), imageId = request.args.get('imageId'), filtered=True)
 
 @app.route('/applyContrast', methods=['POST'])
 def applyContrast():
-    imagem = session.get('current_upload')
+    current_path = session.get('current_upload')
+    
+    # Create backup on first application
+    backup_path = current_path.replace('.', '_backup.')
+    if not os.path.exists(backup_path):
+        img_original = Image.open(current_path)
+        img_original.save(backup_path)
+        img_original.close()
+    
+    # Always load from backup
     contrast_value = float(request.form.get('contrast_value', 1.0))
-    img = Image.open(imagem)
+    img = Image.open(backup_path)
     img_contrasted = ImageEnhance.Contrast(img)
     img_contrasted = img_contrasted.enhance(contrast_value)
     img.close()
-    img_contrasted.save(imagem)
+    img_contrasted.save(current_path)
     
-    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(imagem), imageId = request.args.get('imageId'), contrasted=True)
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(current_path), imageId = request.args.get('imageId'), contrasted=True)
 
 @app.route('/applyFlip')
 def applyFlip():
-    imagem = session.get('current_upload')
-    img = Image.open(imagem)
+    current_path = session.get('current_upload')
+    
+    # Create backup on first application
+    backup_path = current_path.replace('.', '_backup.')
+    if not os.path.exists(backup_path):
+        img_original = Image.open(current_path)
+        img_original.save(backup_path)
+        img_original.close()
+    
+    # Always load from backup
+    img = Image.open(backup_path)
     img_flipped = img.transpose(Image.FLIP_LEFT_RIGHT)
     img.close()
-    img_flipped.save(imagem)
+    img_flipped.save(current_path)
     
-    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(imagem), imageId = request.args.get('imageId'))
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(current_path), imageId = request.args.get('imageId'))
 
 
 def getImageById(image_id):
     try:
         # Abrir o ficheiro JSON
-        with open('photos.json', 'r') as f:
+        with open('photos.json', 'r', encoding='utf-8') as f:
             imagens = json.load(f)
 
         # Procurar a imagem pelo ID
@@ -324,7 +349,7 @@ def renderizarprivadas():
 
 def getAllImages():
     try:
-        with open('photos.json', 'r') as photos:
+        with open('photos.json', 'r', encoding='utf-8') as photos:
             allImages = json.load(photos)
             print(allImages)
             return allImages[::-1]
@@ -336,7 +361,7 @@ def getAllImages():
 
 def getMyImages(private=False):
     try:
-        with open('photos.json', 'r') as photos:
+        with open('photos.json', 'r', encoding='utf-8') as photos:
             allImages = json.load(photos)
             user_id = session.get('user_id')
             
@@ -439,7 +464,7 @@ def compartilhar_post():
     imageId = session.get('image_id')
     print(imageId)
     try:
-        with open('photos.json', 'r') as f:
+        with open('photos.json', 'r', encoding='utf-8') as f:
             imagens = json.load(f)
 
         for img in imagens:
@@ -452,8 +477,8 @@ def compartilhar_post():
                     img['isPublic'] = False
                 break
 
-        with open('photos.json', 'w') as f:
-            json.dump(imagens, f, indent=4)
+        with open('photos.json', 'w', encoding='utf-8') as f:
+            json.dump(imagens, f, indent=4, ensure_ascii=False)
     except Exception as e:
         print("Erro ao atualizar imagem:", e)
 
@@ -465,7 +490,8 @@ def compartilhar_post():
 def descricaoFotos():
     imageId = request.args.get('imageId')
     imagem = getImageById(imageId)
-    with open(ficheiro_photos, 'r') as f:
+    folders = []
+    with open(ficheiro_photos, 'r', encoding='utf-8') as f:
         fotos = json.load(f)
         for foto in fotos:
             if foto['id'] == int(imageId):
@@ -474,8 +500,17 @@ def descricaoFotos():
                 comments=foto['comments']
                 commentsText=foto.get('commentsText', [])
                 break
+            
+    try:
+        with open('folders.json', 'r', encoding='utf-8') as f:
+            all_folders = json.load(f)
+            for folder in all_folders:
+                if int(folder['autor_id']) == session.get('user_id'):
+                    folders.append(folder)
+    except (FileNotFoundError, json.JSONDecodeError):
+        folders = []
     if imagem:
-        return render_template('descricaoFoto.html', imagem=imagem, profile_pic=session.get('profile_pic'), username=session.get('username'), descricao=descricao, nmrLikes=likes, nmrComentarios=comments, comentarios=commentsText)
+        return render_template('descricaoFoto.html', imagem=imagem, profile_pic=session.get('profile_pic'), username=session.get('username'), descricao=descricao, nmrLikes=likes, nmrComentarios=comments, comentarios=commentsText, folders=folders)
     else:
         return "<h1>Erro: Imagem não encontrada!</h1>"
     
@@ -485,7 +520,7 @@ def addComment():
     comentario = request.form.get('comentario')
     
     try:
-        with open('photos.json', 'r') as f:
+        with open('photos.json', 'r', encoding='utf-8') as f:
             fotos = json.load(f)
 
         for foto in fotos:
@@ -494,8 +529,8 @@ def addComment():
                 foto['commentsText'].append(comentario)
                 break
 
-        with open('photos.json', 'w') as f:
-            json.dump(fotos, f, indent=4)
+        with open('photos.json', 'w', encoding='utf-8') as f:
+            json.dump(fotos, f, indent=4, ensure_ascii=False)
     except Exception as e:
         print("Erro ao adicionar comentário:", e)
     
@@ -506,26 +541,138 @@ def addLike():
     imageId = request.form.get('imageId')
     
     try:
-        with open('photos.json', 'r') as f:
+        with open('photos.json', 'r', encoding='utf-8') as f:
             fotos = json.load(f)
 
         for foto in fotos:
             if foto['id'] == int(imageId):
-                if session['user_id'] in foto.get('userLikesId', []):
+                if session['user_id'] in foto['userLikesId']:
                     # Usuário já curtiu a foto, então não faz nada ou pode implementar "descurtir"
-                    fotos['likes'] -= 1
+                    foto['likes'] -= 1
                     foto['userLikesId'].remove(session['user_id'])  
                     break
                 foto['likes'] += 1  # Incrementar o número de likes
                 foto['userLikesId'].append(session['user_id'])  # Adicionar o ID do usuário à lista de likes
                 break
 
-        with open('photos.json', 'w') as f:
-            json.dump(fotos, f, indent=4)
+        with open('photos.json', 'w', encoding='utf-8') as f:
+            json.dump(fotos, f, indent=4, ensure_ascii=False)
     except Exception as e:
         print("Erro ao adicionar like:", e)
     
     return redirect(f'/descricaoFotos?imageId={imageId}')
+
+@app.route('/pesquisa', methods=['POST'])
+def pesquisa():
+    query = request.form.get('query', '').lower()
+    
+    with open(ficheiro_photos, 'r', encoding='utf-8') as f:
+        fotos = json.load(f)
+    
+    fotos_encontradas = []
+    for foto in fotos:
+        # Verificar se a query está em alguma categoria (convertendo para minúsculas)
+        categoria_match = any(query in cat.lower() for cat in foto['categoria'])
+        # Verificar se a query está na descrição
+        descricao_match = query in foto['descricao'].lower()
+        
+        if categoria_match or descricao_match:
+            fotos_encontradas.append(foto)
+    
+    return render_template('feed.html', profile_pic=session.get('profile_pic'), fotos=fotos_encontradas[::-1])
+
+
+@app.route('/folders')
+def folders():
+    user_id = session.get('user_id')
+    try:
+        with open('folders.json', 'r', encoding='utf-8') as f:
+            folders = json.load(f)
+            user_folders = []
+            for folder in folders :
+                print(folder['autor_id'], user_id)
+                if int(folder['autor_id']) == user_id:
+                    user_folders.append(folder)
+            return render_template('folders.html', profile_pic=session.get('profile_pic'), folders=user_folders,  nome=session.get('nome'), username=session.get('username'), email=session.get('email'), categorias=session.get('categorias'))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return render_template('folders.html', profile_pic=session.get('profile_pic'), folders=[])
+
+@app.route('/folder')
+def folder():
+    folder_id = request.args.get('folderId')
+    try:
+        with open('folders.json', 'r', encoding='utf-8') as f:
+            folders = json.load(f)
+            for folder in folders:
+                print(folder['id'], folder_id)
+                if str(folder['id']) == str(folder_id):
+                    fotos_id = folder['fotos_id']
+                    fotos = []
+                    with open('photos.json', 'r', encoding='utf-8') as pf:
+                        all_photos = json.load(pf)
+                        for foto in all_photos:
+                            if foto['id'] in fotos_id:
+                                fotos.append(foto)
+                    return render_template('folder.html', profile_pic=session.get('profile_pic'), folder_name=folder['nome'], fotos=fotos, nome=session.get('nome'), username=session.get('username'), email=session.get('email'), categorias=session.get('categorias'))
+            return "<h1>Erro: Pasta não encontrada!</h1>"
+    except (FileNotFoundError, json.JSONDecodeError):
+        return "<h1>Erro: Pasta não encontrada!</h1>"
+
+@app.route('/createFolder', methods=['POST'])
+def createFolder():
+    folder_name = request.form.get('folder_name')
+    user_id = session.get('user_id')
+    image_id = request.form.get('imageId')
+    try:
+        with open('folders.json', 'r', encoding='utf-8') as f:
+            folders = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        folders = []
+    capaFolder = ''
+    try:
+        with open('photos.json', 'r', encoding='utf-8') as pf:
+            all_photos = json.load(pf)
+            for foto in all_photos:
+                if foto['id'] == int(image_id):
+                    capaFolder = foto['url']
+                    break
+    except (FileNotFoundError, json.JSONDecodeError):
+        capaFolder = ''
+    folderId = folders[-1]['id'] + 1 if folders else 1
+    new_folder = {
+        'id': folderId,
+        'autor_id': user_id,
+        'nome': folder_name,
+        'fotos_id': [int(image_id)],
+        'capa': capaFolder
+    }
+    folders.append(new_folder)
+    
+    with open('folders.json', 'w', encoding='utf-8') as f:
+        json.dump(folders, f, indent=4, ensure_ascii=False)
+    
+    return redirect('/folders')
+
+@app.route('/saveToFolder', methods=['POST'])
+def saveToFolder():
+    folder_id = request.form.get('folder_id')
+    image_id = request.form.get('imageId')
+    try:
+        with open('folders.json', 'r', encoding='utf-8') as f:
+            folders = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        folders = []
+    print(folder_id, image_id)
+    for folder in folders:
+        if str(folder['id']) == str(folder_id):
+            if int(image_id) not in folder['fotos_id']:
+                folder['fotos_id'].append(int(image_id))
+            break
+
+    with open('folders.json', 'w', encoding='utf-8') as f:
+        json.dump(folders, f, indent=4, ensure_ascii=False)
+
+    return redirect(f'/folder?folderId={folder_id}')
 
 if __name__ == '__main__':
     app.run(debug=True)

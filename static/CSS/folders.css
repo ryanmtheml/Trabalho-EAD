@@ -174,7 +174,7 @@ body {
 
 .containerGridPerfil{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 7fr);
     gap: 3px;
     margin: 1em;
     padding: 4em;
@@ -187,8 +187,8 @@ body {
 }
 
 .containerGridPerfil img {
-    width: 100%;       /* A imagem ocupa 100% da largura da coluna */
-    height: 600px;     /* Altura fixa para manter o alinhamento */
+    width: 45%;       /* A imagem ocupa 100% da largura da coluna */
+    height: 14em;     /* Altura fixa para manter o alinhamento */
     object-fit: cover; /* Faz a imagem cortar em vez de esticar */
     border-radius: 12px;
     align-items: center;
@@ -196,4 +196,12 @@ body {
 
 .containerGridPerfil img:hover {
     filter: brightness(0.6);
+}
+
+.folder-item a{
+    text-decoration: none;
+    color: black;
+    font-size: larger;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
 }

@@ -7,7 +7,7 @@
         "categoria": [
             "Comida"
         ],
-        "descricao": "Bowl de pequeno-almo\u00c3\u00a7o saud\u00c3\u00a1vel com frutas",
+        "descricao": "Bowl de pequeno-almoço saudável com frutas",
         "likes": 0,
         "comments": 0,
         "commentsText": [],
@@ -22,7 +22,7 @@
             "Paisagens",
             "Viagens"
         ],
-        "descricao": "Uma viagem inesquec\u00c3\u00advel para as montanhas!",
+        "descricao": "Uma viagem inesquecível para as montanhas!",
         "likes": 0,
         "comments": 0,
         "commentsText": [],
@@ -34,7 +34,7 @@
         "url": "static/Feed fake images/Imagens fake/fake4.jpg",
         "isPublic": true,
         "categoria": [
-            "Decoracao"
+            "Decoração"
         ],
         "descricao": "Quarto decorado com plantas e luz natural",
         "likes": 0,
@@ -50,11 +50,13 @@
         "categoria": [
             "Moda"
         ],
-        "descricao": "O melhor buqu\u00c3\u00aa para o dia mais especial...",
-        "likes": 0,
+        "descricao": "O melhor buquê para o dia mais especial...",
+        "likes": 1,
         "comments": 0,
         "commentsText": [],
-        "userLikesId": []
+        "userLikesId": [
+            2
+        ]
     },
     {
         "id": 6,
@@ -80,7 +82,7 @@
             "Paisagens",
             "Viagens"
         ],
-        "descricao": "Aventuras de bicileta com a melhor parceira.",
+        "descricao": "Aventuras de bicicleta com a melhor parceira.",
         "likes": 0,
         "comments": 0,
         "commentsText": [],
@@ -110,7 +112,7 @@
             "Paisagens",
             "Motivacional"
         ],
-        "descricao": "Uma frase motivacionar para come\u00c3\u00a7ar bem o dia!",
+        "descricao": "Uma frase motivacional para começar bem o dia!",
         "likes": 0,
         "comments": 0,
         "commentsText": [],
@@ -138,11 +140,13 @@
         "categoria": [
             "Animais"
         ],
-        "descricao": "Hoje foi dia de levar o patuda \u00c3\u00a0 praia!",
-        "likes": 0,
+        "descricao": "Hoje foi dia de levar o patudo à praia!",
+        "likes": 1,
         "comments": 0,
         "commentsText": [],
-        "userLikesId": []
+        "userLikesId": [
+            1
+        ]
     },
     {
         "id": 12,
@@ -166,16 +170,11 @@
         "categoria": [
             "Animais"
         ],
-        "descricao": "O meu companheiro de 4 patas! At\u00c3\u00a9 combinamos outfits",
-        "likes": 1,
-        "comments": 2,
-        "commentsText": [
-            "dasd",
-            "fsdfsdf"
-        ],
-        "userLikesId": [
-            1
-        ]
+        "descricao": "O meu companheiro de 4 patas! Até combinamos outfits",
+        "likes": 0,
+        "comments": 3,
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 14,
@@ -183,9 +182,9 @@
         "url": "static/Feed fake images/Imagens fake/fake16.jpg",
         "isPublic": true,
         "categoria": [
-            "Decoracao"
+            "Decoração"
         ],
-        "descricao": "Quarto com decora\u00c3\u00a7\u00c3\u00a3o contempor\u00c3\u00a2nea e maximalista.",
+        "descricao": "Quarto com decoração contemporânea e maximalista.",
         "likes": 0,
         "comments": 0,
         "commentsText": [],
@@ -197,9 +196,9 @@
         "url": "static/Feed fake images/Imagens fake/fake17.jpg",
         "isPublic": true,
         "categoria": [
-            "Decoracao"
+            "Decoração"
         ],
-        "descricao": "Nova decora\u00c3\u00a7\u00c3\u00a3o!",
+        "descricao": "Nova decoração!",
         "likes": 0,
         "comments": 0,
         "commentsText": [],

@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<link rel="stylesheet" href="../static/CSS/perfil.css">
+<link rel="stylesheet" href="../static/CSS/folders.css">
     <nav class="nav2">
         <div class="containerNav2">
             <div class="logo" >
@@ -18,15 +18,13 @@
                 </ul>
             </div>
         </div>
-    </nav>
-
-  
+    </nav>    
 
 
     <div class="header-perfil">
         <div class="lado1">
             <div class="perfil-container">
-                <img id="fotoPerfil" src="{% if profile_pic != '' %}{{ profile_pic }}{% else %}../static/Iconografia/user.png{% endif %}" alt="Perfil">
+                <img id="fotoPerfil" src="{% if profile_pic != '' %}{{ profile_pic }}{% else %}../static/Iconografia/grey.jpg{% endif %}" alt="Perfil">
             </div>
             
             <form action="/uploadProfilePic" method="post" enctype="multipart/form-data">
@@ -38,7 +36,7 @@
 
             <div class="infos">
                 <h2 class="titlePerfil">{{username}}</h2><br>
-                <p class="bioPerfil">Olá! Eu sou o/a {{nome}}. <br></p>
+                <p class="bioPerfil">Olá! Eu sou {{nome}}. <br></p>
             </div>
         </div>
         
@@ -71,13 +69,19 @@
 
     <div class="containerGridPerfil">
         
-    {% for img in myImages %}
-        <div>
-           <a href="/descricaoFotos?imageId={{ img.id }}"> <img src="{{ img.url }}" alt="Imagem {{ img.id }}"></a>
+    {% for folder in folders %}
+        <div class="folder-item">
+           <a href="/folder?folderId={{ folder.id }}">
+               <img src="{{ folder.capa }}" alt="{{ folder.nome }}">
+               <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
+                   <img src="../static/Iconografia/folder.png" alt="" style="width: 20px; height: 20px; border-radius: unset !important;">
+                   <p class="folder-name" style="margin: 0;">{{ folder.nome }}</p>
+               </div>
+           </a>
         </div>
     {% endfor %}
-
-    </div>
+    
+</div>
     
 
 
