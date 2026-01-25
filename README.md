@@ -3,10 +3,15 @@
 
  Bibliotecas utilizadas:
 
--flask
--os
--time
--pathlib
--werkzeug
--bcrypt
--PIL
+ Dependências:
+
+ - flask
+ - werkzeug
+ - bcrypt
+ - Pillow
+
+ Standard library:
+
+ - os
+ - time
+ - pathlib
