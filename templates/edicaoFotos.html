@@ -53,10 +53,10 @@
     {% if cropped %}
         <form action ="/crop" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 20px 0;">
             <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
-                <input name="crop_x" placeholder="X" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
-                <input name="crop_y" placeholder="Y" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
-                <input name="crop_width" placeholder="Largura" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
-                <input name="crop_height" placeholder="Altura" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
+                <input type="number" name="crop_x" placeholder="X" min="0" step="1" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
+                <input type="number" name="crop_y" placeholder="Y" min="0" step="1" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
+                <input type="number" name="crop_width" placeholder="Largura" min="0" step="1" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
+                <input type="number" name="crop_height" placeholder="Altura" min="0" step="1" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
             </div>
             <div class="containerBtnCrop">
                 <button class="btnCrop" type="submit" style="padding: 10px 30px; background-color: rgb(243, 2, 53); color: white; font-weight: bold; border-radius: 20px; border: none; cursor: pointer; font-size: 16px;">Cortar</button>
