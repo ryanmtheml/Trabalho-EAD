@@ -51,21 +51,22 @@
     </nav>
 
     {% if cropped %}
-        <form action ="/crop" method="post">
-            <input name="crop_x">
-            <input name="crop_y" >
-            <input name="crop_width">
-            <input name="crop_height" >
+        <form action ="/crop" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 20px 0;">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                <input name="crop_x" placeholder="X" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
+                <input name="crop_y" placeholder="Y" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
+                <input name="crop_width" placeholder="Largura" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
+                <input name="crop_height" placeholder="Altura" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 120px;">
+            </div>
             <div class="containerBtnCrop">
-                <button class="btnCrop" type="submit">Cortar</button>
+                <button class="btnCrop" type="submit" style="padding: 10px 30px; background-color: rgb(243, 2, 53); color: white; font-weight: bold; border-radius: 20px; border: none; cursor: pointer; font-size: 16px;">Cortar</button>
             </div>
         </form>
     {% endif %}
 
     {% if filtered %}
-        <form action ="/applyFilter" method="post">
-            <!-- select/dropdown with static filters-->
-            <select name="filter_type" id="filter_type">
+        <form action ="/applyFilter" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 20px 0;">
+            <select name="filter_type" id="filter_type" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 250px; font-size: 14px;">
                 <option value="blur">Desfocar</option>
                 <option value="contour">Esboço</option>
                 <option value="detail">Realçar Detalhes</option>
@@ -77,17 +78,16 @@
                 <option value="smooth">Esmoçar</option>
             </select>
             <div class="containerBtnFilter">
-                <button class="btnFilter" type="submit">Aplicar Filtro</button>
+                <button class="btnFilter" type="submit" style="padding: 10px 30px; background-color: rgb(243, 2, 53); color: white; font-weight: bold; border-radius: 20px; border: none; cursor: pointer; font-size: 16px;">Aplicar Filtro</button>
             </div>
         </form>
     {% endif %}
 
-    
     {% if contrasted %}
-        <form action ="/applyContrast" method="post">
-            <input name="contrast_value">
+        <form action ="/applyContrast" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 20px 0;">
+            <input name="contrast_value" placeholder="Valor de contraste (ex: 1.5)" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; width: 250px;">
             <div class="containerBtnContrast">
-                <button class="btnContrast" type="submit">Ajustar Contraste</button>
+                <button class="btnContrast" type="submit" style="padding: 10px 30px; background-color: rgb(243, 2, 53); color: white; font-weight: bold; border-radius: 20px; border: none; cursor: pointer; font-size: 16px;">Ajustar Contraste</button>
             </div>
         </form>
     {% endif %}

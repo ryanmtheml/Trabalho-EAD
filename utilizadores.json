@@ -2,28 +2,6 @@
     {
         "user_id": 1,
         "profile_picture": "",
-        "nome": "Manuela",
-        "username": "manu",
-        "email": "manu2@gmail.com",
-        "password": "$2b$12$l24kDmqcmR9OCy9DBV2hgOdXe5VGJyDwqHq7KPdZNyx6IHN7A1tMG",
-        "isAdmin": false,
-        "isBlocked": false,
-        "categorias": [
-            "Comida",
-            "Paisagens",
-            "Moda",
-            "Arte",
-            "Arquitetura",
-            "Decoração",
-            "Motivacional",
-            "Animais",
-            "Desporto"
-        ],
-        "profile_pic": "/static/all_images/profile_1_1768875329595.jpg"
-    },
-    {
-        "user_id": 2,
-        "profile_picture": "",
         "nome": "Teste",
         "username": "teste1",
         "email": "teste@gmail.com",
@@ -45,6 +23,6 @@
             "Decoração",
             "Motivacional"
         ],
-        "profile_pic": "/static/all_images/profile_2_1769360941442.jpg"
+        "profile_pic": ""
     }
 ]

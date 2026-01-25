@@ -453,11 +453,15 @@ def compartilhar_post():
     descricao = request.form.get('descricaoFoto')
     categorias = request.form.getlist('categorias')  # Lista de categorias selecionadas
     privacidade = request.form.get('privacidade')
-    nova_categoria = request.form.get('nomeCategoria')
+    nova_categoria = request.form.get('nomeCategoria', '').strip()
     
     # Se criou uma nova categoria, adicionar à lista
     if nova_categoria:
         categorias.append(nova_categoria)
+    
+    # Validar que pelo menos uma categoria foi fornecida
+    if not categorias:
+        return "<h1>Erro: Deve selecionar pelo menos uma categoria ou criar uma nova!</h1>"
     
     # create object image with new data on the JSON photos.json
     imagem = session.get('current_upload')

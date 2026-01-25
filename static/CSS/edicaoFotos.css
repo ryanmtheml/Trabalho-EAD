@@ -122,17 +122,15 @@ body {
 }
 
 .btnCompartilhar{
-    padding: 16px;
+    padding: 10px 30px;
     background-color: rgb(243, 2, 53);
     color: rgb(255, 255, 255) !important;
     font-weight: bold;
-    border-radius: 25px;
+    border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    position: absolute;
     border: none;
-    font-size: larger;
-    
+    font-size: 16px;
 }
 
 .btnCompartilhar:hover{
@@ -142,8 +140,7 @@ body {
 .containerBtnCompartilhar{
     display: flex;
     justify-content: center;
-    margin-bottom: 50px;
-    margin-left: 1071px;
+    margin: 30px 0 50px 0;
 }
 
 .containerBtnCompartilhar a{
