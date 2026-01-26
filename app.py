@@ -243,7 +243,7 @@ def uploadImagem():
     gerar_grafico_imagens()
 
 
-    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id, cropped=False))
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id, cropped=False)
     
 
 def gerar_grafico_imagens():
