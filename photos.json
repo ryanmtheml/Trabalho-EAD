@@ -51,13 +51,13 @@
             "Moda"
         ],
         "descricao": "O melhor buquê para o dia mais especial...",
-        "likes": 1,
-        "comments": 1,
+        "likes": 0,
+        "comments": 0,
         "commentsText": [
-            "Lindo!"
+            
         ],
         "userLikesId": [
-            2
+           
         ]
     },
     {
@@ -147,7 +147,7 @@
         "comments": 0,
         "commentsText": [],
         "userLikesId": [
-            1
+            
         ]
     },
     {
@@ -204,6 +204,7 @@
         "likes": 0,
         "comments": 0,
         "commentsText": [
+
         ],
         "userLikesId": []
     }
