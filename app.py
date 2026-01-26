@@ -6,7 +6,8 @@ from pathlib import Path #blioteca para manipular caminhos de ficheiros
 from werkzeug.utils import secure_filename
 from modules import upload as uploadlb
 from flask_bcrypt import Bcrypt
-from datetime import datetime   
+from datetime import datetime 
+import matplotlib.pyplot as grafico
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -57,24 +58,32 @@ def validation():
     pw = request.form.get('password')
     username = request.form.get('username') 
     
-    user_encontrado = False 
+    user_encontrado = False
+
     for user in utilizadores:
 
         if user['username'] == username and bcrypt.check_password_hash(user['password'], pw):
+
             session['profile_picture'] = user['profile_picture']
             session['user_id'] = user['user_id']
             session['username'] = user['username']
             session['nome'] = user['nome']
             session['email'] = user['email']
-            user_encontrado = True
+            session['isAdmin']= user['isAdmin']
+            
+            user_encontrado= True
             break
-        if user['username'] == username and bcrypt.check_password_hash(user['password'], pw) == False:
-            return "<h1>Erro: Palavra-passe incorreta!</h1>"
-        
 
+            
+
+        if user['username'] == username and bcrypt.check_password_hash(user['password'], pw):
+            return "<h1>Erro: Palavra-passe incorreta!</h1>"
+    
     if user_encontrado:
-        
-        return redirect('/feed')
+        if user['isAdmin']:
+            return redirect('/admin') 
+        else:
+            return redirect ('/feed')
     else:
         return "<h1>Erro: Utilizador não encontrado!</h1>"
 
@@ -141,7 +150,7 @@ def categorias():
         
     
     # 5. Redirecionar para o feed
-    return render_template('feed.html')
+    return redirect ('/feed')
 
 
 # END OF UTILIZADORES FUNCTION
@@ -168,8 +177,6 @@ def uploadImagem():
     imagem.save(caminho) #salvo a imagem no caminho
     uploadlb.criarImagem(autor_id,caminho,id, imgprivacidade)
 
-    
-
     try:
         with open('notificacoes.json', 'r') as f:
             lista = json.load(f)
@@ -189,9 +196,46 @@ def uploadImagem():
     with open('notificacoes.json', 'w') as f:
         json.dump(lista, f, indent=4)
 
+    gerar_grafico_imagens()
+
 
     return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id)
     
+
+def gerar_grafico_imagens():
+    with open('photos.json', 'r') as f:
+            imagens = json.load(f)
+
+    categorias_oficiais = [
+        "comida", "paisagem", "moda", "arte", "animais", "arquitetura",
+        "viagens", "tecnologia", "desporto", "música", "cinema"
+    ]
+
+    contagem = {cat: 0 for cat in categorias_oficiais}
+    contagem["outros"] = 0
+
+    for img in imagens:
+        cat = img["categoria"].strip().lower()
+        if cat in contagem:
+            contagem[cat] += 1
+        else:
+            contagem["outros"] += 1
+
+    labels = list(contagem.keys())
+    valores = list(contagem.values())
+
+    grafico.figure(figsize=(9, 4))
+    grafico.bar(labels, valores)
+    grafico.xticks(rotation=45, ha="right")
+    grafico.ylabel("Nº de imagens")
+    grafico.title("Imagens por Categoria")
+    grafico.tight_layout()
+
+    
+    grafico.savefig("static/grafico_categorias.png")
+    grafico.close()
+
+
 
 @app.route('/privar', methods = ['POST'])
 def atualizarPrivacidade():
@@ -309,7 +353,7 @@ def notificacoes():
 
             user_id = session.get('user_id')
 
-            minhas_notificacoes = [notificacoes for notificacoes in todas if notificacoes.get('autor_id') == user_id]
+            minhas_notificacoes = [notificacoes for notificacoes in todas if notificacoes.get('autor_id') == user_id][::-1]
     except:
         minhas_notificacoes = []
 
@@ -327,6 +371,32 @@ def edicaoFotos():
 def compartilhar(imageId):
     img = getImageById(imageId)
     return render_template('compartilhar.html', imageId= imageId, imageURL= img['url'])
+
+@app.route('/admin')
+def paginaAdmin():
+
+    utilizadores = carregar_utilizadores()
+
+    
+    total_admin = sum(1 for admin in utilizadores if admin["isAdmin"])
+    total_normal = sum(1 for admin in utilizadores if not admin["isAdmin"])
+
+    #CÓDIGO PARA GERAR OS GRÁFICOS:
+
+    #gráfico para utilizadores e admins
+    legendas = ['Admins', 'Users']
+    valores= [total_admin, total_normal]
+
+    
+    grafico.figure(figsize=(4,4))
+    grafico.pie(valores, labels=legendas, autopct='%1.1f%%')
+    grafico.title("Distribuição de Utilizadores")
+
+    
+    grafico.savefig("static/grafico_admins.png")
+    grafico.close()
+
+    return render_template('admin.html', utilizadores = utilizadores)
 
 if __name__ == '__main__':
     app.run(debug=True)

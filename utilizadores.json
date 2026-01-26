@@ -18,17 +18,47 @@
     {
         "user_id": 2,
         "profile_picture": "",
-        "nome": "rafaela",
-        "username": "rafaela2",
-        "email": "rafaela10@gmai.com",
-        "password": "$2b$12$Pjj27OVf9yzhLReLxVGMuOOyny6ZxWPu2CJkUAwRIxuMvCW9S7kw6",
-        "isAdmin": false,
+        "nome": "Elon",
+        "username": "elonmusk",
+        "email": "elonmusk@gmail.com",
+        "password": "$2b$12$i40ca71EioAc9q9cifluu.gdgtXn.ol565kPk/oZfDOIz3.dhw6oK",
+        "isAdmin": true,
         "isBlocked": false,
         "categorias": [
-            "Arte",
-            "Arquitetura",
-            "Tecnologia"
+            "Comida",
+            "Paisagens",
+            "Desporto"
         ],
-        "profile_pic": "/static/all_images/profile_2_1768237197117.jpg"
+        "profile_pic": "/static/all_images/profile_2_1769356422463.png"
+    },
+    {
+        "user_id": 3,
+        "profile_picture": "",
+        "nome": "Elosdn",
+        "username": "elonmusk",
+        "email": "elonmusk2@gmail.com",
+        "password": "$2b$12$i40ca71EioAc9q9cifluu.gdgtXn.ol565kPk/oZfDOIz3.dhw6oK",
+        "isAdmin": true,
+        "isBlocked": false,
+        "categorias": [
+            "Comida",
+            "Paisagens",
+            "Desporto"
+        ]
+    },
+    {
+        "user_id": 4,
+        "profile_picture": "",
+        "nome": "Elosdn",
+        "username": "elonmusk",
+        "email": "elonmusk2@gmail.com",
+        "password": "$2b$12$i40ca71EioAc9q9cifluu.gdgtXn.ol565kPk/oZfDOIz3.dhw6oK",
+        "isAdmin": true,
+        "isBlocked": false,
+        "categorias": [
+            "Comida",
+            "Paisagens",
+            "Desporto"
+        ]
     }
 ]
