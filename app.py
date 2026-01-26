@@ -8,6 +8,10 @@ from modules import upload as uploadlb
 from flask_bcrypt import Bcrypt
 from PIL import Image, ImageFilter, ImageEnhance
 
+from datetime import datetime 
+import matplotlib
+matplotlib.use('Agg')  # backend sem interface gráfica
+import matplotlib.pyplot as grafico
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -16,7 +20,7 @@ app.secret_key = "secret"
 UPLOAD_FOLDER = os.path.join('static', 'all_images') # criando caminho onde defino pasta para guardar as imagens (uso a os library)
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) #verificação da pasta (se não existir, é criada uma)
 
-
+# UTILIZADORES FUNCTION
 
 ficheiro_utilizadores = Path(app.root_path) / 'utilizadores.json'
 ficheiro_photos = Path(app.root_path) / 'photos.json'
@@ -32,9 +36,35 @@ def guardar_utilizadores(dados):
     with open(ficheiro_utilizadores, 'w', encoding='utf-8') as userFile:
         json.dump(dados, userFile, indent=4, ensure_ascii=False)
 
+
+
 @app.route('/')
 def home():
     return render_template('home.html')
+
+@app.route('/removerUser/<user_id>')
+def remover_utilizador(user_id):
+    utilizadores = carregar_utilizadores()
+
+
+    if not user_id:
+        return redirect("/admin")
+
+    try:
+        user_id = int(user_id)
+    except:
+        return redirect("/admin")
+
+    utilizadores = carregar_utilizadores()
+
+    # 🔥 Remover o utilizador da lista
+    novos_utilizadores = [u for u in utilizadores if u["user_id"] != user_id]
+
+    # Guardar o ficheiro atualizado
+    guardar_utilizadores(novos_utilizadores)
+
+    return redirect("/admin")
+
 
 @app.route('/feed')
 def feed():
@@ -72,7 +102,8 @@ def validation():
     pw = request.form.get('password')
     username = request.form.get('username') 
     
-    user_encontrado = False 
+    user_encontrado = False
+
     for user in utilizadores:
 
         if user['username'] == username and bcrypt.check_password_hash(user['password'], pw):
@@ -81,15 +112,21 @@ def validation():
             session['username'] = user['username']
             session['nome'] = user['nome']
             session['email'] = user['email']
-            user_encontrado = True
+            session['isAdmin']= user['isAdmin']
+            
+            user_encontrado= True
             break
-        if user['username'] == username and bcrypt.check_password_hash(user['password'], pw) == False:
-            return "<h1>Erro: Palavra-passe incorreta!</h1>"
-        
 
+            
+
+        if user['username'] == username and bcrypt.check_password_hash(user['password'], pw):
+            return "<h1>Erro: Palavra-passe incorreta!</h1>"
+    
     if user_encontrado:
-        
-        return redirect('/feed')
+        if user['isAdmin']:
+            return redirect('/admin') 
+        else:
+            return redirect ('/feed')
     else:
         return "<h1>Erro: Utilizador não encontrado!</h1>"
 
@@ -159,7 +196,9 @@ def categorias():
     return redirect('/feed')
 
 
+# END OF UTILIZADORES FUNCTION
 
+# UPLOAD FUNCTION
 
 @app.route('/uploadimg', methods = ['POST'] )
 def uploadImagem():
@@ -181,6 +220,87 @@ def uploadImagem():
     imagem.save(caminho) #salvo a imagem no caminho
     session['current_upload'] = caminho  
     uploadlb.criarImagem(autor_id,caminho,id, imgprivacidade)
+
+    try:
+        with open('notificacoes.json', 'r') as f:
+            lista = json.load(f)
+    except:
+        lista = []
+
+    novaNotificacao = {
+        "nome": session.get('nome'),
+        "mensagem": "nova imagem adicionada",
+        "hora": datetime.now().strftime("%d-%m-%Y %H:%M"),
+        "autor_id": autor_id
+        
+    }
+
+    lista.append(novaNotificacao)
+
+    with open('notificacoes.json', 'w') as f:
+        json.dump(lista, f, indent=4)
+
+    gerar_grafico_imagens()
+
+
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id, cropped=False))
+    
+
+def gerar_grafico_imagens():
+    with open('photos.json', 'r') as f:
+            imagens = json.load(f)
+
+    categorias_oficiais = [
+        "comida", "paisagens", "moda", "arte", "animais", "arquitetura",
+        "viagens", "tecnologia", "desporto", "música", "cinema"
+    ]
+
+    contagem = {cat: 0 for cat in categorias_oficiais}
+    contagem["outros"] = 0
+
+    for img in imagens:
+        cat = img["categoria"].strip().lower()
+        if cat in contagem:
+            contagem[cat] += 1
+        else:
+            contagem["outros"] += 1
+
+    labels = list(contagem.keys())
+    valores = list(contagem.values())
+
+    grafico.figure(figsize=(9, 4))
+    grafico.bar(labels, valores)
+    grafico.xticks(rotation=45, ha="right")
+    grafico.ylabel("Nº de imagens")
+    grafico.title("Imagens por Categoria")
+    grafico.tight_layout()
+
+    
+    grafico.savefig("static/grafico_categorias.png")
+    grafico.close()
+
+
+
+@app.route('/privar', methods = ['POST'])
+def atualizarPrivacidade():
+    imageId = request.form.get('imageId')
+    print(imageId)
+    try:
+        with open('photos.json', 'r') as f:
+            imagens = json.load(f)
+
+        for img in imagens:
+            print(img['id'])
+            if img['id'] == int(imageId):
+                img['isPublic'] = False
+                print('alterado para false ')
+                break
+        print(imagens)
+        with open('photos.json', 'w') as f:
+            json.dump(imagens, f, indent=4)
+    except Exception as e:
+        print("Erro ao atualizar privacidade:", e)
+    return redirect('/privadas')
     return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id, cropped=False)
 
 
@@ -389,7 +509,7 @@ def getMyImages(private=False):
         print(f"DEBUG - Erro ao ler photos.json: {e}")
         return []
 
-
+# END OF UPLOAD FUNCTION
 
 @app.route('/perfil')
 def perfil():
@@ -429,14 +549,82 @@ def upload():
         return redirect(url_for('home'))
     return render_template("upload.html")
 
+# NOTIFICATIONS FUNCTION
+
 @app.route('/notificacoes')
 def notificacoes():
-    return render_template("notificacoes.html")
+    
+    try:
+        with open('notificacoes.json', 'r') as f:
+            todas = json.load(f)
+
+            user_id = session.get('user_id')
+
+            minhas_notificacoes = [notificacoes for notificacoes in todas if notificacoes.get('autor_id') == user_id or notificacoes.get('fromAdmin')][::-1]
+    except:
+        minhas_notificacoes = []
+
+    return render_template("notificacoes.html", notificacoes=minhas_notificacoes)
 
 @app.route('/edicaoFotos')
 def edicaoFotos():
     return render_template("edicaoFotos.html")
 
+@app.route('/compartilhar/<imageId>')
+def compartilhar(imageId):
+    img = getImageById(imageId)
+    return render_template('compartilhar.html', imageId= imageId, imageURL= img['url'])
+
+@app.route('/admin')
+def paginaAdmin():
+
+    utilizadores = carregar_utilizadores()
+
+    
+    total_admin = sum(1 for admin in utilizadores if admin["isAdmin"])
+    total_normal = sum(1 for admin in utilizadores if not admin["isAdmin"])
+
+    #CÓDIGO PARA GERAR OS GRÁFICOS:
+
+    #gráfico para utilizadores e admins
+    legendas = ['Admins', 'Users']
+    valores= [total_admin, total_normal]
+
+    
+    grafico.figure(figsize=(4,4))
+    grafico.pie(valores, labels=legendas, autopct='%1.1f%%')
+    grafico.title("Distribuição de Utilizadores")
+
+    
+    grafico.savefig("static/grafico_admins.png")
+    grafico.close()
+
+    return render_template('admin.html', utilizadores = utilizadores)
+
+@app.route ("/admin/enviar-notificacao", methods=['POST'])
+def enviar_notificacao():
+    mensagem = request.form.get('mensagem') 
+
+    try:
+        with open('notificacoes.json', 'r') as f:
+            lista = json.load(f)
+    except:
+        lista = []
+
+    novaNotificacao = {
+        "nome": session.get('nome'),
+        "mensagem": mensagem,
+        "hora": datetime.now().strftime("%d-%m-%Y %H:%M"),
+        "fromAdmin": True
+        
+    }
+
+    lista.append(novaNotificacao)
+
+    with open('notificacoes.json', 'w') as f:
+        json.dump(lista, f, indent=4)
+
+    return redirect('/admin')
 @app.route('/compartilhar')
 def compartilhar():
     img = session.get('current_upload')

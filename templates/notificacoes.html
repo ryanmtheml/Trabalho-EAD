@@ -5,6 +5,7 @@
 {% block content %}
 
 <link rel="stylesheet" href="../static/CSS/upload.css">
+<link rel="stylesheet" href="../static/CSS/notifications.css">
 
     <nav class="nav2">
         <div class="containerNav2">
@@ -20,6 +21,27 @@
             </div>
         </div>
     </nav>
- 
+
+     <div class="novaPublicacao">
+        <a href="/perfil"><img src="../static/Iconografia/back.png" alt="" width="40px"></a>
+        <h1>Notificações</h1>
+     </div>
+    
+    <div class="bodynotification">    
+    {% for n in notificacoes %}
+            <section class="notification">
+                <span class="notification-box">
+            <div class="notification-header">
+                <span class="notification-name">{{n['nome']}}</span>
+                <span class="notification-time">{{n['hora']}}</span>
+            </div>
+            <div class="notification-title">Nova notificação</div>
+            <div class="notification-text">
+                {{n['mensagem']}}
+            </div>
+                </span>
+            </section>            
+    {% endfor %}
+    </div>
     
 {% endblock %}
