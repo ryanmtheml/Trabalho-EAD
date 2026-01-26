@@ -7,6 +7,8 @@ from werkzeug.utils import secure_filename
 from modules import upload as uploadlb
 from flask_bcrypt import Bcrypt
 from datetime import datetime 
+import matplotlib
+matplotlib.use('Agg')  # backend sem interface gráfica
 import matplotlib.pyplot as grafico
 
 app = Flask(__name__)
@@ -32,9 +34,34 @@ def guardar_utilizadores(dados):
     with open(ficheiro_utilizadores, 'w') as userFile:
         json.dump(dados, userFile, indent=4)
 
+
 @app.route('/')
 def home():
     return render_template('home.html')
+
+@app.route('/removerUser/<user_id>')
+def remover_utilizador(user_id):
+    utilizadores = carregar_utilizadores()
+
+
+    if not user_id:
+        return redirect("/admin")
+
+    try:
+        user_id = int(user_id)
+    except:
+        return redirect("/admin")
+
+    utilizadores = carregar_utilizadores()
+
+    # 🔥 Remover o utilizador da lista
+    novos_utilizadores = [u for u in utilizadores if u["user_id"] != user_id]
+
+    # Guardar o ficheiro atualizado
+    guardar_utilizadores(novos_utilizadores)
+
+    return redirect("/admin")
+
 
 @app.route('/feed')
 def feed():
@@ -50,7 +77,7 @@ def feed():
             if foto['categoria'] == categoria:
                 fotos_filtradas.append(foto)
 
-    return render_template('feed.html', profile_pic=session.get('profile_pic'), fotos=fotos_filtradas[::-1])
+    return render_template('feed.html', profile_pic=session.get('profile_pic'), fotos=fotos_filtradas[::-1], isAdmin = session.get("isAdmin"))
 
 @app.route('/validation', methods=['POST'])
 def validation():
@@ -207,7 +234,7 @@ def gerar_grafico_imagens():
             imagens = json.load(f)
 
     categorias_oficiais = [
-        "comida", "paisagem", "moda", "arte", "animais", "arquitetura",
+        "comida", "paisagens", "moda", "arte", "animais", "arquitetura",
         "viagens", "tecnologia", "desporto", "música", "cinema"
     ]
 
@@ -353,7 +380,7 @@ def notificacoes():
 
             user_id = session.get('user_id')
 
-            minhas_notificacoes = [notificacoes for notificacoes in todas if notificacoes.get('autor_id') == user_id][::-1]
+            minhas_notificacoes = [notificacoes for notificacoes in todas if notificacoes.get('autor_id') == user_id or notificacoes.get('fromAdmin')][::-1]
     except:
         minhas_notificacoes = []
 
@@ -397,6 +424,31 @@ def paginaAdmin():
     grafico.close()
 
     return render_template('admin.html', utilizadores = utilizadores)
+
+@app.route ("/admin/enviar-notificacao", methods=['POST'])
+def enviar_notificacao():
+    mensagem = request.form.get('mensagem') 
+
+    try:
+        with open('notificacoes.json', 'r') as f:
+            lista = json.load(f)
+    except:
+        lista = []
+
+    novaNotificacao = {
+        "nome": session.get('nome'),
+        "mensagem": mensagem,
+        "hora": datetime.now().strftime("%d-%m-%Y %H:%M"),
+        "fromAdmin": True
+        
+    }
+
+    lista.append(novaNotificacao)
+
+    with open('notificacoes.json', 'w') as f:
+        json.dump(lista, f, indent=4)
+
+    return redirect('/admin')
 
 if __name__ == '__main__':
     app.run(debug=True)

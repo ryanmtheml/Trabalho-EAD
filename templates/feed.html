@@ -15,6 +15,9 @@
                     <li><a href="/feed" ><img src="../static/Iconografia/home.png" alt=""></a></li>
                     <li><a href="/upload" ><img src="../static/Iconografia/mais.png" alt=""></a></li>
                     <li><a href="/notificacoes" ><img src="../static/Iconografia/sinos.png" alt=""></a></li>
+                    {% if isAdmin %}
+                    <li><a href="/admin" ><img src="../static/Iconografia/cadeado.png" alt=""></a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

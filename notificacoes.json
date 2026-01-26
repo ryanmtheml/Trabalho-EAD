@@ -34,5 +34,29 @@
         "mensagem": "nova imagem adicionada",
         "hora": "25-01-2026 22:04",
         "autor_id": 1
+    },
+    {
+        "nome": "Elon",
+        "mensagem": "nova imagem adicionada",
+        "hora": "26-01-2026 02:29",
+        "autor_id": 2
+    },
+    {
+        "nome": "Elon",
+        "mensagem": "nova imagem adicionada",
+        "hora": "26-01-2026 02:35",
+        "autor_id": 2
+    },
+    {
+        "nome": "Elon",
+        "mensagem": "nova imagem adicionada",
+        "hora": "26-01-2026 02:35",
+        "autor_id": 2
+    },
+    {
+        "nome": "Elon",
+        "mensagem": "ola eu sou o admin",
+        "hora": "26-01-2026 03:27",
+        "fromAdmin": true
     }
 ]

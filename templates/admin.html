@@ -7,29 +7,28 @@
 <link rel="stylesheet" href="../static/CSS/upload.css">
 <link rel="stylesheet" href="../static/CSS/admin.css">
 
-    <nav class="nav2">
-        <div class="containerNav2">
-            <div class="logo" >
-                <a href="/feed"><img class="logo" src="../static/mg.png" alt="" width="70px"></a>
-            </div>
-            <div class="containerLinks2">
-                <ul>
-                    <li><a href="/feed" ><img src="../static/Iconografia/home.png" alt=""></a></li>
-                    <li><a href="/upload" ><img src="../static/Iconografia/mais.png" alt=""></a></li>
-                    <li><a href="/notificacoes" ><img src="../static/Iconografia/sinos.png" alt=""></a></li>
-                </ul>
-            </div>
+<nav class="nav2">
+    <div class="containerNav2">
+        <div class="logo">
+            <a href="/feed"><img class="logo" src="../static/mg.png" alt="" width="70px"></a>
         </div>
-    </nav>
+        <div class="containerLinks2">
+            <ul>
+                <li><a href="/feed"><img src="../static/Iconografia/home.png" alt=""></a></li>
+                <li><a href="/upload"><img src="../static/Iconografia/mais.png" alt=""></a></li>
+                <li><a href="/notificacoes"><img src="../static/Iconografia/sinos.png" alt=""></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-    <div class="novaPublicacao">
-        <a href="/feed"><img src="../static/Iconografia/back.png" alt="" width="40px"></a>
-        <h1>Painel de Administração</h1>
-     </div>
+<div class="novaPublicacao">
+    <a href="/feed"><img src="../static/Iconografia/back.png" alt="" width="40px"></a>
+    <h1>Painel de Administração</h1>
+</div>
 
-    <div>
-        
-    
+
+<div>
     <table>
         <tr>
             <th>ID</th>
@@ -37,8 +36,8 @@
             <th>Username</th>
             <th>Email</th>
             <th>Admin?</th>
-            <th>Bloqueado?</th>
             <th>Categorias</th>
+            <th>Ações</th>
         </tr>
 
         {% for user in utilizadores %}
@@ -48,28 +47,42 @@
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
             <td>{{ 'Sim' if user.isAdmin else 'Não' }}</td>
-            <td>{{ 'Sim' if user.isBlocked else 'Não' }}</td>
             <td>
                 {% if user.categorias %}
-                    {{ ', '.join(user.categorias) }}
+                {{ ', '.join(user.categorias) }}
                 {% else %}
-                    Sem categorias
+                Sem categorias
                 {% endif %}
             </td>
+            <td><a href="/removerUser/{{ user.user_id }}">remover</a></td>
         </tr>
         {% endfor %}
     </table>
 
-    </div>
+</div>
 
-    <div>
-        
+<div>
+
     <h2>Gráfico de Admins vs Normais</h2>
     <img src="/static/grafico_admins.png" alt="Gráfico de utilizadores">
 
     <h2>Gráfico de imagens com categorias</h2>
     <img src="/static/grafico_categorias.png" alt="">
 
-    </div>
+</div>
+
+<div class="formNotificacoes">
+    <h2>Enviar Notificação</h2>
+    <form method="POST" action="/admin/enviar-notificacao">
+        <div class="form-group">
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" required placeholder="Digite a mensagem da notificação"
+                rows="5"></textarea>
+        </div>
+
+        <button type="submit" class="btn-enviar">Enviar Notificação</button>
+    </form>
+
+</div>
 
 {% endblock %}
