@@ -31,7 +31,7 @@
     <div class="header-perfil">
         <div class="lado1">
             <div class="perfil-container">
-                <img id="fotoPerfil" src="{% if profile_pic != '' %}{{ profile_pic }}{% else %}../static/Iconografia/grey.jpg{% endif %}" alt="Perfil">
+                <img id="fotoPerfil" src="{% if profile_pic != '' %}{{ profile_pic }}{% else %}../static/Iconografia/user.png{% endif %}" alt="Perfil">
             </div>
             
             <form action="/uploadProfilePic" method="post" enctype="multipart/form-data">

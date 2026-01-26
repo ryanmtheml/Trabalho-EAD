@@ -2,10 +2,10 @@
     {
         "user_id": 1,
         "profile_picture": "",
-        "nome": "Teste",
+        "nome": "Teste1",
         "username": "teste1",
-        "email": "teste@gmail.com",
-        "password": "$2b$12$homGP17sXA9/sddHVb.EaOG4O8YotoslC3mdC9s.Jsgj9YoKX130i",
+        "email": "teste1@gmail.com",
+        "password": "$2b$12$Mr7hMmFMNu99lK6ribH0YupiefEowPTcSSIfZEUKOroK7HaxvI37O",
         "isAdmin": false,
         "isBlocked": false,
         "categorias": [
@@ -23,6 +23,31 @@
             "Decoração",
             "Motivacional"
         ],
-        "profile_pic": ""
+        "profile_pic": "/static/all_images/profile_1_1769388230782.jpg"
+    },
+    {
+        "user_id": 2,
+        "profile_picture": "",
+        "nome": "user",
+        "username": "user",
+        "email": "user@gmail.com",
+        "password": "$2b$12$UJVBG.9zIjAnG3r9qT27rOgXQ3o2qPKRp/YRuGp1qUjJtmI0shQQG",
+        "isAdmin": false,
+        "isBlocked": false,
+        "categorias": [
+            "Comida",
+            "Paisagens",
+            "Moda",
+            "Arte",
+            "Animais",
+            "Arquitetura",
+            "Viagens",
+            "Tecnologia",
+            "Desporto",
+            "Musica",
+            "Cinema",
+            "Decoração",
+            "Motivacional"
+        ]
     }
 ]

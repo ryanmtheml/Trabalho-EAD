@@ -76,7 +76,7 @@ def validation():
     for user in utilizadores:
 
         if user['username'] == username and bcrypt.check_password_hash(user['password'], pw):
-            session['profile_picture'] = user['profile_picture']
+            session['profile_pic'] = user.get('profile_pic', '')
             session['user_id'] = user['user_id']
             session['username'] = user['username']
             session['nome'] = user['nome']
@@ -146,7 +146,6 @@ def categorias():
     utilizadores = carregar_utilizadores()
     
     # 3. Identificar qual utilizador atualizar
-    # Se acabaste de registar, ele é o último da lista:
     if utilizadores:
         utilizadores[-1]['categorias'] = categorias_escolhidas
         
@@ -180,7 +179,7 @@ def uploadImagem():
     imgprivacidade = True  # Por padrão será pública
     # Guardar imagem
     imagem.save(caminho) #salvo a imagem no caminho
-    session['current_upload'] = caminho  # Store the file path
+    session['current_upload'] = caminho  
     uploadlb.criarImagem(autor_id,caminho,id, imgprivacidade)
     return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id, cropped=False)
 
@@ -191,7 +190,7 @@ def crop_image():
     if not imagem:
         return "Nenhum ficheiro selecionado!"
     
-    # Normalize the path to handle mixed separators
+    
     imagem = os.path.normpath(imagem)
     img = Image.open(imagem)
     
@@ -201,21 +200,21 @@ def crop_image():
     width = int(float(request.form.get('crop_width', img.width)))
     height = int(float(request.form.get('crop_height', img.height)))
     
-    # Calculate right and bottom coordinates
+    
     right = left + width
     bottom = top + height
     
-    # Validate crop box
+    
     if right <= left or bottom <= top:
         return "Coordenadas de crop inválidas!"
     
-    # Crop the image
+    
     img_cropped = img.crop((left, top, right, bottom))
     
-    # Close original image to release file handle
+   
     img.close()
     
-    # Save cropped image, overwriting the original
+    
     img_cropped.save(imagem)
     
     return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(imagem), imageId = request.form.get('imageId'), cropped=False, filtered=False, contrasted=False)
@@ -244,7 +243,7 @@ def showContrastInput():
 def applyFilter():
     current_path = session.get('current_upload')
     
-    # Create backup on first filter application
+    # criar backup da imagem original na primeira aplicação do filtro
     backup_path = current_path.replace('.', '_backup.')
     print(backup_path)
     if not os.path.exists(backup_path):
@@ -252,7 +251,7 @@ def applyFilter():
         img_original.save(backup_path)
         img_original.close()
     
-    # Always load from backup
+    # carregar sempre a partir do backup
     filtro = request.form.get('filter_type')
     img = Image.open(backup_path)
     
@@ -286,14 +285,14 @@ def applyFilter():
 def applyContrast():
     current_path = session.get('current_upload')
     
-    # Create backup on first application
+    
     backup_path = current_path.replace('.', '_backup.')
     if not os.path.exists(backup_path):
         img_original = Image.open(current_path)
         img_original.save(backup_path)
         img_original.close()
     
-    # Always load from backup
+    
     contrast_value = float(request.form.get('contrast_value', 1.0))
     img = Image.open(backup_path)
     img_contrasted = ImageEnhance.Contrast(img)
@@ -307,14 +306,14 @@ def applyContrast():
 def applyFlip():
     current_path = session.get('current_upload')
     
-    # Create backup on first application
+    
     backup_path = current_path.replace('.', '_backup.')
     if not os.path.exists(backup_path):
         img_original = Image.open(current_path)
         img_original.save(backup_path)
         img_original.close()
     
-    # Always load from backup
+   
     img = Image.open(backup_path)
     img_flipped = img.transpose(Image.FLIP_LEFT_RIGHT)
     img.close()
@@ -325,7 +324,7 @@ def applyFlip():
 
 def getImageById(image_id):
     try:
-        # Abrir o ficheiro JSON
+        
         with open('photos.json', 'r', encoding='utf-8') as f:
             imagens = json.load(f)
 
@@ -491,6 +490,8 @@ def descricaoFotos():
     imageId = request.args.get('imageId')
     imagem = getImageById(imageId)
     folders = []
+    
+    
     with open(ficheiro_photos, 'r', encoding='utf-8') as f:
         fotos = json.load(f)
         for foto in fotos:
@@ -499,6 +500,16 @@ def descricaoFotos():
                 likes=foto['likes']
                 comments=foto['comments']
                 commentsText=foto.get('commentsText', [])
+                autor_id = foto['autor_id']
+                break
+    
+    # Buscar dados do autor da foto
+    with open(ficheiro_utilizadores, 'r', encoding='utf-8') as f:
+        utilizadores = json.load(f)
+        for user in utilizadores:
+            if user['user_id'] == int(autor_id):
+                autor_profile_pic = user.get('profile_pic', '')
+                autor_username = user.get('username', '')
                 break
             
     try:
@@ -510,7 +521,7 @@ def descricaoFotos():
     except (FileNotFoundError, json.JSONDecodeError):
         folders = []
     if imagem:
-        return render_template('descricaoFoto.html', imagem=imagem, profile_pic=session.get('profile_pic'), username=session.get('username'), descricao=descricao, nmrLikes=likes, nmrComentarios=comments, comentarios=commentsText, folders=folders)
+        return render_template('descricaoFoto.html', imagem=imagem, profile_pic=autor_profile_pic, username=autor_username, descricao=descricao, nmrLikes=likes, nmrComentarios=comments, comentarios=commentsText, folders=folders)
     else:
         return "<h1>Erro: Imagem não encontrada!</h1>"
     
