@@ -53,12 +53,8 @@
         "descricao": "O melhor buquê para o dia mais especial...",
         "likes": 0,
         "comments": 0,
-        "commentsText": [
-            
-        ],
-        "userLikesId": [
-           
-        ]
+        "commentsText": [],
+        "userLikesId": []
     },
     {
         "id": 6,
@@ -74,125 +70,6 @@
         "comments": 0,
         "commentsText": [],
         "userLikesId": []
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
-    },
-    {
-        "id": 7,
-        "autor_id": "1",
-        "url": "static/Feed fake images/Imagens fake/fake9.jpg",
-        "isPublic": true,
-        "categoria": "paisagens"
     },
     {
         "id": 7,
@@ -265,9 +142,7 @@
         "likes": 0,
         "comments": 0,
         "commentsText": [],
-        "userLikesId": [
-            
-        ]
+        "userLikesId": []
     },
     {
         "id": 12,
@@ -322,9 +197,7 @@
         "descricao": "Nova decoração!",
         "likes": 0,
         "comments": 0,
-        "commentsText": [
-
-        ],
+        "commentsText": [],
         "userLikesId": []
     }
 ]

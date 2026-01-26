@@ -2,11 +2,11 @@
     {
         "user_id": 1,
         "profile_picture": "",
-        "nome": "Teste1",
-        "username": "teste1",
-        "email": "teste1@gmail.com",
+        "nome": "Admin",
+        "username": "admin",
+        "email": "admin1@gmail.com",
         "password": "$2b$12$Mr7hMmFMNu99lK6ribH0YupiefEowPTcSSIfZEUKOroK7HaxvI37O",
-        "isAdmin": false,
+        "isAdmin": true,
         "isBlocked": false,
         "categorias": [
             "Comida",

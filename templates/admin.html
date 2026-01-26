@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../static/CSS/admin.css">
 
 <nav class="nav2">
-    <div class="containerNav2">
+    <div class="containerNav2"> 
         <div class="logo">
             <a href="/feed"><img class="logo" src="../static/mg.png" alt="" width="70px"></a>
         </div>
@@ -17,6 +17,7 @@
                 <li><a href="/feed"><img src="../static/Iconografia/home.png" alt=""></a></li>
                 <li><a href="/upload"><img src="../static/Iconografia/mais.png" alt=""></a></li>
                 <li><a href="/notificacoes"><img src="../static/Iconografia/sinos.png" alt=""></a></li>
+                
             </ul>
         </div>
     </div>
@@ -54,7 +55,14 @@
                 Sem categorias
                 {% endif %}
             </td>
-            <td><a href="/removerUser/{{ user.user_id }}">remover</a></td>
+            <td>
+                {% if not user.isAdmin %}
+                <a href="/tornarAdmin/{{ user.user_id }}">tornar admin</a>
+                {% else %}
+                <a href="/removerAdmin/{{ user.user_id }}">tirar admin</a>
+                {% endif %}
+                <a href="/removerUser/{{ user.user_id }}">remover</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
@@ -68,6 +76,9 @@
 
     <h2>Gráfico de imagens com categorias</h2>
     <img src="/static/grafico_categorias.png" alt="">
+
+    <h2>Gráfico TOP 5 categorias mais usadas</h2>
+    <img src="/static/grafico_top5_categorias.png" alt="">
 
 </div>
 

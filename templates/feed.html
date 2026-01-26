@@ -16,7 +16,7 @@
                     <li><a href="/upload" ><img src="../static/Iconografia/mais.png" alt=""></a></li>
                     <li><a href="/notificacoes" ><img src="../static/Iconografia/sinos.png" alt=""></a></li>
                     {% if isAdmin %}
-                    <li><a href="/admin" ><img src="../static/Iconografia/cadeado.png" alt=""></a></li>
+                    <li><a href="/admin" ><img src="../static/Iconografia/definicoes.png" alt=""></a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -41,8 +41,7 @@
 
     <div class="categorias">
         <ul >
-            <li><a href="feed">Tudo</a></li>
-            <!-- if comida is clicked call feed again but with photos that have the categoty "comida"-->
+            <li><a href="/feed">Tudo</a></li>
             <li><a href="feed?categoria=Comida">Comida</a></li>
             <li><a href="feed?categoria=Arte">Arte</a></li>
             <li><a href="feed?categoria=Decoração">Decoração</a></li>
@@ -56,7 +55,7 @@
 
     <div class="galeria-alvenaria">
         {% for foto in fotos %}
-            <a href="/descricaoFotos?imageId={{ foto.id }}"><img src="{{ foto.url }}" alt="Descrição"></a>
+            <a href="/descricaoFotos?imageId={{ foto.id }}"><img src="/{{ foto.url }}" alt="Descrição"></a>
         {% endfor %}
     </div>
     

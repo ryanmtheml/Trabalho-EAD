@@ -1,33 +1,91 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 25px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    background-color: white;
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 15px;
     text-align: left;
 }
 
 th {
-    background-color: #f2f2f2;
-    font-weight: bold;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-weight: 600;
+    color: white;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
-/* Estilos para o formulário de notificações */
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background-color: #f8f9ff;
+    transition: background-color 0.2s ease;
+}
+
+td {
+    color: #555;
+    font-size: 14px;
+}
+
+td a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+td a:hover {
+    background-color: #667eea;
+    color: white;
+}
+
+/* ===== GRÁFICOS ===== */
+div > h2 {
+    margin-top: 35px;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+div > img {
+    display: block;
+    margin: 0 auto 30px;
+    max-width: 90%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== FORMULÁRIO DE NOTIFICAÇÕES ===== */
 .formNotificacoes {
     background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
     padding: 20px;
-    margin: 20px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 30px 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .formNotificacoes h2 {
     margin-top: 0;
     color: #333;
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: 600;
     margin-bottom: 20px;
 }
 
@@ -38,43 +96,45 @@ th {
 }
 
 .form-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-weight: 600;
+    margin-bottom: 6px;
     color: #555;
+    font-size: 14px;
 }
 
 .form-group input,
 .form-group textarea {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 14px;
     font-family: Arial, sans-serif;
+    transition: border-color 0.2s;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #4CAF50;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    border-color: #0066cc;
+    box-shadow: 0 0 3px rgba(0, 102, 204, 0.2);
 }
 
 .btn-enviar {
-    background-color: #4CAF50;
+    background-color: #0066cc;
     color: white;
-    padding: 12px 30px;
+    padding: 11px 28px;
     border: none;
     border-radius: 4px;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s;
 }
 
 .btn-enviar:hover {
-    background-color: #45a049;
+    background-color: #0052a3;
 }
 
 .btn-enviar:active {
-    background-color: #3d8b40;
+    background-color: #003d7a;
 }

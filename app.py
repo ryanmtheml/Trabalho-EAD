@@ -7,13 +7,13 @@ from werkzeug.utils import secure_filename
 from modules import upload as uploadlb
 from flask_bcrypt import Bcrypt
 from PIL import Image, ImageFilter, ImageEnhance
-
 from datetime import datetime 
 import matplotlib
 matplotlib.use('Agg')  # backend sem interface gráfica
 import matplotlib.pyplot as grafico
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 bcrypt = Bcrypt(app)
 app.secret_key = "secret"
 
@@ -57,11 +57,59 @@ def remover_utilizador(user_id):
 
     utilizadores = carregar_utilizadores()
 
-    # 🔥 Remover o utilizador da lista
+    #Remover o utilizador da lista
     novos_utilizadores = [u for u in utilizadores if u["user_id"] != user_id]
 
     # Guardar o ficheiro atualizado
     guardar_utilizadores(novos_utilizadores)
+
+    return redirect("/admin")
+
+
+@app.route('/tornarAdmin/<user_id>')
+def tornar_admin(user_id):
+    utilizadores = carregar_utilizadores()
+
+    if not user_id:
+        return redirect("/admin")
+
+    try:
+        user_id = int(user_id)
+    except:
+        return redirect("/admin")
+
+    # Alterar o utilizador para admin
+    for user in utilizadores:
+        if user["user_id"] == user_id:
+            user["isAdmin"] = True
+            break
+
+    # Guardar o ficheiro atualizado
+    guardar_utilizadores(utilizadores)
+
+    return redirect("/admin")
+
+
+@app.route('/removerAdmin/<user_id>')
+def remover_admin(user_id):
+    utilizadores = carregar_utilizadores()
+
+    if not user_id:
+        return redirect("/admin")
+
+    try:
+        user_id = int(user_id)
+    except:
+        return redirect("/admin")
+
+    # Alterar o utilizador para não admin
+    for user in utilizadores:
+        if user["user_id"] == user_id:
+            user["isAdmin"] = False
+            break
+
+    # Guardar o ficheiro atualizado
+    guardar_utilizadores(utilizadores)
 
     return redirect("/admin")
 
@@ -94,7 +142,7 @@ def feed():
             for cat in foto['categoria']:
                 if cat == categoria and int(foto['autor_id']) != session.get('user_id'):
                     fotos_filtradas.append(foto)
-    return render_template('feed.html', profile_pic=session.get('profile_pic'), fotos=fotos_filtradas[::-1])
+    return render_template('feed.html', profile_pic=session.get('profile_pic'), isAdmin = session.get('isAdmin'), fotos=fotos_filtradas[::-1])
 
 @app.route('/validation', methods=['POST'])
 def validation():
@@ -190,9 +238,6 @@ def categorias():
         guardar_utilizadores(utilizadores)
         session['categorias'] = categorias_escolhidas
     
-    
-    
-    # 5. Redirecionar para a rota /feed
     return redirect('/feed')
 
 
@@ -240,30 +285,26 @@ def uploadImagem():
     with open('notificacoes.json', 'w') as f:
         json.dump(lista, f, indent=4)
 
-    gerar_grafico_imagens()
-
-
     return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id, cropped=False)
     
 
 def gerar_grafico_imagens():
-    with open('photos.json', 'r') as f:
-            imagens = json.load(f)
+ with open('photos.json', 'r', encoding='utf-8') as f:
+    imagens = json.load(f)
 
-    categorias_oficiais = [
-        "comida", "paisagens", "moda", "arte", "animais", "arquitetura",
-        "viagens", "tecnologia", "desporto", "música", "cinema"
-    ]
-
-    contagem = {cat: 0 for cat in categorias_oficiais}
-    contagem["outros"] = 0
+    contagem = {}
 
     for img in imagens:
-        cat = img["categoria"].strip().lower()
-        if cat in contagem:
-            contagem[cat] += 1
-        else:
-            contagem["outros"] += 1
+        categorias = img.get("categoria", [])
+
+        # verifica pra ver se é uma lista
+        if isinstance(categorias, str):
+            categorias = [categorias]
+
+        for cat in categorias:
+            cat = cat.strip().lower()
+            if cat:
+                contagem[cat] = contagem.get(cat, 0) + 1
 
     labels = list(contagem.keys())
     valores = list(contagem.values())
@@ -275,9 +316,23 @@ def gerar_grafico_imagens():
     grafico.title("Imagens por Categoria")
     grafico.tight_layout()
 
-    
     grafico.savefig("static/grafico_categorias.png")
     grafico.close()
+
+    top5 = sorted(contagem.items(), key=lambda x: x[1], reverse=True)[:5]
+
+    labels = [cat for cat, _ in top5]
+    valores = [qtd for _, qtd in top5]
+
+    grafico.figure(figsize=(8, 4))
+    grafico.bar(labels, valores)
+    grafico.ylabel("Nº de imagens")
+    grafico.title("Top 5 Categorias Mais Usadas")
+    grafico.tight_layout()
+
+    grafico.savefig("static/grafico_top5_categorias.png")
+    grafico.close()
+
 
 
 
@@ -301,8 +356,6 @@ def atualizarPrivacidade():
     except Exception as e:
         print("Erro ao atualizar privacidade:", e)
     return redirect('/privadas')
-    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + nome_final, imageId = id, cropped=False)
-
 
 @app.route('/crop', methods=['POST'])
 def crop_image():
@@ -314,7 +367,6 @@ def crop_image():
     imagem = os.path.normpath(imagem)
     img = Image.open(imagem)
     
-    # Get crop parameters from form
     left = int(float(request.form.get('crop_x', 0)))
     top = int(float(request.form.get('crop_y', 0)))
     width = int(float(request.form.get('crop_width', img.width)))
@@ -405,16 +457,8 @@ def applyFilter():
 def applyContrast():
     current_path = session.get('current_upload')
     
-    
-    backup_path = current_path.replace('.', '_backup.')
-    if not os.path.exists(backup_path):
-        img_original = Image.open(current_path)
-        img_original.save(backup_path)
-        img_original.close()
-    
-    
     contrast_value = float(request.form.get('contrast_value', 1.0))
-    img = Image.open(backup_path)
+    img = Image.open(current_path)
     img_contrasted = ImageEnhance.Contrast(img)
     img_contrasted = img_contrasted.enhance(contrast_value)
     img.close()
@@ -426,15 +470,7 @@ def applyContrast():
 def applyFlip():
     current_path = session.get('current_upload')
     
-    
-    backup_path = current_path.replace('.', '_backup.')
-    if not os.path.exists(backup_path):
-        img_original = Image.open(current_path)
-        img_original.save(backup_path)
-        img_original.close()
-    
-   
-    img = Image.open(backup_path)
+    img = Image.open(current_path)
     img_flipped = img.transpose(Image.FLIP_LEFT_RIGHT)
     img.close()
     img_flipped.save(current_path)
@@ -571,7 +607,7 @@ def edicaoFotos():
     return render_template("edicaoFotos.html")
 
 @app.route('/compartilhar/<imageId>')
-def compartilhar(imageId):
+def compartilhar_id(imageId):
     img = getImageById(imageId)
     return render_template('compartilhar.html', imageId= imageId, imageURL= img['url'])
 
@@ -625,6 +661,7 @@ def enviar_notificacao():
         json.dump(lista, f, indent=4)
 
     return redirect('/admin')
+
 @app.route('/compartilhar')
 def compartilhar():
     img = session.get('current_upload')
@@ -646,7 +683,6 @@ def compartilhar_post():
     if not categorias:
         return "<h1>Erro: Deve selecionar pelo menos uma categoria ou criar uma nova!</h1>"
     
-    # create object image with new data on the JSON photos.json
     imagem = session.get('current_upload')
     imageId = session.get('image_id')
     print(imageId)
@@ -669,7 +705,8 @@ def compartilhar_post():
     except Exception as e:
         print("Erro ao atualizar imagem:", e)
 
-    
+    gerar_grafico_imagens()
+
     return redirect('/perfil')
 
 
@@ -696,7 +733,7 @@ def descricaoFotos():
         utilizadores = json.load(f)
         for user in utilizadores:
             if user['user_id'] == int(autor_id):
-                autor_profile_pic = user.get('profile_pic', '')
+                autor_profile_pic = user.get('profile_pic', '') 
                 autor_username = user.get('username', '')
                 break
             
