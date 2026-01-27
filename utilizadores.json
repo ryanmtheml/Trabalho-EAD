@@ -32,7 +32,7 @@
         "username": "user",
         "email": "user@gmail.com",
         "password": "$2b$12$UJVBG.9zIjAnG3r9qT27rOgXQ3o2qPKRp/YRuGp1qUjJtmI0shQQG",
-        "isAdmin": false,
+        "isAdmin": true,
         "isBlocked": false,
         "categorias": [
             "Comida",

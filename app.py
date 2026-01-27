@@ -125,6 +125,7 @@ def feed():
     
     categoria = request.args.get('categoria')
     
+    categorias_escolhidas = []
     for user in utilizadores:
         if user['user_id'] == session.get('user_id'):
             categorias_escolhidas = user['categorias']
@@ -133,15 +134,18 @@ def feed():
     fotos_filtradas = []
     if categoria is None:
         for foto in fotos:
-            for cat in foto['categoria']:
-                if cat in categorias_escolhidas:
-                    fotos_filtradas.append(foto)
-                    break
+            # Filtrar apenas imagens públicas
+            if foto.get('isPublic', True):
+                for cat in foto['categoria']:
+                    if cat in categorias_escolhidas:
+                        fotos_filtradas.append(foto)
+                        break
     else:
         for foto in fotos:
-            for cat in foto['categoria']:
-                if cat == categoria and int(foto['autor_id']) != session.get('user_id'):
-                    fotos_filtradas.append(foto)
+            if foto.get('isPublic', True):
+                for cat in foto['categoria']:
+                    if cat == categoria and int(foto['autor_id']) != session.get('user_id'):
+                        fotos_filtradas.append(foto)
     return render_template('feed.html', profile_pic=session.get('profile_pic'), isAdmin = session.get('isAdmin'), fotos=fotos_filtradas[::-1])
 
 @app.route('/validation', methods=['POST'])
