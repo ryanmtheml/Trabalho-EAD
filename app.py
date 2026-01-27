@@ -367,9 +367,17 @@ def crop_image():
     if not imagem:
         return "Nenhum ficheiro selecionado!"
     
-    
     imagem = os.path.normpath(imagem)
-    img = Image.open(imagem)
+    
+    # criar backup da imagem original na primeira aplicação
+    backup_path = imagem.replace('.', '_backup.')
+    if not os.path.exists(backup_path):
+        img_original = Image.open(imagem)
+        img_original.save(backup_path)
+        img_original.close()
+    
+    # carregar sempre a partir do backup para evitar acúmulo de crops
+    img = Image.open(backup_path)
     
     left = int(float(request.form.get('crop_x', 0)))
     top = int(float(request.form.get('crop_y', 0)))
@@ -460,15 +468,24 @@ def applyFilter():
 @app.route('/applyContrast', methods=['POST'])
 def applyContrast():
     current_path = session.get('current_upload')
+    image_id = request.form.get('imageId')
     
+    # criar backup da imagem original na primeira aplicação
+    backup_path = current_path.replace('.', '_backup.')
+    if not os.path.exists(backup_path):
+        img_original = Image.open(current_path)
+        img_original.save(backup_path)
+        img_original.close()
+    
+    # carregar sempre a partir do backup para evitar acúmulo de contraste
     contrast_value = float(request.form.get('contrast_value', 1.0))
-    img = Image.open(current_path)
+    img = Image.open(backup_path)
     img_contrasted = ImageEnhance.Contrast(img)
     img_contrasted = img_contrasted.enhance(contrast_value)
     img.close()
     img_contrasted.save(current_path)
     
-    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(current_path), imageId = request.args.get('imageId'), contrasted=True)
+    return render_template('edicaoFotos.html', imageURL='/static/all_images/' + os.path.basename(current_path), imageId = image_id, contrasted=True)
 
 @app.route('/applyFlip')
 def applyFlip():
